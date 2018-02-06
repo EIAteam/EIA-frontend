@@ -8,6 +8,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'AppMain',
   computed: {
@@ -17,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.purple{
+  color:#A7425C
+}
+</style>

@@ -64,7 +64,7 @@ handleLogin()
 <./data-->
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { isvalidUsername, isvalidPassword } from '@/utils/validate'
 
 export default {
   name: 'register',
@@ -77,7 +77,7 @@ export default {
       }
     }
     const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
+      if (!isvalidPassword(value)) {
         callback(new Error('密码不能小于5位'))
       } else {
         callback()
