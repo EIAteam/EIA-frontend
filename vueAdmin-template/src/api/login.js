@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function login(username, password) {
   return request({
-    url: '/session ',
+    url: '/session',
     method: 'post',
     data: {
       username,
@@ -22,6 +22,6 @@ export function getInfo(token) {
 export function logout() {
   return request({
     url: '/session',
-    method: 'post'
+    method: 'delete'
   })
 }
