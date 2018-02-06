@@ -3,8 +3,13 @@
  */
 
 export function isvalidUsername(str) {
-  const valid_map = ['admin', 'editor']
-  return valid_map.indexOf(str.trim()) >= 0
+  const usernamereges = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+  return usernamereges.test(str)
+}
+
+export function isvalidPassword(str) {
+  const passwordregex = /^[a-z0-9_-]{6,18}$/
+  return passwordregex.test(str)
 }
 
 /* 合法uri*/

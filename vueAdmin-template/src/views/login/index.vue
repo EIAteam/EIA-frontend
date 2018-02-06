@@ -1,14 +1,20 @@
 <template>
   <div class="login-container">
+    <!--登陆表单-->
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
-      <h3 class="title">vue-element-admin</h3>
+      <h3 class="title">EIA</h3>
+      <h3 class="title">智能环评系统</h3>
+    <!--用户名-->
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
         </span>
         <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
       </el-form-item>
+    <!--./用户名-->
+
+    <!--密码-->
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password"></svg-icon>
@@ -17,21 +23,45 @@
           placeholder="password"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
+    <!--./密码-->
+
+    <!--按钮-->
       <el-form-item>
         <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
           Sign in
         </el-button>
       </el-form-item>
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
-      </div>
+    <!--./按钮-->
     </el-form>
+  <!--./登陆表单-->
   </div>
 </template>
 
+<!--data>
+ref:
+loginForm
+
+v-bind:
+model-loginForm
+rules-loginRules
+type-pwdType
+loading-loading
+
+v-models:
+loginForm.username
+loginForm.password
+
+显示密码按钮@click:
+showPwd()
+
+登陆按钮@click.native.prevent:
+handleLogin()
+
+
+<./data-->
+
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { isvalidUsername, isvalidPassword } from '@/utils/validate'
 
 export default {
   name: 'login',
@@ -44,8 +74,8 @@ export default {
       }
     }
     const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+      if (!isvalidPassword(value)) {
+        callback(new Error('密码不能小于6位'))
       } else {
         callback()
       }
@@ -63,6 +93,7 @@ export default {
       pwdType: 'password'
     }
   },
+
   methods: {
     showPwd() {
       if (this.pwdType === 'password') {
