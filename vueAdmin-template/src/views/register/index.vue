@@ -1,15 +1,16 @@
 <template>
-  <div class="login-container">
-    <!--登陆表单-->
-    <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
-      class="card-box login-form">
-      <h3 class="title">vue-element-admin</h3>
+  <div class="register-container">
+    <!--注册表单-->
+    <el-form autoComplete="on" :model="registerForm" :rules="registerRules" ref="registerForm" label-position="left" label-width="0px"
+      class="card-box register-form">
+      <h3 class="title">EIA</h3>
+      <h3 class="title">用户注册</h3>
     <!--用户名-->
       <el-form-item prop="username">
-        <span class="svg-container svg-container_login">
+        <span class="svg-container svg-container_register">
           <svg-icon icon-class="user" />
         </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
+        <el-input name="username" type="text" v-model="registerForm.username" autoComplete="on" placeholder="username" />
       </el-form-item>
     <!--./用户名-->
 
@@ -18,7 +19,7 @@
         <span class="svg-container">
           <svg-icon icon-class="password"></svg-icon>
         </span>
-        <el-input name="password" :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
+        <el-input name="password" :type="pwdType" @keyup.enter.native="handleRegister" v-model="registerForm.password" autoComplete="on"
           placeholder="password"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
@@ -26,14 +27,13 @@
 
     <!--按钮-->
       <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
-          Sign in
+        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleRegister">
+          Sign up
         </el-button>
       </el-form-item>
     <!--./按钮-->
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
+        <span style="margin-left:80px;">EIA智能环评管家</span>
       </div>
     </el-form>
   <!--./登陆表单-->
@@ -67,7 +67,7 @@ handleLogin()
 import { isvalidUsername } from '@/utils/validate'
 
 export default {
-  name: 'login',
+  name: 'register',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
@@ -84,11 +84,11 @@ export default {
       }
     }
     return {
-      loginForm: {
-        username: 'admin',
-        password: 'admin'
+      registerForm: {
+        username: '',
+        password: ''
       },
-      loginRules: {
+      registerRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
@@ -105,13 +105,13 @@ export default {
         this.pwdType = 'password'
       }
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+    handleRegister() {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('Login', this.loginForm).then(() => {
+          this.$store.dispatch('Register', this.registerForm).then(() => {
             this.loading = false
-            this.$router.push({ path: '/' })
+            this.$router.push({ path: '/login' })
           }).catch(() => {
             this.loading = false
           })
@@ -130,7 +130,7 @@ export default {
   $dark_gray:#889aa4;
   $light_gray:#eee;
 
-  .login-container {
+  .register-container {
     position: fixed;
     height: 100%;
     width:100%;
@@ -164,7 +164,7 @@ export default {
       vertical-align: middle;
       width: 30px;
       display: inline-block;
-      &_login {
+      &_register {
         font-size: 20px;
       }
     }
@@ -176,7 +176,7 @@ export default {
       text-align: center;
       font-weight: bold;
     }
-    .login-form {
+    .register-form {
       position: absolute;
       left: 0;
       right: 0;
