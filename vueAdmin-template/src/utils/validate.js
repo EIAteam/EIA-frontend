@@ -2,14 +2,24 @@
  * Created by jiachenpan on 16/11/18.
  */
 
+/* 校验账号*/
 export function isvalidUsername(str) {
   const usernamereges = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
   return usernamereges.test(str)
 }
 
+/* 校验密码*/
 export function isvalidPassword(str) {
   const passwordregex = /^[a-z0-9_-]{6,18}$/
   return passwordregex.test(str)
+}
+
+export function isvalidProjectName(str) {
+  return str.length > 0
+}
+
+export function isvalidProjectKind(str) {
+  return str.length > 0
 }
 
 /* 合法uri*/
