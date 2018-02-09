@@ -4,10 +4,7 @@
     <div class="main-container">
       <navbar></navbar>
       <app-main></app-main>
-  <circle-menu type='top' :number='2' circle btn style="right:30px;bottom:30px;position:fixed">
-    <svg-icon slot="item_1" icon-class="project"/>
-    <svg-icon slot="item_2" icon-class="people" />
-  </circle-menu>
+      <circle-list></circle-list>
     </div>
   </div>
 
@@ -15,14 +12,14 @@
 
 <script>
 import { Navbar, Sidebar, AppMain } from '@/views/layout/components'
-import CircleMenu from 'vue-circle-menu'
+import CircleList from '@/components/CircleMenu'
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
     AppMain,
-    CircleMenu
+    CircleList
   },
   computed: {
     sidebar() {

@@ -74,14 +74,23 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/enterprise',
+    path: '/company',
     component: Layout,
+    redirect: '/company/companyList',
+    meta: { title: '我的公司', icon: 'form' },
     children: [
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        path: 'companyList',
+        name: 'companyList',
+        component: () => import('@/views/company/companyList'),
+        meta: { title: '公司管理', icon: 'form' }
+      },
+      {
+        hidden: true,
+        path: 'companyDescription/:company_id',
+        name: 'companyDescription',
+        component: () => import('@/views/company/companyDescription'),
+        meta: { title: '公司详情', icon: 'form' }
       }
     ]
   },

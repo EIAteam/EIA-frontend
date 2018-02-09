@@ -7,7 +7,8 @@ const user = {
     token: getToken(),
     name: 'null',
     avatar: './src/assets/avatar.jpg',
-    roles: []
+    roles: [],
+    userId: 'null'
   },
 
   mutations: {
@@ -19,6 +20,9 @@ const user = {
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
+    },
+    SET_USERID: (state, userId) => {
+      state.userId = userId
     }
   },
 
@@ -54,6 +58,7 @@ const user = {
         getInfo(state.token).then(response => {
           const data = response.data
           commit('SET_NAME', data.name)
+          commit('SET_USERID', data.userId)
           resolve(response)
         }).catch(error => {
           reject(error)
