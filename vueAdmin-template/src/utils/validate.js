@@ -14,7 +14,6 @@ export function isvalidPassword(str) {
   return passwordregex.test(str)
 }
 
-
 export function isvalidCompanyName(str) {
   const companyNamereges = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
   return companyNamereges.test(str)

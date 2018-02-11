@@ -11,3 +11,11 @@ export function createProject(projectDescribtion, projectName, projectKind) {
     }
   })
 }
+
+export function getProjectsList(query) {
+  return request({
+    url: '/project/list',
+    method: 'get',
+    params: query
+  })
+}

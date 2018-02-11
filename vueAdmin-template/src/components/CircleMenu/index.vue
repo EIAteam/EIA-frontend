@@ -2,7 +2,7 @@
 <div>
   <circle-menu type='top' :number='2' circle btn style="right:30px;bottom:30px;position:fixed">>
 <el-tooltip slot="item_1" content="增加项目" placement="left">
-  <a type="text" @click="dialogVisible = true,handleOpen" ><svg-icon  icon-class="addFile"/></a>
+  <a type="text" @click="dialogVisible = true" ><svg-icon  icon-class="addFile"/></a>
 </el-tooltip>
     <el-tooltip slot="item_2" content="公司" placement="left">
   <svg-icon  icon-class="people"/>
