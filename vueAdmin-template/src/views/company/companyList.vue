@@ -45,7 +45,6 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 
-
 .companylist-container {
   min-height: 700px;
   padding: 32px;
