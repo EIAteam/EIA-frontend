@@ -14,9 +14,8 @@ export function isvalidPassword(str) {
   return passwordregex.test(str)
 }
 
-
 export function isvalidCompanyName(str) {
-  const companyNamereges = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+  const companyNamereges = /^[a-zA-Z\u4e00-\u9fa5]{2,15}$/
   return companyNamereges.test(str)
 }
 
@@ -26,6 +25,21 @@ export function isvalidProjectName(str) {
 
 export function isvalidProjectKind(str) {
   return str.length > 0
+}
+
+export function isvalidUserName(str) {
+  const userNameregex = /^[a-zA-Z\u4e00-\u9fa5]{2,15}$/
+  return userNameregex.test(str)
+}
+
+export function isvalidUserEmail(str) {
+  const userEmailregex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+  return userEmailregex.test(str)
+}
+
+export function isvalidUserPhone(str) {
+  const userPhoneregex = /^[1][3,4,5,7,8][0-9]{9}$/
+  return userPhoneregex.test(str)
 }
 
 /* 合法uri*/
