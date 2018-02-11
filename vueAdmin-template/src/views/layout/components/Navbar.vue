@@ -52,7 +52,7 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import { isvalidUserName, isvalidUserEmail, isvalidUserPhone } from '@/utils/validate'
-import { putUserInfo } from '@/api/userInfo'
+import { putUserInfo } from '@/api/user'
 
 export default {
   components: {
