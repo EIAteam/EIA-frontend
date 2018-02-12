@@ -74,29 +74,33 @@ export const constantRouterMap = [
       },
       {
         path: 'form1',
-        name: 'Form',
+        name: 'Form1',
         component: () => import('@/views/form/form1'),
         meta: { title: 'Form1', icon: 'form' }
       },
       {
         path: 'form3',
         name: 'Form',
-        component: () =>
-          import ('@/views/form/form3'),
-        meta: {
-          title: 'Form3',
-          icon: 'form'
-        }
+        component: () => import('@/views/form/form3'),
+        meta: { title: 'Form3', icon: 'form' }
       },
       {
         path: 'form4',
         name: 'Form',
-        component: () =>
-          import ('@/views/form/form4'),
-        meta: {
-          title: 'Form4',
-          icon: 'form'
-        }
+        component: () => import('@/views/form/form4'),
+        meta: { title: 'Form4', icon: 'form' }
+      },
+      {
+        path: 'form2',
+        name: 'Form2',
+        component: () => import('@/views/form/form2'),
+        meta: { title: 'Form2', icon: 'form' }
+      },
+      {
+        path: 'form5',
+        name: 'Form5',
+        component: () => import('@/views/form/form5'),
+        meta: { title: 'Form5', icon: 'form' }
       }
     ]
   },

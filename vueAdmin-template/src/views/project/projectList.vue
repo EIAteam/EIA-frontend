@@ -1,9 +1,8 @@
 <template>
   <div class="app-container project-list-container">
     <el-table  :data="projectList" v-loading="listLoading" fit highlight-current-row >
-      <el-table-column type="index" :index="indexMethod">
-      </el-table-column>
-
+      <el-table-column type="index">
+    </el-table-column>
       <el-table-column align="center" label="项目简称" width="200px">
         <template slot-scope="scope">
           <span>{{scope.row.projectName}}</span>
@@ -163,9 +162,6 @@ export default {
         this.total = response.data.total
         this.listLoading = false
       })
-    },
-    indexMethod(index) {
-      return index
     },
     handleChangeMessage(row, message) {
       this.getList()
