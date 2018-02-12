@@ -1,7 +1,6 @@
 <template>
 <div class="companylist-container">
 
-
 <el-row class="panel-group" :gutter="40">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" v-for="company in companyList" :key="company.id">
       <div class='card-panel' @click="handleredirect(company.companyId)">

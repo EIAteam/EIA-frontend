@@ -23,7 +23,7 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-        <el-dialog  :visible.sync="dialogVisible" :before-close="handleClose">
+        <el-dialog :visible.sync="dialogVisible" :before-close="handleClose">
           <el-form ref="userInfoForm" :model="userInfoForm" label-width="100px" :rules="userInfoFormRules">
 
             <el-form-item label="姓名" prop="userName">

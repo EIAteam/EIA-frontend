@@ -77,6 +77,26 @@ export const constantRouterMap = [
         name: 'Form',
         component: () => import('@/views/form/form1'),
         meta: { title: 'Form1', icon: 'form' }
+      },
+      {
+        path: 'form3',
+        name: 'Form',
+        component: () =>
+          import ('@/views/form/form3'),
+        meta: {
+          title: 'Form3',
+          icon: 'form'
+        }
+      },
+      {
+        path: 'form4',
+        name: 'Form',
+        component: () =>
+          import ('@/views/form/form4'),
+        meta: {
+          title: 'Form4',
+          icon: 'form'
+        }
       }
     ]
   },
