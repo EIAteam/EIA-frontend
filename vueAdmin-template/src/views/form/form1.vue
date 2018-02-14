@@ -1,178 +1,147 @@
 <template>
-  <div>
-    <el-form :model="basicInfoForm">
-      <el-form-item label="项目性质">
+  <div class="app-container">
+    <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm">
+      <el-form-item label="项目性质" prop="projectType">
         <el-select v-model="basicInfoForm.projectType" placeholder="请选择">
-          <el-option label="新建"></el-option>
-          <el-option label="搬迁"></el-option>
-          <el-option label="扩建"></el-option>
+          <el-option label="新建" value=1></el-option>
+          <el-option label="搬迁" value=2></el-option>
+          <el-option label="扩建" value=3></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item :inline="true" class="demo-form-inline" label="项目所在地">
-        <el-select v-model="basicInfoForm." placeholder="请选择">
-          <el-option label="河南"></el-option>
-          <el-option label="广东"></el-option>
-          <el-option label="北京"></el-option>
-          <el-option label="河北"></el-option>
-          <el-option label="江苏"></el-option>
-          <el-option label="浙江"></el-option>
-        </el-select>
-        <el-select v-model="basicInfoForm." placeholder="请选择">
-          <el-option label="佛山"></el-option>
-          <el-option label="广州"></el-option>
-          <el-option label="深圳"></el-option>
-          <el-option label="珠海"></el-option>
-          <el-option label="东莞"></el-option>
-          <el-option label="中山"></el-option>
-        </el-select>
-        <el-select v-model="basicInfoForm." placeholder="请选择">
-          <el-option label="禅城"></el-option>
-          <el-option label="南海"></el-option>
-          <el-option label="顺德"></el-option>
-        </el-select>
-        <el-select v-model="basicInfoForm." placeholder="请选择">
-          <el-option label="勒流"></el-option>
-          <el-option label="大良"></el-option>
-          <el-option label="容桂"></el-option>
-          <el-option label="均安"></el-option>
-          <el-option label="陈村"></el-option>
-          <el-option label="伦教"></el-option>
-          <el-option label="乐从"></el-option>
-          <el-option label="龙江"></el-option>
-          <el-option label="北滘"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item lable="建设单位名称">
+      <el-form-item label="建设单位名称" prop="enterpriseName">
         <el-input v-model="basicInfoForm.enterpriseName" type="text" placeholder="项目名称（与营业执照一致）"></el-input>
       </el-form-item>
 
-      <el-form-item lable="名称缩写">
+      <el-form-item label="名称缩写" prop="nameAbbreviation">
         <el-input v-model="basicInfoForm.nameAbbreviation" type="text" placeholder="单位名称"></el-input>
       </el-form-item>
 
-      <el-form-item label="国民经济行业类别及代码">
-      <el-cascader :options="options" :show-all-levels="false" v-model="basicInfoForm.NEIType" placeholder="请选择"></el-cascader>
+      <el-form-item label="国民经济行业类别及代码" prop="NEIType">
+        <el-cascader :options="options1" :show-all-levels="false" v-model="basicInfoForm.NEIType" placeholder="请选择" style="width:400px;"></el-cascader>
       </el-form-item>
 
-      <el-form-item lable="环评单位名称">
+      <el-form-item label="环境影响评价行业类别" prop="environmentalEffectclassification">
+        <el-cascader :options="options2" :show-all-levels="false" v-model="basicInfoForm.environmentalEffectclassification" placeholder="请选择" style="width:1000px;"></el-cascader>
+      </el-form-item>
+
+      <el-form-item label="环评单位名称" prop="companyName">
         <el-input v-model="basicInfoForm.companyName" type="text" placeholder="环评单位全称"></el-input>
       </el-form-item>
 
-      <el-form-item lable="环评单位证书编号">
-        <el-input v-model="basicInfoForm.companyId" type="text" placeholder="环评单位号码"></el-input>
+      <el-form-item label="环评单位证书编号" prop="companyCertificatenumber">
+        <el-input v-model="basicInfoForm.companyCertificatenumber" type="text" placeholder="环评单位号码"></el-input>
       </el-form-item>
 
-      <el-form-item lable="环评单位联系电话">
-        <el-input v-model="basicInfoForm." type="text" placeholder="环评报告联系人电话"></el-input>
+      <el-form-item label="环评单位联系电话" prop="companyTelephone">
+        <el-input v-model="basicInfoForm.companyTelephone" type="text" placeholder="环评报告联系人电话"></el-input>
       </el-form-item>
 
-      <el-form-item lable="环评单位联系地址">
-        <el-input v-model="basicInfoForm." type="text" placeholder="环评单位地址"></el-input>
+      <el-form-item label="环评单位联系地址" prop="companyAddress">
+        <el-input v-model="basicInfoForm.companyAddress" type="text" placeholder="环评单位地址"></el-input>
       </el-form-item>
 
-      <el-form-item lable="项目地址">
+      <el-form-item label="项目地址" prop="address">
         <el-input v-model="basicInfoForm.address" type="text" placeholder="与营业执照一致"></el-input>
       </el-form-item>
 
-      <el-form-item lable="邮政编码">
+      <el-form-item label="邮政编码" prop="postalCode">
         <el-input v-model="basicInfoForm.postalCode" type="text" placeholder="6位数字"></el-input>
       </el-form-item>
 
-      <el-form-item lable="法人代表">
+      <el-form-item label="法人代表" prop="corporateName">
         <el-input v-model="basicInfoForm.corporateName" type="text" placeholder="法人姓名"></el-input>
       </el-form-item>
 
-      <el-form-item lable="法人身份证号">
+      <el-form-item label="法人身份证号" prop="corporateId">
         <el-input v-model="basicInfoForm.corporateId" type="text" placeholder="身份证号码"></el-input>
       </el-form-item>
 
-      <el-form-item lable="项目规模">
+      <el-form-item label="项目规模" prop="constructionScale">
         <el-input v-model="basicInfoForm.constructionScale" type="text" placeholder="年产量"></el-input>
       </el-form-item>
 
-      <el-form-item lable="统一社会信用代码">
-        <el-input v-model="basicInfoForm." type="text" placeholder="与营业执照一致"></el-input>
+      <el-form-item label="统一社会信用代码" prop="societyCreditcode">
+        <el-input v-model="basicInfoForm.societyCreditcode" type="text" placeholder="与营业执照一致"></el-input>
       </el-form-item>
 
-      <el-form-item lable="营业执照经营范围">
-        <el-input v-model="basicInfoForm." type="text" placeholder="与营业执照一致"></el-input>
+      <el-form-item label="营业执照经营范围" prop="businessRange">
+        <el-input v-model="basicInfoForm.businessRange" type="text" placeholder="与营业执照一致"></el-input>
       </el-form-item>
 
-      <el-form-item lable="联系人">
+      <el-form-item label="联系人" prop="contacts">
         <el-input v-model="basicInfoForm.contacts" type="text" placeholder="联系人姓名"></el-input>
       </el-form-item>
 
-      <el-form-item lable="联系电话">
+      <el-form-item label="联系电话" prop="telephone">
         <el-input v-model="basicInfoForm.telephone" type="text" placeholder="手机号码"></el-input>
       </el-form-item>
 
-      <el-form-item lable="项目总投资（万元）">
+      <el-form-item label="项目总投资（万元）" prop="totalInvestment">
         <el-input v-model="basicInfoForm.totalInvestment" type="text" placeholder="对照营业执照，数字"></el-input>
       </el-form-item>
 
-      <el-form-item lable="环保投资（万元）">
+      <el-form-item label="环保投资（万元）" prop="environmentalProtectionInvestment">
         <el-input v-model="basicInfoForm.environmentalProtectionInvestment" type="text" placeholder="比例约为项目总投资的10-15%"></el-input>
       </el-form-item>
 
-      <el-form-item lable="占地面积（m²）">
+      <el-form-item label="占地面积（m²）" prop="floorSpace">
         <el-input v-model="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致，整数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="经营面积（m²）">
+      <el-form-item label="经营面积（m²）" prop="managementSpace">
         <el-input v-model="basicInfoForm.managementSpace" type="text" placeholder="多层建筑要用占地面积乘以层数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="职工不住宿人数（人）">
+      <el-form-item label="职工不住宿人数（人）" prop="nonAccommodationNum">
         <el-input v-model="basicInfoForm.nonAccommodationNum" type="text" placeholder="整数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="职工住宿人数（人）">
+      <el-form-item label="职工住宿人数（人）" prop="accommodationNum">
         <el-input v-model="basicInfoForm.accommodationNum" type="text" placeholder="整数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="员工食饭人数（人）">
-        <el-input v-model="basicInfoForm." type="text" placeholder="整数"></el-input>
+      <el-form-item label="员工吃饭人数（人）" prop="dinningNum">
+        <el-input v-model="basicInfoForm.dinningNum" type="text" placeholder="整数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="日工作时间（小时）">
+      <el-form-item label="日工作时间（小时）" prop="dayWorkTime">
         <el-input v-model="basicInfoForm.dayWorkTime" type="text" placeholder="小时数，整数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="年工作时间（日）">
+      <el-form-item label="年工作时间（日）" prop="yearWorkTime">
         <el-input v-model="basicInfoForm.yearWorkTime" type="text" placeholder="天数，整数"></el-input>
       </el-form-item>
 
-      <el-form-item lable="投产时间">
+      <el-form-item label="投产时间" prop="investmentTime">
         <el-input v-model="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算"></el-input>
       </el-form-item>
 
-      <el-form-item lable="电年耗量">
+      <el-form-item label="电年耗量" prop="annualPowerConsumption">
         <el-input v-model="basicInfoForm.annualPowerConsumption" type="text" placeholder="万kWh/a，整数或小数一位"></el-input>
       </el-form-item>
 
-      <el-form-item lable="东">
+      <el-form-item label="东" prop="east">
         <el-input v-model="basicInfoForm.east" type="text" placeholder="文字描述"></el-input>
       </el-form-item>
 
-      <el-form-item lable="南">
+      <el-form-item label="南" prop="south">
         <el-input v-model="basicInfoForm.south" type="text" placeholder="文字描述"></el-input>
       </el-form-item>
 
-      <el-form-item lable="西">
+      <el-form-item label="西" prop="west">
         <el-input v-model="basicInfoForm.west" type="text" placeholder="文字描述"></el-input>
       </el-form-item>
 
-      <el-form-item lable="北">
+      <el-form-item label="北" prop="north">
         <el-input v-model="basicInfoForm.north" type="text" placeholder="文字描述"></el-input>
       </el-form-item>
 
-      <el-form-item lable="经度">
+      <el-form-item label="经度" prop="longtitude">
         <el-input v-model="basicInfoForm.longtitude" type="text" placeholder="小数点后6位"></el-input>
       </el-form-item>
 
-      <el-form-item lable="纬度">
+      <el-form-item label="纬度" prop="latitude">
         <el-input v-model="basicInfoForm.latitude" type="text" placeholder="小数点后6位"></el-input>
       </el-form-item>
     </el-form>
@@ -185,12 +154,11 @@
       return {
         basicInfoForm: {
           projectType: '',
-          formInline: '',
           enterpriseName: '',
           nameAbbreviation: '',
           NEIType: '',
           companyName: '',
-          companyId: '',
+          dinningNum: '',
           address: '',
           postalCode: '',
           corporateName: '',
@@ -213,12 +181,17 @@
           north: '',
           longtitude: '',
           latitude: '',
-          constructionScale: ''
+          constructionScale: '',
+          societyCreditcode: '',
+          businessRange: '',
+          companyCertificatenumber: '',
+          companyTelephone: '',
+          companyAddress: '',
+          environmentalEffectclassification: ''
         },
 
-        options: [{
-          value: 'C 制造业',
-          label: 'C 制造业',
+        options1: [{
+          value: 'C 制造业', label: 'C 制造业',
           children: [
             { value: 'C1391 淀粉及淀粉制品制造', label: 'C1391 淀粉及淀粉制品制造' },
             { value: 'C14 食品制造业', label: 'C14 食品制造业' },
@@ -306,13 +279,11 @@
             { value: 'C42 废弃资源综合利用业', label: 'C42 废弃资源综合利用业' },
             { value: 'C81 其他服务业', label: 'C81 其他服务业' }
           ] },
-        { value: 'D 电力、热力、燃气及水生产和供应业',
-          label: 'D 电力、热力、燃气及水生产和供应业',
+        { value: 'D 电力、热力、燃气及水生产和供应业', label: 'D 电力、热力、燃气及水生产和供应业',
           children: [
             { value: 'D44 电力、热力生产和供应业', label: 'D44 电力、热力生产和供应业' }
           ] },
-        { value: 'E 建筑业',
-          label: 'E 建筑业',
+        { value: 'E 建筑业', label: 'E 建筑业',
           children: [
             { value: 'E48 土木工程建筑业', label: 'E48 土木工程建筑业' },
             { value: 'E4813 市政道路工程建筑', label: 'E4813 市政道路工程建筑' },
@@ -320,44 +291,239 @@
             { value: 'E4852 管道工程建筑', label: 'E4852 管道工程建筑' },
             { value: 'E7610 防洪除涝设施管理', label: 'E7610 防洪除涝设施管理' }
           ] },
-        { value: 'G 交通运输、仓储和邮政业',
-          label: 'G 交通运输、仓储和邮政业',
+        { value: 'G 交通运输、仓储和邮政业', label: 'G 交通运输、仓储和邮政业',
           children: [
             { value: 'G59 仓储业', label: 'G59 仓储业' },
             { value: 'G5990 其他仓储业', label: 'G5990 其他仓储业' }
           ] },
-        { value: 'H 住宿和餐饮业',
-          label: 'H 住宿和餐饮业',
-          children: [{ value: 'H62 餐饮业', label: 'H62 餐饮业' }] },
-        { value: 'K 房地产业',
-          label: 'K 房地产业',
-          children: [{ value: 'K70 房地产业', label: 'K70 房地产业' }] },
-        { value: 'L 租赁和商务服务业',
-          label: 'L 租赁和商务服务业',
-          children: [{ value: 'L72 商务服务业', label: 'L72 商务服务业' }] },
-        { value: 'M 科学研究和技术服务业',
-          label: 'M 科学研究和技术服务业',
+        { value: 'H 住宿和餐饮业', label: 'H 住宿和餐饮业',
+          children: [{ value: 'H62 餐饮业', label: 'H62 餐饮业' }
+          ] },
+        { value: 'K 房地产业', label: 'K 房地产业',
+          children: [{ value: 'K70 房地产业', label: 'K70 房地产业' }
+          ] },
+        { value: 'L 租赁和商务服务业', label: 'L 租赁和商务服务业',
+          children: [{ value: 'L72 商务服务业', label: 'L72 商务服务业' }
+          ] },
+        { value: 'M 科学研究和技术服务业', label: 'M 科学研究和技术服务业',
           children: [
             { value: 'M73 研究和试验发展', label: 'M73 研究和试验发展' },
             { value: 'M7461 环境保护监测', label: 'M7461 环境保护监测' }
           ] },
-        { value: 'N 水利、环境和公共设施管理业',
-          label: 'N 水利、环境和公共设施管理业',
+        { value: 'N 水利、环境和公共设施管理业', label: 'N 水利、环境和公共设施管理业',
           children: [
             { value: 'N76 水利管理业', label: 'N76 水利管理业' },
             { value: 'N7610 防洪除涝设施管理服务', label: 'N7610 防洪除涝设施管理服务' },
             { value: 'N77 生态保护和环境治理业', label: 'N77 生态保护和环境治理业' },
             { value: 'N7852 游览景区管理', label: 'N7852 游览景区管理' }
           ] },
-        { value: 'O 居民服务、修理和其他服务业',
-          label: 'O 居民服务、修理和其他服务业',
-          children: [{ value: 'O7930 洗染服务', label: 'O7930 洗染服务' }] },
-        { value: 'Q 卫生和社会工作',
-          label: 'Q 卫生和社会工作',
+        { value: 'O 居民服务、修理和其他服务业', label: 'O 居民服务、修理和其他服务业',
+          children: [{ value: 'O7930 洗染服务', label: 'O7930 洗染服务' }
+          ] },
+        { value: 'Q 卫生和社会工作', label: 'Q 卫生和社会工作',
           children: [
             { value: 'Q83 卫生', label: 'Q83 卫生' },
             { value: 'Q8330 门诊部', label: 'Q8330 门诊部' },
             { value: 'Q839 其他卫生活动', label: 'Q839 其他卫生活动' }
+          ] }
+        ],
+
+        options2: [{
+          value: '一、畜牧业', label: '一、畜牧业',
+          children: [{ value: '1、畜禽养殖场、养殖小区', label: '1、畜禽养殖场、养殖小区' }
+          ] },
+        { value: '二、农副食品加工业', label: '二、农副食品加工业',
+          children: [
+            { value: '2、粮食及饲料加工（其他）', label: '2、粮食及饲料加工（其他）' },
+            { value: '3、植物油加工（除单纯分工和调和外的）', label: '3、植物油加工（除单纯分工和调和外的）' },
+            { value: '4、制糖、糖制品加工（其他）', label: '4、制糖、糖制品加工（其他）' },
+            { value: '5、屠宰（其他）', label: '5、屠宰（其他）' },
+            { value: '6、肉禽类加工（年加工两万吨及以上）', label: '6、肉禽类加工（年加工两万吨及以上）' },
+            { value: '7、水产品加工（鱼油提取及制品制造；年加工十万吨及以上）', label: '7、水产品加工（鱼油提取及制品制造；年加工十万吨及以上）' },
+            { value: '8、淀粉、淀粉糖（其他-单纯分装除外）', label: '8、淀粉、淀粉糖（其他-单纯分装除外）' },
+            { value: '9、豆制品制造（除手工制作和单纯分装外的）', label: '9、豆制品制造（除手工制作和单纯分装外的）' },
+            { value: '10、蛋品加工', label: '10、蛋品加工' }
+          ] },
+        { value: '三、食品制造业', label: '三、食品制造业',
+          children: [
+            { value: '11、方便食品制造（其他-手工制作和单纯分装除外）', label: '11、方便食品制造（其他-手工制作和单纯分装除外）' },
+            { value: '12、乳制品制造（其他）', label: '12、乳制品制造（其他）' },
+            { value: '13、调味品、发酵制品制造（其他-单纯分装除外）', label: '13、调味品、发酵制品制造（其他-单纯分装除外）' },
+            { value: '14、盐加工（全部）', label: '14、盐加工（全部）' },
+            { value: '15、饲料添加剂、食品添加剂制造（单纯混合或分装的）', label: '15、饲料添加剂、食品添加剂制造（单纯混合或分装的）' },
+            { value: '16、营养食品、保健食品、冷冻饮品、食用冰制造及其他食品制造（其他-手工制作和单纯分装除外）',
+              label: '16、营养食品、保健食品、冷冻饮品、食用冰制造及其他食品制造（其他-手工制作和单纯分装除外）' }
+          ] },
+        { value: '四、酒、饮料制造业', label: '四、酒、饮料制造业',
+          children: [
+            { value: '17、酒精饮料及酒类制造（其他）', label: '17、酒精饮料及酒类制造（其他）' },
+            { value: '18、果菜汁类及其他软饮料制造（其他）', label: '18、果菜汁类及其他软饮料制造（其他）' }
+          ] },
+        { value: '五、烟草制造业', label: '五、烟草制造业',
+          children: [
+            { value: '19、卷烟（其他）', label: '19、卷烟（其他）' }
+          ] },
+        { value: '六、纺织业', label: '六、纺织业',
+          children: [
+            { value: '20、纺织品制造（其他-编织物及其制品制造除外）', label: '20、纺织品制造（其他-编织物及其制品制造除外）' }
+          ] },
+        { value: '七、纺织服装、服饰业', label: '七、纺织服装、服饰业',
+          children: [
+            { value: '21、服装制造（新建年加工100万件及以上）', label: '21、服装制造（新建年加工100万件及以上）' }
+          ] },
+        { value: '八、皮革、毛皮、羽毛及其制品和制鞋业', label: '八、皮革、毛皮、羽毛及其制品和制鞋业',
+          children: [
+            { value: '22、皮革、毛皮、羽毛（绒）制品（其他）', label: '22、皮革、毛皮、羽毛（绒）制品（其他）' },
+            { value: '23、制鞋业（使用有机溶剂的）', label: '23、制鞋业（使用有机溶剂的）' }
+          ] },
+        { value: '九、木材加工和木、竹、藤、棕、草制品业', label: '九、木材加工和木、竹、藤、棕、草制品业',
+          children: [
+            { value: '24、锯材、木片加工、木制品制造（其他）', label: '24、锯材、木片加工、木制品制造（其他）' },
+            { value: '25、人造板制造（其他）', label: '25、人造板制造（其他）' }
+          ] },
+        { value: '十、家具制造业', label: '十、家具制造业',
+          children: [
+            { value: '27、家具制造（其他）', label: '27、家具制造（其他）' }
+          ] },
+        { value: '十一、造纸和纸制品业', label: '十一、造纸和纸制品业',
+          children: [
+            { value: '28、纸浆、溶解浆、纤维浆等制造；造纸（含废纸造纸）', label: '28、纸浆、溶解浆、纤维浆等制造；造纸（含废纸造纸）' }
+          ] },
+        { value: '十二、印刷和记录媒介复制业', label: '十二、印刷和记录媒介复制业',
+          children: [
+            { value: '30、印刷厂；磁材料制品（全部）', label: '30、印刷厂；磁材料制品（全部）' }
+          ] },
+        { value: '十三、文教、工美、体育和娱乐用品制造业', label: '十三、文教、工美、体育和娱乐用品制造业',
+          children: [
+            { value: '31、文教、体育、娱乐用品制造（全部）', label: '31、文教、体育、娱乐用品制造（全部）' },
+            { value: '32、工艺品制造（有喷漆工艺且年用油性漆量，含稀释剂10吨以下的，或使用水性漆的；有机加工的）',
+              label: '32、工艺品制造（有喷漆工艺且年用油性漆量，含稀释剂10吨以下的，或使用水性漆的；有机加工的）' }
+          ] },
+        { value: '十五、化学原料和化学制品制造业', label: '十五、化学原料和化学制品制造业',
+          children: [
+            { value: '36、基本化学原料制造；农药制造；涂料、染料、颜料、油墨及其类似产品制造；合成材料制造；专用化学品制造；炸药、火工及焰火产品制造；水处理剂等制造（单纯混合或分装的）',
+              label: '36、基本化学原料制造；农药制造；涂料、染料、颜料、油墨及其类似产品制造；合成材料制造；专用化学品制造；炸药、火工及焰火产品制造；水处理剂等制造（单纯混合或分装的）' },
+            { value: '37、肥料制造（其他）', label: '37、肥料制造（其他）' },
+            { value: '38、半导体材料', label: '38、半导体材料' },
+            { value: '39、日用化学品制造（单纯混合或分装的）', label: '39、日用化学品制造（单纯混合或分装的）' }
+          ] },
+        { value: '十六、医药制造业', label: '十六、医药制造业',
+          children: [
+            { value: '40、化学药品制造；生物、生化制品制造', label: '40、化学药品制造；生物、生化制品制造' },
+            { value: '41、单纯药品分装、复配（全部）', label: '41、单纯药品分装、复配（全部）' },
+            { value: '42、中成药制造、中药饮片加工（其他）', label: '42、中成药制造、中药饮片加工（其他）' },
+            { value: '43、卫生材料及医药用品制造（全部）', label: '43、卫生材料及医药用品制造（全部）' }
+          ] },
+        { value: '十七、化学纤维制造业', label: '十七、化学纤维制造业',
+          children: [
+            { value: '44、化学纤维制造（单纯纺丝）', label: '44、化学纤维制造（单纯纺丝）' },
+            { value: '45、生物质纤维素乙醇生产', label: '45、生物质纤维素乙醇生产' }
+          ] },
+        { value: '十八、橡胶和塑料制品业', label: '十八、橡胶和塑料制品业',
+          children: [
+            { value: '46、轮胎制造、再生橡胶制造、橡胶加工、橡胶制品制造及翻新制造（其他）', label: '46、轮胎制造、再生橡胶制造、橡胶加工、橡胶制品制造及翻新制造（其他）' },
+            { value: '47、塑料制品制造（其他）', label: '47、塑料制品制造（其他）' }
+          ] },
+        { value: '十九、非金属矿物制品业', label: '十九、非金属矿物制品业',
+          children: [
+            { value: '48、水泥制造', label: '48、水泥制造' },
+            { value: '49、水泥粉磨站（全部）', label: '49、水泥粉磨站（全部）' },
+            { value: '50、砼结构构件制造、商品混凝土加工（全部）', label: '50、砼结构构件制造、商品混凝土加工（全部）' },
+            { value: '51、石灰和石膏制造、石材加工、人造石制造、砖瓦制造（全部）', label: '51、石灰和石膏制造、石材加工、人造石制造、砖瓦制造（全部）' },
+            { value: '52、玻璃及玻璃制品（其他玻璃制造；以煤、油、天然气为燃料加热的玻璃制品制造）', label: '52、玻璃及玻璃制品（其他玻璃制造；以煤、油、天然气为燃料加热的玻璃制品制造）' },
+            { value: '53、玻璃纤维及玻璃纤维增强塑料制品（全部）', label: '53、玻璃纤维及玻璃纤维增强塑料制品（全部）' },
+            { value: '54、陶瓷制品（其他）', label: '54、陶瓷制品（其他）' },
+            { value: '55、耐火材料及其制品（其他）', label: '55、耐火材料及其制品（其他）' },
+            { value: '56、石墨及其他非金属矿物制品（其他）', label: '56、石墨及其他非金属矿物制品（其他）' },
+            { value: '57、防水建筑材料制造、沥青搅拌站、干粉砂浆搅拌站（全部）', label: '57、防水建筑材料制造、沥青搅拌站、干粉砂浆搅拌站（全部）' }
+          ] },
+        { value: '二十、黑色金属冶炼和压延加工业', label: '二十、黑色金属冶炼和压延加工业',
+          children: [
+            { value: '58、炼铁、球团、烧结', label: '58、炼铁、球团、烧结' },
+            { value: '59、炼钢', label: '59、炼钢' },
+            { value: '60、黑色金属铸造（其他）', label: '60、黑色金属铸造（其他）' },
+            { value: '61、压延加工（其他）', label: '61、压延加工（其他）' },
+            { value: '62、铁合金制造；锰、铬冶炼', label: '62、铁合金制造；锰、铬冶炼' }
+          ] },
+        { value: '二十一、有色金属冶炼和压延加工业', label: '二十一、有色金属冶炼和压延加工业',
+          children: [
+            { value: '63、有色金属冶炼（含再生有色金属冶炼）', label: '63、有色金属冶炼（含再生有色金属冶炼）' },
+            { value: '64、有色金属合金制造', label: '64、有色金属合金制造' },
+            { value: '65、有色金属铸造（其他）', label: '65、有色金属铸造（其他）' },
+            { value: '66、压延加工（全部）', label: '66、压延加工（全部）' }
+          ] },
+        { value: '二十二、金属制品业', label: '二十二、金属制品业',
+          children: [
+            { value: '67、金属制品加工制造（其他-仅切割组装除外）', label: '67、金属制品加工制造（其他-仅切割组装除外）' },
+            { value: '68、金属制品表面处理及热处理加工（其他）', label: '68、金属制品表面处理及热处理加工（其他）' }
+          ] },
+        { value: '二十三、通用设备制造业', label: '二十三、通用设备制造业',
+          children: [
+            { value: '69、通用设备制造及维修（其他-仅组装的除外）', label: '69、通用设备制造及维修（其他-仅组装的除外）' }
+          ] },
+        { value: '二十四、专用设备制造业', label: '二十四、专用设备制造业',
+          children: [
+            { value: '70、专用设备制造及维修（其他-仅组装的除外）', label: '70、专用设备制造及维修（其他-仅组装的除外）' }
+          ] },
+        { value: '二十五、汽车制造业', label: '二十五、汽车制造业',
+          children: [
+            { value: '71、汽车制造（其他）', label: '71、汽车制造（其他）' }
+          ] },
+        { value: '二十七、电气机械和器材制造业', label: '二十七、电气机械和器材制造业',
+          children: [
+            { value: '78、电气机械及器材制造（其他-仅组装的除外）', label: '78、电气机械及器材制造（其他-仅组装的除外）' },
+            { value: '79、太阳能电池片（其他）', label: '79、太阳能电池片（其他）' }
+          ] },
+        { value: '二十八、计算机、通信和其他电子设备制造业', label: '二十八、计算机、通信和其他电子设备制造业',
+          children: [
+            { value: '80、计算机制造（有分割、焊接、酸洗或有机溶剂清洗工艺的）', label: '80、计算机制造（有分割、焊接、酸洗或有机溶剂清洗工艺的）' },
+            { value: '81、电子真空器件、集成电路、半导体分立器件制造、光电子器件、其他电子器件制造等（有分割、焊接、酸洗或有机溶剂清洗工艺的）',
+              label: '81、电子真空器件、集成电路、半导体分立器件制造、光电子器件、其他电子器件制造等（有分割、焊接、酸洗或有机溶剂清洗工艺的）' },
+            { value: '82、印刷电路板、电子元件及组件制造（有分割、焊接、酸洗或有机溶剂清洗工艺的）', label: '82、印刷电路板、电子元件及组件制造（有分割、焊接、酸洗或有机溶剂清洗工艺的）' },
+            { value: '83、电子陶瓷、有机薄膜、荧光粉、贵金属粉等电子专用材料', label: '83、电子陶瓷、有机薄膜、荧光粉、贵金属粉等电子专用材料' },
+            { value: '84、电子配件组装（有分割、焊接（手工焊接除外）、酸洗或有机溶剂清洗工艺的）', label: '84、电子配件组装（有分割、焊接（手工焊接除外）、酸洗或有机溶剂清洗工艺的）' }
+          ] },
+        { value: '二十九、仪器仪表制造业', label: '二十九、仪器仪表制造业',
+          children: [
+            { value: '85、仪器仪表制造（其他-仅组装的除外）', label: '85、仪器仪表制造（其他-仅组装的除外）' }
+          ] },
+        { value: '三十、废弃资源综合利用业', label: '三十、废弃资源综合利用业',
+          children: [
+            { value: '86、废旧资源（含生物质）加工、再生利用（其他）', label: '86、废旧资源（含生物质）加工、再生利用（其他）' }
+          ] },
+        { value: '三十一、电力、热力生产和供应业', label: '三十一、电力、热力生产和供应业',
+          children: [
+            { value: '87、火力发电（含热电）（燃气发电）', label: '87、火力发电（含热电）（燃气发电）' },
+            { value: '88、综合利用发电（单纯利用余热、余压、余气（含煤层气）发电）', label: '88、综合利用发电（单纯利用余热、余压、余气（含煤层气）发电）' },
+            { value: '89、热力生产和供应工程（其他-电热锅炉除外）', label: '89、热力生产和供应工程（其他-电热锅炉除外）' }
+          ] },
+        { value: '三十四、环境治理业', label: '三十四、环境治理业',
+          children: [
+            { value: '99、脱硫、脱硝、除尘等工程（脱硫、脱硝）', label: '99、脱硫、脱硝、除尘等工程（脱硫、脱硝）' }
+          ] },
+        { value: '三十五、公共设施管理业', label: '三十五、公共设施管理业',
+          children: [
+            { value: '103、城镇生活垃圾转运站（全部）', label: '103、城镇生活垃圾转运站（全部）' }
+          ] },
+        { value: '三十六、房地产', label: '三十六、房地产',
+          children: [
+            { value: '106、房地产开发、宾馆、酒店、办公用房等（建筑面积5万平方米及以上；涉及环境敏感区的）', label: '106、房地产开发、宾馆、酒店、办公用房等（建筑面积5万平方米及以上；涉及环境敏感区的）' }
+          ] },
+        { value: '三十九、卫生', label: '三十九、卫生',
+          children: [
+            { value: '111、医院、专科防治院（所、站）、社区医疗、卫生院（所、站）、血站、急救中心、疗养院等其他卫生机构（其他-20张床位以下的，中医门诊除外）',
+              label: '111、医院、专科防治院（所、站）、社区医疗、卫生院（所、站）、血站、急救中心、疗养院等其他卫生机构（其他-20张床位以下的，中医门诊除外）' },
+            { value: '112、疾病预防控制中心（其他）', label: '112、疾病预防控制中心（其他）' }
+          ] },
+        { value: '四十、社会事业与服务业', label: '四十、社会事业与服务业',
+          children: [
+            { value: '113、学校、幼儿园、托儿所、福利院、养老院（建筑面积5万平方米及以上，有实验室的学校（P3、P4生物安全实验室除外））',
+              label: '113、学校、幼儿园、托儿所、福利院、养老院（建筑面积5万平方米及以上，有实验室的学校（P3、P4生物安全实验室除外））' },
+            { value: '115、餐饮、娱乐、洗浴场所', label: '115、餐饮、娱乐、洗浴场所' },
+            { value: '119、公园（含动物园、植物园、主题公园）（其他）', label: '119、公园（含动物园、植物园、主题公园）（其他）' },
+            { value: '124、加油、加气站（新建、扩建）', label: '124、加油、加气站（新建、扩建）' },
+            { value: '125、洗车场（营业面积1000平方米及以上；涉及环境敏感区的）', label: '125、洗车场（营业面积1000平方米及以上；涉及环境敏感区的）' },
+            { value: '126、汽车、摩托车维修场所（营业面积5000平方米及以上；涉及环境敏感区的）', label: '126、汽车、摩托车维修场所（营业面积1000平方米及以上；涉及环境敏感区的）' }
           ] }
         ]
       }

@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs v-model="activeName">
     <el-tab-pane label="产品表" name="first">
         <!-- 产品表 -->
   <h2 style="margin-left:400px" >产品表</h2>
@@ -128,11 +128,6 @@
   </el-tooltip>
 
 
-
-
-
-   
-    
 </div>
 </template>
 
