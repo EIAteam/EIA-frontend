@@ -1,6 +1,6 @@
 <template>
 <div class="app-container">
-  <el-tabs v-model="activeName" @tab-click="handleClick">
+  <el-tabs v-model="activeName">
     <el-tab-pane label="产品表" name="first">
         <!-- 产品表 -->
   <h2 style="margin-left:400px" >产品表</h2>
@@ -30,7 +30,7 @@
     </el-table-column>
     <el-table-column label="操作" width="200">
       <template slot-scope="scope">
-        <el-button plain type="danger" size="small" @click="deleteProduct()">删除</el-button>
+        <el-button plain type="danger" size="small" @click="deleteProduct(scope.$index)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -78,7 +78,7 @@
     </el-table-column>
     <el-table-column label="操作" width="150">
       <template slot-scope="scope">
-        <el-button plain type="danger" size="small" @click="deleteMaterial(scope.row)">删除</el-button>
+        <el-button plain type="danger" size="small" @click="deleteMaterial(scope.$index)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -115,7 +115,7 @@
     </el-table-column>
     <el-table-column label="操作" width="200">
       <template slot-scope="scope">
-        <el-button plain type="danger" size="small" @click="deleteEquipment(scope.row.index)">删除</el-button>
+        <el-button plain type="danger" size="small" @click="deleteEquipment(scope.$index)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -204,14 +204,14 @@
       addEquipment() {
         this.equipmentData.push({ productName: '', num: '', unit: '', remark: '' })
       },
-      deleteProduct() {
-        this.productsData.splice(-1, 1)
+      deleteProduct(index) {
+        this.productsData.splice(index, 1)
       },
-      deleteMaterial() {
-        this.materialData.splice(-1, 1)
+      deleteMaterial(index) {
+        this.materialData.splice(index, 1)
       },
-      deleteEquipment() {
-        this.equipmentData.splice(-1, 1)
+      deleteEquipment(index) {
+        this.equipmentData.splice(index, 1)
       },
       putThreeSheet() {
         this.$message({

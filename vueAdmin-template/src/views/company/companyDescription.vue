@@ -67,7 +67,7 @@ export default {
     return {
       companyName: '',
       companyId: '',
-      position: 'worker',
+      position: 'agency',
       companyMemberList: [
         { userId: '1', username: '1', name: 'Jack', position: 'superManager', email: '291067847@qq.com' },
         { userId: '1', username: '1', name: 'Tom', position: 'manager', email: '291067847@qq.com' },

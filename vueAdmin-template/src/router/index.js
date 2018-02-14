@@ -80,13 +80,13 @@ export const constantRouterMap = [
       },
       {
         path: 'form3',
-        name: 'Form',
+        name: 'Form3',
         component: () => import('@/views/form/form3'),
         meta: { title: 'Form3', icon: 'form' }
       },
       {
         path: 'form4',
-        name: 'Form',
+        name: 'Form4',
         component: () => import('@/views/form/form4'),
         meta: { title: 'Form4', icon: 'form' }
       },

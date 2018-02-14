@@ -41,7 +41,7 @@
       </el-table-column>
        <el-table-column align="center" label="中介材料齐全度" width="140px">
         <template slot-scope="scope">
-          <el-switch v-if="position=='agency'||position=='worker'" :value="scope.row.isMaterialEnough" active-color="#67C23A" inactive-color="#F56C6C" @change="(value)=>handleChangeMaterial(scope.row,value)"></el-switch>
+          <el-switch v-if="position=='manager'||position=='worker'" :value="scope.row.isMaterialEnough" active-color="#67C23A" inactive-color="#F56C6C" @change="(value)=>handleChangeMaterial(scope.row,value)"></el-switch>
           <span v-else-if="scope.row.isMaterialEnough"><i class="el-icon-success" style="color: #67C23A"></i></span>
           <span v-else><i class="el-icon-error" style="color: #F56C6C"></i></span>
         </template>
@@ -100,6 +100,21 @@
   </div>
 </template>
 
+<style>
+  .demo-table-expand {
+    font-size: 0;
+  }
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+</style>
+
+
 <script>
 import { getProjectsList } from '@/api/project'
 export default {
@@ -107,7 +122,7 @@ export default {
     return {
       companyName: '',
       companyId: '',
-      position: 'manager',
+      position: 'agency',
       projectKindOptions: [
         { value: 1, label: '新建' },
         { value: 2, label: '扩建' },
@@ -121,6 +136,7 @@ export default {
         { value: 5, label: '审批修改' },
         { value: 6, label: '取证' }
       ],
+      dialogVisible: false,
       projectList: null,
       listLoading: true,
       total: 22,
