@@ -55,7 +55,7 @@
         <el-input v-model="createProjectForm.projectName" type="text" name="projectName"></el-input>
       </el-form-item>
 
-      <el-form-item label="项目类型" prop='projectKind'>
+      <el-form-item label="项目类型" prop="projectKind">
         <el-select v-model="createProjectForm.projectKind" placeholder="请选择项目类型" size="35px" name="projectKind">
           <el-option :value="name">{{name}}</el-option>
           <el-option v-for="companyName in companyList"
