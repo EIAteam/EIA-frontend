@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
 
-<el-container style="height: 150px;">
+<el-container style="height: 650px;">
 <el-header style="margin-bottom:50px;" >
   <el-steps :active="active" finish-status="success" align-center>
       <el-step title="基础信息"><router-link to="form2">   </router-link></el-step>
@@ -15,7 +15,6 @@
     <el-button type="primary"  @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
   </el-button-group>
 </el-header>
-</el-container>
 
   <el-main>
     <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm">
@@ -170,7 +169,7 @@
     <el-button  style="margin-top:10px" type="success" @click="putBasicFormInfo" >提交修改</el-button>
   </el-tooltip>
   </el-main>
-
+</el-container>
   </div>
 </template>
 
