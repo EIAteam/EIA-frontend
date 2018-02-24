@@ -1,6 +1,6 @@
 <template>
 <div>
-  <circle-menu type='top' :number='2' circle btn style="right:30px;bottom:30px;position:fixed">>
+  <circle-menu type='top' :number='2' circle btn style="right:30px;bottom:30px;position:fixed">
     <el-tooltip slot="item_1" content="增加项目" placement="left">
       <a type="text" @click="handleOpen2"><svg-icon  icon-class="addFile"/></a>
     </el-tooltip>

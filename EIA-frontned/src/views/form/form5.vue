@@ -1,5 +1,22 @@
 <template>
 <div class="app-container">
+
+<el-container style="height: 150px;">
+<el-header style="margin-bottom:50px;" >
+  <el-steps :active="active" finish-status="success" align-center>
+      <el-step title="基础信息"><router-link to="form2">   </router-link></el-step>
+      <el-step title="产品表/材料表/设备表"></el-step>
+      <el-step title="地理信息"></el-step>
+      <el-step title="工程组成/敏感点信息/废气排放标准"></el-step>
+      <el-step title="基础信息附图"></el-step>
+  </el-steps>
+  <el-button-group style="margin-top:10px;margin-left:550px;width:300px;">
+    <el-button type="primary" icon="el-icon-arrow-left"  @click="previous">上一页</el-button>
+    <el-button type="primary"  @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+  </el-button-group>
+</el-header>
+</el-container>
+
   <amap></amap>
 <el-row :gutter="20">
 <el-col :span="6">.</el-col>
@@ -59,6 +76,9 @@
   </el-col>
 </el-row>
 
+  <el-tooltip class="item" effect="dark" content="保存" placement="right">
+    <el-button  style="margin-top:10px" type="success" @click="save" >提交修改</el-button>
+  </el-tooltip>
 </div>
 </template>
 
@@ -100,6 +120,12 @@ export default{
         this.$message.error('上传图片大小不能超过 5MB!')
       }
       return isJPG && isLt2M
+    },
+    save() {
+      this.$message({
+        message: '修改成功',
+        type: 'success'
+      })
     }
   }
 }

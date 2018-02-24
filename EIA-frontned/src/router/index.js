@@ -63,44 +63,43 @@ export const constantRouterMap = [
   {
     path: '/form',
     component: Layout,
-    redirect: '/form/index',
+    redirect: '/form/form1',
+    name: '/form',
     meta: { title: 'Form', icon: 'form' },
     children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      },
       {
         path: 'form1',
         name: 'Form1',
         component: () => import('@/views/form/form1'),
-        meta: { title: 'Form1', icon: 'form' }
+        meta: { title: '基础信息', icon: 'form' }
       },
       {
-        path: 'form3',
-        name: 'Form3',
-        component: () => import('@/views/form/form3'),
-        meta: { title: 'Form3', icon: 'form' }
-      },
-      {
-        path: 'form4',
-        name: 'Form4',
-        component: () => import('@/views/form/form4'),
-        meta: { title: 'Form4', icon: 'form' }
-      },
-      {
+
         path: 'form2',
         name: 'Form2',
         component: () => import('@/views/form/form2'),
-        meta: { title: 'Form2', icon: 'form' }
+        meta: { title: '产品表/材料表/设备表', icon: 'form' }
       },
       {
+
+        path: 'form3',
+        name: 'Form3',
+        component: () => import('@/views/form/form3'),
+        meta: { title: '地理信息', icon: 'form' }
+      },
+      {
+
+        path: 'form4',
+        name: 'Form4',
+        component: () => import('@/views/form/form4'),
+        meta: { title: '工程组成/敏感点信息/废气排放标准', icon: 'form' }
+      },
+      {
+
         path: 'form5',
         name: 'Form5',
         component: () => import('@/views/form/form5'),
-        meta: { title: 'Form5', icon: 'form' }
+        meta: { title: '基础信息附图', icon: 'form' }
       }
     ]
   },
