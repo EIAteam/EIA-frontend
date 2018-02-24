@@ -1,10 +1,10 @@
 <template>
 <div class="app-container">
 
-<el-container style="height: 150px;">
+<el-container style="height: 650px;">
 <el-header style="margin-bottom:50px;" >
   <el-steps :active="active" finish-status="success" align-center>
-      <el-step title="基础信息"><router-link to="form2">   </router-link></el-step>
+      <el-step title="基础信息"></el-step>
       <el-step title="产品表/材料表/设备表"></el-step>
       <el-step title="地理信息"></el-step>
       <el-step title="工程组成/敏感点信息/废气排放标准"></el-step>
@@ -12,11 +12,11 @@
   </el-steps>
   <el-button-group style="margin-top:10px;margin-left:550px;width:300px;">
     <el-button type="primary" icon="el-icon-arrow-left"  @click="previous">上一页</el-button>
-    <el-button type="primary"  @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+    <el-button type="primary" @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
   </el-button-group>
 </el-header>
-</el-container>
 
+<el-main>
   <el-tabs v-model="activeName">
     <el-tab-pane label="产品表" name="first">
         <!-- 产品表 -->
@@ -143,7 +143,9 @@
   <el-tooltip class="item" effect="dark" content="三表一键提交" placement="right">
     <el-button  style="margin-top:10px" type="success" @click="putThreeSheet" >提交修改</el-button>
   </el-tooltip>
+</el-main>
 
+</el-container>
 </div>
 </template>
 
