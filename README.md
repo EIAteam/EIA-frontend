@@ -1,7 +1,7 @@
 # EIA-frontend
 > The frontend of EIA project,which use vue.js,vue-element-admin
 
-> # 目录结构
+> # content
 
 ```
 ├── build                      // 构建相关  
@@ -28,3 +28,26 @@
 └── package.json               // package.json
 ```
 ---
+
+> # tips
+
+1. ensure nodejs is installed
+
+2. ensure cnpm has been set up
+
+3. installed dependencise
+```
+ E:\GitHub\EIA-frontend> cnpm install --save-dev
+```
+
+4. run it for test
+```
+ E:\GitHub\EIA-frontend> npm run dev
+```
+
+5. if you want to publish it
+```
+E:\GitHub\EIA-frontend> npm run build
+```
+
+6. set the api url in _config/dev.env.js_ and _config/prod.env.js_
