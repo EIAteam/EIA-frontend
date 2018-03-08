@@ -115,7 +115,6 @@ export default{
     beforeAvatarUpload(file) {
       const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png')
       const isLt2M = file.size / 1024 / 1024 < 5
-
       if (!isJPG) {
         this.$message.error('上传图片只能是 JPG/PNG 格式!')
       }
@@ -144,7 +143,6 @@ export default{
         case 3:
           this.$router.push({ path: '/form/form5' })
           break
-
         default:
           break
       }
@@ -161,7 +159,6 @@ export default{
     }
   }
 }
-
 </script>
 
 <style>

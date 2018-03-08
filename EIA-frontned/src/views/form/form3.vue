@@ -155,7 +155,6 @@
 <script>
 import { getFormInfo } from '@/api/project'
 import { putFormInfo } from '@/api/project'
-
 export default {
   data() {
     return {
@@ -226,7 +225,6 @@ export default {
         case 3:
           this.$router.push({ path: '/form/form5' })
           break
-
         default:
           break
       }
@@ -244,4 +242,3 @@ export default {
   }
 }
 </script>
-

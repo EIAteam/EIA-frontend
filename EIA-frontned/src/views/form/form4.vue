@@ -177,7 +177,6 @@
 <script>
 import { getFormInfo } from '@/api/project'
 import { putFormInfo } from '@/api/project'
-
 export default {
   data() {
     return {
@@ -276,11 +275,9 @@ export default {
       ]
     }
   },
-
   /* created() {
     this.getFiveFormInfo()
   },*/
-
   methods: {
     getFiveFormInfo() {
       return new Promise((resolve, reject) => {
@@ -417,7 +414,6 @@ export default {
         case 3:
           this.$router.push({ path: '/form/form5' })
           break
-
         default:
           break
       }

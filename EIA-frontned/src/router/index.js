@@ -68,34 +68,35 @@ export const constantRouterMap = [
     meta: { title: 'Form', icon: 'form' },
     children: [
       {
+
         path: 'form1',
         name: 'Form1',
         component: () => import('@/views/form/form1'),
         meta: { title: '基础信息', icon: 'form' }
       },
       {
-
+        hidden: true,
         path: 'form2',
         name: 'Form2',
         component: () => import('@/views/form/form2'),
         meta: { title: '产品表/材料表/设备表', icon: 'form' }
       },
       {
-
+        hidden: true,
         path: 'form3',
         name: 'Form3',
         component: () => import('@/views/form/form3'),
         meta: { title: '地理信息', icon: 'form' }
       },
       {
-
+        hidden: true,
         path: 'form4',
         name: 'Form4',
         component: () => import('@/views/form/form4'),
         meta: { title: '工程组成/敏感点信息/废气排放标准', icon: 'form' }
       },
       {
-
+        hidden: true,
         path: 'form5',
         name: 'Form5',
         component: () => import('@/views/form/form5'),
