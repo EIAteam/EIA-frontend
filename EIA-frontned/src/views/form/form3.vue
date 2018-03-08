@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
 
-<el-container style="height: 150px;">
+<el-container style="height: 650px;">
 <el-header style="margin-bottom:50px;" >
   <el-steps :active="active" finish-status="success" align-center>
-      <el-step title="基础信息"><router-link to="form2">   </router-link></el-step>
+      <el-step title="基础信息"></el-step>
       <el-step title="产品表/材料表/设备表"></el-step>
       <el-step title="地理信息"></el-step>
       <el-step title="工程组成/敏感点信息/废气排放标准"></el-step>
@@ -12,11 +12,11 @@
   </el-steps>
   <el-button-group style="margin-top:10px;margin-left:550px;width:300px;">
     <el-button type="primary" icon="el-icon-arrow-left"  @click="previous">上一页</el-button>
-    <el-button type="primary"  @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+    <el-button type="primary" @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
   </el-button-group>
 </el-header>
-</el-container>
 
+<el-main>
     <el-form :model="geographicInfoForm" label-width="100px;" ref="geographicInfoForm">
       <el-form-item label="所在区镇" prop="township">
         <el-select v-model="geographicInfoForm.township" placeholder="请选择">
@@ -147,16 +147,18 @@
   <el-tooltip class="item" effect="dark" content="保存" placement="right">
     <el-button  style="margin-top:10px" type="success" @click="putGeographicFormInfo" >提交修改</el-button>
   </el-tooltip>
+</el-main>
+</el-container>
   </div>
 </template>
 
 <script>
 import { getFormInfo } from '@/api/project'
 import { putFormInfo } from '@/api/project'
-
 export default {
   data() {
     return {
+      active: 2,
       geographicInfoForm: {
         township: '',
         soundEnvironmentStandard: '',
@@ -208,8 +210,35 @@ export default {
       })
       putFormInfo(this.geographicInfoForm).then(response => {})
       this.loading = false
+    },
+    next() {
+      switch (this.active) {
+        case 0:
+          this.$router.push({ path: '/form/form2' })
+          break
+        case 1:
+          this.$router.push({ path: '/form/form3' })
+          break
+        case 2:
+          this.$router.push({ path: '/form/form4' })
+          break
+        case 3:
+          this.$router.push({ path: '/form/form5' })
+          break
+        default:
+          break
+      }
+      if (this.active++ > 4) {
+        this.active = 0
+        this.$router.push({ path: '/form/form1' })
+      }
+    },
+    previous() {
+      if (this.active > 0) {
+        this.active--
+        this.$router.go(-1)
+      }
     }
   }
 }
 </script>
-

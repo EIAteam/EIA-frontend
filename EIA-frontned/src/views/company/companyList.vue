@@ -8,7 +8,8 @@
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">{{company.companyName}}</div>
+          <div class="card-panel-text">公司名称：{{company.companyName}}</div>
+           <div class="card-panel-text">职位：{{company.position | positionFilter}}</div>
         </div>
       </div>
     </el-col>
@@ -18,23 +19,38 @@
 
 <script>
 import Mallki from '@/components/TextHoverEffect/Mallki'
+import { getCompanyList } from '@/api/company'
 export default {
   data() {
     return {
-      companyList: [
-        { companyName: 'test1sdfdf', companyId: '1' },
-        { companyName: 'test2', companyId: '2' },
-        { companyName: 'test2', companyId: '2' },
-        { companyName: 'test2', companyId: '2' },
-        { companyName: 'test2', companyId: '2' },
-        { companyName: 'test2', companyId: '2' }
-      ]
+      companyList: []
     }
   },
   components: {
     Mallki
   },
+  created() {
+    this.getList()
+  },
+  filters: {
+    positionFilter(position) {
+      const positionMap = {
+        superManager: '超级管理者',
+        manager: '管理者',
+        worker: '编写员',
+        agency: '中介',
+        firstParty: '甲方',
+        noPosition: '无职'
+      }
+      return positionMap[position]
+    }
+  },
   methods: {
+    getList() {
+      getCompanyList(this.listQuery).then(response => {
+        this.companyList = response
+      })
+    },
     handleredirect(companyId) {
       this.$router.push({ name: 'companyDescription', params: { company_id: companyId }})
     }

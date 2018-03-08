@@ -50,12 +50,10 @@ const user = {
       })
     },
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.id).then(response => {
-          const data = response.data
-          commit('SET_NAME', data.name)
-          commit('SET_ID', data.id)
+        getInfo().then(response => {
+          commit('SET_ID', response.id)
           resolve(response)
         }).catch(error => {
           reject(error)

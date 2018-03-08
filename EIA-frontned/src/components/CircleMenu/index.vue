@@ -17,7 +17,7 @@
         <el-input name="companyName" type="text" v-model="createCompanyForm.companyName" placeholder="请输入正确的公司名称"></el-input>
       </el-form-item>
        <el-form-item>
-        <el-button type="primary" style="width:100%;"  :loading="loading" @click.native.prevent="handleCreate">
+        <el-button type="primary" style="width:100%;"  :loading="loading" @click.native.prevent="handleCreateCompany">
           创建
         </el-button>
       </el-form-item>
@@ -30,7 +30,7 @@
         <el-input name="companyName" type="text" v-model="joinCompanyForm.companyName" placeholder="请输入正确的公司名称"></el-input>
       </el-form-item>
        <el-form-item>
-        <el-button type="primary" style="width:100%;"  @click.native.prevent="handleJoin">
+        <el-button type="primary" style="width:100%;"  @click.native.prevent="handleJoinCompany">
           加入
         </el-button>
       </el-form-item>
@@ -154,11 +154,11 @@ export default {
   },
 
   methods: {
-    handleCreate() {
+    handleCreateCompany() {
       this.$refs.createCompanyForm.validate(valid => {
         if (valid) {
           this.loading = true
-          createCompany(this.$refs.createCompanyForm.companyName).then(() => {
+          createCompany(this.createCompanyForm.companyName).then(() => {
             this.loading = false
             this.dialogVisible1 = false
             this.$router.push({ path: '/' })
@@ -171,7 +171,7 @@ export default {
         }
       })
     },
-    handleJoin() {
+    handleJoinCompany() {
       this.$refs.joinCompanyForm.validate(valid => {
         if (valid) {
           this.loading = true

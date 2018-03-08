@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function createCompany(companyName) {
   return request({
-    url: '/company',
+    url: '/api/company/',
     method: 'post',
     data: {
       companyName
@@ -17,5 +17,12 @@ export function joinCompany(username) {
     data: {
       username
     }
+  })
+}
+
+export function getCompanyList() {
+  return request({
+    url: '/api/companyList/',
+    method: 'get'
   })
 }

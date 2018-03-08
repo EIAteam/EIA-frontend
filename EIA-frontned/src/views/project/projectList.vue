@@ -1,6 +1,56 @@
 <template>
   <div class="app-container project-list-container">
-    <el-table  :data="projectList" v-loading="listLoading" fit highlight-current-row >
+    <template>
+  <el-tabs v-model="activeName" type="card">
+    <el-tab-pane label="人员管理" name="first">
+          <el-table  :data="companyMemberList"  fit highlight-current-row >
+      <el-table-column align="center" label="名字" width="200px">
+        <template slot-scope="scope">
+          <span>{{scope.row.name}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="职位" >
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.position | positionStatusFilter">{{ scope.row.position| positionFilter }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column width="200px" align="center" label="邮箱" >
+        <template slot-scope="scope">
+          <span>{{scope.row.email}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="500px" align="center" label="职位变更" >
+        <template slot-scope="scope">
+      <el-collapse v-if="id!=scope.row.userId&&position=='superManager'" accordion>
+          <el-collapse-item>
+            <template slot="title">
+              变更操作
+            </template>
+             <el-button v-if="scope.row.position!='noPosition'" @click="handleModifyPosition(scope.row,'noPosition')" type="info" size="mini">无职</el-button>
+            <el-button v-if="scope.row.position!='superManager'" type="warning" @click="handleModifyPosition(scope.row,'superManager')" size="mini">超级管理者</el-button>
+            <el-button v-if="scope.row.position!='manager'" @click="handleModifyPosition(scope.row,'manager')" type="success" size="mini">管理者</el-button>
+            <el-button v-if="scope.row.position!='worker'" @click="handleModifyPosition(scope.row,'worker')" type="primary" size="mini">编写员</el-button>
+            <el-button v-if="scope.row.position!='agency'" @click="handleModifyPosition(scope.row,'agency')" type="danger" size="mini">中介</el-button>
+            <el-button v-if="scope.row.position!='firstParty'" @click="handleModifyPosition(scope.row,'firstParty')" type="danger" size="mini">甲方</el-button>
+            </el-collapse-item>
+         </el-collapse>
+         <el-collapse v-if="id!=scope.row.userId&&position=='manager'&&scope.row.position!='superManager'&&scope.row.position!='manager'" accordion>
+          <el-collapse-item>
+            <template slot="title">
+              变更操作
+            </template>
+             <el-button v-if="scope.row.position!='noPosition'" @click="handleModifyPosition(scope.row,'noPosition')" type="info" size="mini">无职</el-button>
+            <el-button v-if="scope.row.position!='worker'" @click="handleModifyPosition(scope.row,'worker')" type="primary" size="mini">编写员</el-button>
+            <el-button v-if="scope.row.position!='agency'" @click="handleModifyPosition(scope.row,'agency')" type="danger" size="mini">中介</el-button>
+            <el-button v-if="scope.row.position!='firstParty'" @click="handleModifyPosition(scope.row,'firstParty')" type="danger" size="mini">甲方</el-button>
+            </el-collapse-item>
+         </el-collapse>
+        </template>
+      </el-table-column>
+    </el-table>
+    </el-tab-pane>
+    <el-tab-pane label="项目管理" name="second">
+      <el-table  :data="projectList" v-loading="listLoading" fit highlight-current-row >
       <el-table-column type="index">
     </el-table-column>
       <el-table-column align="center" label="项目简称" width="200px">
@@ -97,6 +147,13 @@
     </el-pagination>
     </div>
 
+    </el-tab-pane>
+
+  </el-tabs>
+</template>
+
+    
+
   </div>
 </template>
 
@@ -120,6 +177,7 @@ import { getProjectsList } from '@/api/project'
 export default {
   data() {
     return {
+      activeName: 'first',
       companyName: '',
       companyId: '',
       position: 'agency',
@@ -135,6 +193,14 @@ export default {
         { value: 4, label: '入件' },
         { value: 5, label: '审批修改' },
         { value: 6, label: '取证' }
+      ],
+      companyMemberList: [
+        { userId: '1', username: '1', name: 'Jack', position: 'superManager', email: '291067847@qq.com' },
+        { userId: '1', username: '1', name: 'Tom', position: 'manager', email: '291067847@qq.com' },
+        { userId: '1', username: '1', name: 'Jerry', position: 'worker', email: '291067847@qq.com' },
+        { userId: '1', username: '1', name: 'Jemmy', position: 'agency', email: '291067847@qq.com' },
+        { userId: '1', username: '1', name: 'Tim', position: 'firstParty', email: '291067847@qq.com' },
+        { userId: '1', username: '1', name: 'Tim', position: 'noPosition', email: '291067847@qq.com' }
       ],
       dialogVisible: false,
       projectList: null,
@@ -165,6 +231,28 @@ export default {
         3: '搬迁'
       }
       return projectKindMap[projectKind]
+    },
+    positionStatusFilter(position) {
+      const positionMap = {
+        superManager: 'warning',
+        manager: 'success',
+        worker: '',
+        agency: 'danger',
+        firstParty: 'danger',
+        noPosition: 'info'
+      }
+      return positionMap[position]
+    },
+    positionFilter(position) {
+      const positionMap = {
+        superManager: '超级管理者',
+        manager: '管理者',
+        worker: '编写员',
+        agency: '中介',
+        firstParty: '甲方',
+        noPosition: '无职'
+      }
+      return positionMap[position]
     }
   },
   created() {
@@ -214,6 +302,13 @@ export default {
     handleCurrentChange(value) {
       this.listQuery.page = value
       this.getList()
+    },
+    handleModifyPosition(row, position) {
+      row.position = position
+      this.$message({
+        message: '操作成功',
+        type: 'success'
+      })
     }
   }
 }
