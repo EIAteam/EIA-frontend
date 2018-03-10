@@ -1,13 +1,12 @@
 import request from '@/utils/request'
 
-export function createProject(projectDescribtion, projectName, projectKind) {
+export function createProject(projectName, company) {
   return request({
-    url: '/project',
+    url: '/api/project/',
     method: 'post',
     data: {
       projectName,
-      projectDescribtion,
-      projectKind
+      company
     }
   })
 }
@@ -28,21 +27,12 @@ export function getFormInfo(projectId) {
   })
 }
 
-export function putFormInfo(basicInfoForm, materialData, productsData, equipmentData, geographicInfoForm,
-  tableData, sensitiveInfoData1, sensitiveInfoData3, emissionStandardFormData) {
+export function putFormInfo(basicInfoForm) {
   return request({
     url: '/project',
     method: 'put',
     data: {
-      basicInfoForm,
-      materialData,
-      productsData,
-      equipmentData,
-      geographicInfoForm,
-      tableData,
-      sensitiveInfoData1,
-      sensitiveInfoData3,
-      emissionStandardFormData
+      basicInfoForm
     }
   })
 }

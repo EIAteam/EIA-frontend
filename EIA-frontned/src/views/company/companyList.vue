@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     getList() {
-      getCompanyList(this.listQuery).then(response => {
+      getCompanyList().then(response => {
         this.companyList = response
       })
     },

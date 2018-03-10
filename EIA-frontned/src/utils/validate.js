@@ -23,7 +23,7 @@ export function isvalidProjectName(str) {
   return str.length > 0
 }
 
-export function isvalidProjectKind(str) {
+export function isvalidcompany(str) {
   return str.length > 0
 }
 
