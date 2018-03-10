@@ -25,9 +25,10 @@
     <el-table-column type="index" width="50">
     </el-table-column>
 
-    <el-table-column label="产品名称" width="200">
+    <el-table-column label="产品名称" width="200" >
       <template slot-scope="scope">
         <el-input v-model="scope.row.productName" size="small"></el-input>
+        <el-input v-model="scope.row.id" size="small" style="display:none"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="数量" width="200">
@@ -64,6 +65,7 @@
     <el-table-column label="材料名称" width="180">
       <template slot-scope="scope">
         <el-input v-model="scope.row.materialName" size="small"></el-input>
+        <el-input v-model="scope.row.id" size="small" style="display:none"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="数量" width="180">
@@ -113,6 +115,7 @@
     <el-table-column label="产品名称" width="200">
       <template slot-scope="scope">
         <el-input v-model="scope.row.equipmentName" size="small"></el-input>
+        <el-input v-model="scope.row.id" size="small" style="display:none"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="数量" width="200">
@@ -165,12 +168,14 @@ export default {
       ],
       productsData: [
         {
+          id: '',
           productName: '',
           num: '',
           unit: '',
           remark: ''
         },
         {
+          id: '',
           productName: '',
           num: '',
           unit: '',
@@ -179,12 +184,14 @@ export default {
       ],
       equipmentData: [
         {
+          id: '',
           equipmentName: '',
           num: '',
           unit: '',
           remark: ''
         },
         {
+          id: '',
           productName: '',
           num: '',
           unit: '',
@@ -193,6 +200,7 @@ export default {
       ],
       materialData: [
         {
+          id: '',
           materialName: '',
           num: '',
           unit: '',
@@ -201,6 +209,7 @@ export default {
           ratio: ''
         },
         {
+          id: '',
           materialName: '',
           num: '',
           unit: '',

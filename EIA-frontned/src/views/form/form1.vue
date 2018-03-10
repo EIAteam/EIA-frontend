@@ -182,6 +182,7 @@ export default {
   data() {
     return {
       active: 0,
+      projectId: 1,
       basicInfoForm: {
         projectType: '',
         enterpriseName: '',
@@ -560,11 +561,6 @@ export default {
   },
   created() {
     this.getBasicFormInfo()
-  },
-  watch: {
-    '$route': function(to, from) {
-      console.log('child')
-    }
   },
   methods: {
     getBasicFormInfo() {

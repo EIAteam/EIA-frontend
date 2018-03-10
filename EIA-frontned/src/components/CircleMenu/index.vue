@@ -2,14 +2,14 @@
 <div>
   <circle-menu type='top' :number='2' circle btn style="right:30px;bottom:30px;position:fixed">
     <el-tooltip slot="item_1" content="增加项目" placement="left">
-      <a type="text" @click="handleOpen2"><svg-icon  icon-class="addFile"/></a>
+      <a type="text" @click="handleOpenProjectForm"><svg-icon  icon-class="addFile"/></a>
     </el-tooltip>
     <el-tooltip slot="item_2" content="公司" placement="left" >
-      <a type="text" @click="handleOpen1"><svg-icon  icon-class="people"/></a>
+      <a type="text" @click="handleOpenCompanyForm"><svg-icon  icon-class="people"/></a>
     </el-tooltip>
   </circle-menu>
   <el-dialog   :visible.sync="dialogVisible1"  :before-close="handleClose">
-  <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+  <el-tabs v-model="activeName" type="card">
 
     <el-tab-pane label="创建公司" name="first">
       <el-form   :model="createCompanyForm" ref="createCompanyForm" :rules="companyNameRules" label-width="100px">
@@ -47,7 +47,7 @@
 </el-dialog>
 
   <el-dialog :visible.sync="dialogVisible2" :before-close="handleClose">
-  <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+  <el-tabs v-model="activeName" type="card">
 
     <el-form ref="createProjectForm" :model="createProjectForm" label-width="100px" :rules="creatProjectRules">
 
@@ -56,18 +56,13 @@
       </el-form-item>
 
       <el-form-item label="项目类型" prop="projectKind">
-        <el-select v-model="createProjectForm.projectKind" placeholder="请选择项目类型" size="35px" name="projectKind">
-          <el-option :value="name">{{name}}</el-option>
+        <el-select v-model="createProjectForm.company" placeholder="请选择项目类型" size="35px" name="projectKind">
           <el-option v-for="companyName in companyList"
           :value="companyName.companyId"
           :key="companyName.id"
           :label="companyName.label"
           >{{companyName.companyName}}</el-option>
         </el-select>
-      </el-form-item>
-
-      <el-form-item label="项目描述" prop="projectDescription">
-        <el-input type="textarea" v-model="createProjectForm.projectDescription" placeholder="不填默认为项目名" name="projectDescription"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -85,8 +80,8 @@
 <script>
 import CircleMenu from 'vue-circle-menu'
 import { isvalidCompanyName } from '@/utils/validate'
-import { createCompany } from '@/api/company'
-import { isvalidProjectName, isvalidProjectKind } from '@/utils/validate'
+import { createCompany, joinCompany, getCompanyList } from '@/api/company'
+import { isvalidProjectName, isvalidCompany } from '@/utils/validate'
 import { createProject } from '@/api/project'
 
 export default {
@@ -108,8 +103,8 @@ export default {
       }
     }
 
-    const validateProjectKind = (rule, value, callback) => {
-      if (!isvalidProjectKind(value)) {
+    const validateCompany = (rule, value, callback) => {
+      if (!isvalidCompany(value)) {
         callback(new Error('请选择项目类型'))
       } else {
         callback()
@@ -130,21 +125,14 @@ export default {
       dialogVisible1: false,
       dialogVisible2: false,
       loading: false,
-
-      name: '用户名',
-      companyList: [
-        { companyName: '公司1', companyId: '公司1' },
-        { companyName: '公司2', companyId: '公司2' },
-        { companyName: '公司3', companyId: '公司3' }
-      ],
+      companyList: [],
       createProjectForm: {
         projectName: '',
-        projectDescription: '',
-        projectKind: ''
+        company: ''
       },
       creatProjectRules: {
         projectName: [{ required: true, trigger: 'blur', validator: validateProjectName }],
-        projectKind: [{ required: true, trigger: 'change', validator: validateProjectKind }]
+        company: [{ required: true, trigger: 'change', validator: validateCompany }]
       }
     }
   },
@@ -175,7 +163,7 @@ export default {
       this.$refs.joinCompanyForm.validate(valid => {
         if (valid) {
           this.loading = true
-          createCompany(this.$store.getters.userId).then(() => {
+          joinCompany(this.joinCompanyForm.companyName).then(() => {
             this.loading = false
             this.dialogVisible1 = false
             this.$router.push({ path: '/' })
@@ -187,9 +175,6 @@ export default {
           return false
         }
       })
-    },
-    handleClick(tab, event) {
-      console.log(tab, event)
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
@@ -203,12 +188,7 @@ export default {
       this.$refs.createProjectForm.validate(valid => {
         if (valid) {
           this.loading = true
-          if (this.createProjectForm.projectDescription.length < 1) {
-            this.createProjectForm.projectDescription = this.createProjectForm.projectName
-          }
-          createProject(this.createProjectForm.projectName,
-            this.createProjectForm.projectDescription,
-            this.createProjectForm.projectKind).then(response => {})
+          createProject(this.createProjectForm.projectName, this.createProjectForm.company).then(response => {})
           this.loading = false
           this.dialogVisible2 = false
           this.$router.push({ path: '/dashboard' })
@@ -221,12 +201,11 @@ export default {
 
     reset() {
       this.createProjectForm.projectName = ''
-      this.createProjectForm.projectKind = ''
-      this.createProjectForm.projectDescription = ''
+      this.createProjectForm.company = ''
       this.joinCompanyForm.companyName = ''
       this.createCompanyForm.companyName = ''
     },
-    handleOpen1() {
+    handleOpenCompanyForm() {
       this.reset()
       this.dialogVisible1 = true
       this.$nextTick(() => {
@@ -235,8 +214,11 @@ export default {
       })
     },
 
-    handleOpen2() {
+    handleOpenProjectForm() {
       this.reset()
+      getCompanyList().then(response => {
+        this.companyList = response
+      })
       this.dialogVisible2 = true
       this.$nextTick(() => {
         this.$refs['createProjectForm'].clearValidate()
