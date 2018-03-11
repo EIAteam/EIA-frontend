@@ -1,28 +1,10 @@
 <template>
-  <div class="app-container">
-
-<el-container style="height: 650px;">
-<el-header style="margin-bottom:50px;" >
-  <el-steps :active="active" finish-status="success" align-center>
-      <el-step title="基础信息"></el-step>
-      <el-step title="产品表/材料表/设备表"></el-step>
-      <el-step title="地理信息"></el-step>
-      <el-step title="工程组成/敏感点信息/废气排放标准"></el-step>
-      <el-step title="基础信息附图"></el-step>
-  </el-steps>
-  <el-button-group style="margin-top:10px;margin-left:550px;width:300px;">
-    <el-button type="primary" icon="el-icon-arrow-left"  @click="previous" disabled>上一页</el-button>
-    <el-button type="primary" @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-  </el-button-group>
-</el-header>
-
-  <el-main>
-    <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm">
+  <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm" :rules="formRules">
       <el-form-item label="项目性质" prop="projectType">
         <el-select v-model="basicInfoForm.projectType" placeholder="请选择">
-          <el-option label="新建" value=1></el-option>
-          <el-option label="搬迁" value=2></el-option>
-          <el-option label="扩建" value=3></el-option>
+          <el-option label="新建" value="新建"></el-option>
+          <el-option label="搬迁" value="搬迁"></el-option>
+          <el-option label="扩建" value="扩建"></el-option>
         </el-select>
       </el-form-item>
 
@@ -35,25 +17,29 @@
       </el-form-item>
 
       <el-form-item label="国民经济行业类别及代码" prop="NEIType">
-        <el-cascader :options="options1" :show-all-levels="false" v-model="basicInfoForm.NEIType"
+        <el-cascader :options="NEITypeOptions" :show-all-levels="false" v-model="basicInfoForm.NEIType"
         placeholder="请选择" style="width:400px;" expand-trigger="hover"></el-cascader>
       </el-form-item>
 
       <el-form-item label="环境影响评价行业类别" prop="environmentalEffectclassification">
-        <el-cascader :options="options2" :show-all-levels="false" expand-trigger="hover"
+        <el-cascader :options="environmentalEffectclassificationOptions" :show-all-levels="false" expand-trigger="hover"
         v-model="basicInfoForm.environmentalEffectclassification" placeholder="请选择" style="width:1200px;"></el-cascader>
       </el-form-item>
 
-      <el-form-item label="环评单位证书编号" prop="companyCertificatenumber">
-        <el-input v-model="basicInfoForm.companyCertificatenumber" type="text" placeholder="环评单位号码" style="width:700px;"></el-input>
+      <el-form-item label="环评单位名称" prop="EAcompanyName">
+        <el-input v-model="basicInfoForm.EAcompanyName" type="text" placeholder="环评单位全称" style="width:700px;"></el-input>
       </el-form-item>
 
-      <el-form-item label="环评单位联系电话" prop="companyTelephone">
-        <el-input v-model="basicInfoForm.companyTelephone" type="text" placeholder="环评报告联系人电话" style="width:700px;"></el-input>
+      <el-form-item label="环评单位证书编号" prop="EAcompanyCertificatenumber">
+        <el-input v-model="basicInfoForm.EAcompanyCertificatenumber" type="text" placeholder="环评单位号码" style="width:700px;"></el-input>
       </el-form-item>
 
-      <el-form-item label="环评单位联系地址" prop="companyAddress">
-        <el-input v-model="basicInfoForm.companyAddress" type="text" placeholder="环评单位地址" style="width:700px;"></el-input>
+      <el-form-item label="环评单位联系电话" prop="EAcompanyTelephone">
+        <el-input v-model="basicInfoForm.EAcompanyTelephone" type="text" placeholder="环评报告联系人电话" style="width:700px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="环评单位联系地址" prop="EAcompanyAddress">
+        <el-input v-model="basicInfoForm.EAcompanyAddress" type="text" placeholder="环评单位地址" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="项目地址" prop="address">
@@ -93,47 +79,47 @@
       </el-form-item>
 
       <el-form-item label="项目总投资（万元）" prop="totalInvestment">
-        <el-input v-model="basicInfoForm.totalInvestment" type="text" placeholder="对照营业执照，数字" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.totalInvestment" type="text" placeholder="对照营业执照，数字" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="环保投资（万元）" prop="environmentalProtectionInvestment">
-        <el-input v-model="basicInfoForm.environmentalProtectionInvestment" type="text" placeholder="比例约为项目总投资的10-15%" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.environmentalProtectionInvestment" type="text" placeholder="比例约为项目总投资的10-15%" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="占地面积（m²）" prop="floorSpace">
-        <el-input v-model="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致，整数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致，整数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="经营面积（m²）" prop="managementSpace">
-        <el-input v-model="basicInfoForm.managementSpace" type="text" placeholder="多层建筑要用占地面积乘以层数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.managementSpace" type="text" placeholder="多层建筑要用占地面积乘以层数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="职工不住宿人数（人）" prop="nonAccommodationNum">
-        <el-input v-model="basicInfoForm.nonAccommodationNum" type="text" placeholder="整数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.nonAccommodationNum" type="text" placeholder="整数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="职工住宿人数（人）" prop="accommodationNum">
-        <el-input v-model="basicInfoForm.accommodationNum" type="text" placeholder="整数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.accommodationNum" type="text" placeholder="整数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="员工吃饭人数（人）" prop="dinningNum">
-        <el-input v-model="basicInfoForm.dinningNum" type="text" placeholder="整数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.dinningNum" type="text" placeholder="整数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="日工作时间（小时）" prop="dayWorkTime">
-        <el-input v-model="basicInfoForm.dayWorkTime" type="text" placeholder="小时数，整数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.dayWorkTime" type="text" placeholder="小时数，整数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="年工作时间（日）" prop="yearWorkTime">
-        <el-input v-model="basicInfoForm.yearWorkTime" type="text" placeholder="天数，整数" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.yearWorkTime" type="text" placeholder="天数，整数" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="投产时间" prop="investmentTime">
-        <el-input v-model="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="电年耗量" prop="annualPowerConsumption">
-        <el-input v-model="basicInfoForm.annualPowerConsumption" type="text" placeholder="万kWh/a，整数或小数一位" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="万kWh/a，整数或小数一位" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="东" prop="east">
@@ -153,71 +139,60 @@
       </el-form-item>
 
       <el-form-item label="经度" prop="longtitude">
-        <el-input v-model="basicInfoForm.longtitude" type="text" placeholder="小数点后6位" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.longtitude" type="text" placeholder="小数点后6位" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="纬度" prop="latitude">
-        <el-input v-model="basicInfoForm.latitude" type="text" placeholder="小数点后6位" style="width:700px;"></el-input>
+        <el-input v-model.number="basicInfoForm.latitude" type="text" placeholder="小数点后6位" style="width:700px;"></el-input>
       </el-form-item>
     </el-form>
-
-  <el-tooltip class="item" effect="dark" content="保存" placement="right">
-    <el-button  style="margin-top:10px" type="success" @click="putBasicFormInfo" >提交修改</el-button>
-  </el-tooltip>
-  </el-main>
-</el-container>
-  </div>
 </template>
 
 <script>
-import { getFormInfo } from '@/api/project'
-import { putFormInfo } from '@/api/project'
-
+// import { isvalidUsername } from '@/utils/validate'
 export default {
-
+  name: 'basicInfoFormComponent',
+  props: ['basicInfoForm'],
   data() {
     return {
-      active: 0,
-      projectId: 1,
-      basicInfoForm: {
-        projectType: '',
-        enterpriseName: '',
-        nameAbbreviation: '',
-        NEIType: [],
-        companyName: '',
-        dinningNum: '',
-        address: '',
-        postalCode: '',
-        corporateName: '',
-        corporateId: '',
-        contacts: '',
-        telephone: '',
-        totalInvestment: '',
-        environmentalProtectionInvestment: '',
-        floorSpace: '',
-        managementSpace: '',
-        nonAccommodationNum: '',
-        accommodationNum: '',
-        dayWorkTime: '',
-        yearWorkTime: '',
-        investmentTime: '',
-        annualPowerConsumption: '',
-        east: '',
-        south: '',
-        west: '',
-        north: '',
-        longtitude: '',
-        latitude: '',
-        constructionScale: '',
-        societyCreditcode: '',
-        businessRange: '',
-        companyCertificatenumber: '',
-        companyTelephone: '',
-        companyAddress: '',
-        environmentalEffectclassification: []
+      formRules: {
+        projectType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
+        enterpriseName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        nameAbbreviation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        NEIType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
+        environmentalEffectclassification: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请选择' }],
+        EAcompanyName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        EAcompanyCertificatenumber: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        EAcompanyTelephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^1\d{10}$/ }],
+        EAcompanyAddress: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        address: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        postalCode: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^[1-9]\d{5}(?!\d)$/ }],
+        corporateName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        corporateId: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/ }],
+        constructionScale: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        societyCreditcode: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        businessRange: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        contacts: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        telephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^1\d{10}$/ }],
+        totalInvestment: [{ required: false, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        environmentalProtectionInvestment: [{ required: false, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        floorSpace: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        managementSpace: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        nonAccommodationNum: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        accommodationNum: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        dinningNum: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        dayWorkTime: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        yearWorkTime: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        investmentTime: [{ required: false, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        annualPowerConsumption: [{ required: false, whitespace: true, trigger: 'blur', type: 'float', message: '请输入正确的格式' }],
+        east: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        south: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        west: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        north: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        longtitude: [{ required: false, whitespace: true, trigger: 'blur', type: 'float', message: '请输入正确的格式' }],
+        latitude: [{ required: false, whitespace: true, trigger: 'blur', type: 'float', message: '请输入正确的格式' }]
       },
-
-      options1: [{
+      NEITypeOptions: [{
         value: 'C 制造业', label: 'C 制造业',
         children: [
           { value: 'C1391 淀粉及淀粉制品制造', label: 'C1391 淀粉及淀粉制品制造' },
@@ -355,7 +330,7 @@ export default {
         ] }
       ],
 
-      options2: [{
+      environmentalEffectclassificationOptions: [{
         value: '一、畜牧业', label: '一、畜牧业',
         children: [{ value: '1、畜禽养殖场、养殖小区', label: '1、畜禽养殖场、养殖小区' }
         ] },
@@ -553,105 +528,6 @@ export default {
           { value: '126、汽车、摩托车维修场所（营业面积5000平方米及以上；涉及环境敏感区的）', label: '126、汽车、摩托车维修场所（营业面积1000平方米及以上；涉及环境敏感区的）' }
         ] }
       ]
-    }
-  },
-  created() {
-    this.getBasicFormInfo()
-  },
-  methods: {
-    getBasicFormInfo() {
-      getFormInfo(this.projectId).then(response => {
-        this.basicInfoForm.projectType = response.projectInfo.projectType
-        this.basicInfoForm.enterpriseName = response.projectInfo.enterpriseName
-        this.basicInfoForm.nameAbbreviation = response.projectInfo.nameAbbreviation
-        this.basicInfoForm.NEIType = response.projectInfo.NEIType
-        this.basicInfoForm.companyName = response.projectInfo.companyName
-        this.basicInfoForm.dinningNum = response.projectInfo.dinningNum
-        this.basicInfoForm.address = response.projectInfo.address
-        this.basicInfoForm.postalCode = response.projectInfo.postalCode
-        this.basicInfoForm.corporateName = response.projectInfo.corporateName
-        this.basicInfoForm.corporateId = response.projectInfo.corporateId
-        this.basicInfoForm.contacts = response.projectInfo.contacts
-        this.basicInfoForm.telephone = response.projectInfo.telephone
-        this.basicInfoForm.totalInvestment = response.projectInfo.totalInvestment
-        this.basicInfoForm.environmentalProtectionInvestment = response.projectInfo.environmentalProtectionInvestment
-        this.basicInfoForm.floorSpace = response.projectInfo.floorSpace
-        this.basicInfoForm.managementSpace = response.projectInfo.managementSpace
-        this.basicInfoForm.nonAccommodationNum = response.projectInfo.nonAccommodationNum
-        this.basicInfoForm.accommodationNum = response.projectInfo.accommodationNum
-        this.basicInfoForm.dayWorkTime = response.projectInfo.dayWorkTime
-        this.basicInfoForm.yearWorkTime = response.projectInfo.yearWorkTime
-        this.basicInfoForm.investmentTime = response.projectInfo.investmentTime
-        this.basicInfoForm.annualPowerConsumption = response.projectInfo.annualPowerConsumption
-        this.basicInfoForm.east = response.projectInfo.east
-        this.basicInfoForm.south = response.projectInfo.south
-        this.basicInfoForm.west = response.projectInfo.west
-        this.basicInfoForm.north = response.projectInfo.north
-        this.basicInfoForm.longtitude = response.projectInfo.longtitude
-        this.basicInfoForm.latitude = response.projectInfo.latitude
-        this.basicInfoForm.constructionScale = response.projectInfo.constructionScale
-        this.basicInfoForm.societyCreditcode = response.projectInfo.societyCreditcode
-        this.basicInfoForm.businessRange = response.projectInfo.businessRange
-        this.basicInfoForm.companyCertificatenumber = response.projectInfo.companyCertificatenumber
-        this.basicInfoForm.companyTelephone = response.projectInfo.companyTelephone
-        this.basicInfoForm.companyAddress = response.projectInfo.companyAddress
-        this.basicInfoForm.environmentalEffectclassification = response.projectInfo.environmentalEffectclassification
-      })
-    },
-    putBasicFormInfo() {
-      this.$message({
-        message: '修改成功',
-        type: 'success'
-      })
-      putFormInfo(this.basicInfoForm).then(response => {})
-      this.loading = false
-    },
-    openDialog() {
-      console.log('fdsdf')
-      this.$confirm('是否保存对基础信息的修改', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '保存成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消保存'
-        })
-      })
-    },
-    next() {
-      switch (this.active) {
-        case 0:
-          this.$router.push({ path: '/form/form2' })
-          break
-        case 1:
-          this.$router.push({ path: '/form/form3' })
-          break
-        case 2:
-          this.$router.push({ path: '/form/form4' })
-          break
-        case 3:
-          this.$router.push({ path: '/form/form5' })
-          break
-
-        default:
-          break
-      }
-      if (this.active++ > 4) {
-        this.active = 0
-        this.$router.push({ path: '/form/form1' })
-      }
-    },
-    previous() {
-      if (this.active > 0) {
-        this.active--
-        this.$router.go(-1)
-      }
     }
   }
 }
