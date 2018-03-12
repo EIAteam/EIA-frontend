@@ -121,21 +121,6 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/test',
-    component: Layout,
-    redirect: '/test/form',
-    meta: { title: '测试', icon: 'form' },
-    children: [
-      {
-        path: 'form',
-        name: 'form',
-        component: () => import('@/views/test/form'),
-        meta: { title: '测试', icon: 'form' }
-      }
-    ]
-  },
-
-  {
     path: '/company',
     component: Layout,
     redirect: '/company/companyList',

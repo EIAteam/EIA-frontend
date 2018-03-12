@@ -44,6 +44,10 @@
         v-model="basicInfoForm.environmentalEffectclassification" placeholder="请选择" style="width:1200px;"></el-cascader>
       </el-form-item>
 
+      <el-form-item label="环评单位名称" prop="companyName">
+        <el-input v-model="basicInfoForm.companyName" type="text" placeholder="环评单位全称" style="width:700px;"></el-input>
+      </el-form-item>
+
       <el-form-item label="环评单位证书编号" prop="companyCertificatenumber">
         <el-input v-model="basicInfoForm.companyCertificatenumber" type="text" placeholder="环评单位号码" style="width:700px;"></el-input>
       </el-form-item>
@@ -132,8 +136,8 @@
         <el-input v-model="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算" style="width:700px;"></el-input>
       </el-form-item>
 
-      <el-form-item label="电年耗量" prop="annualPowerConsumption">
-        <el-input v-model="basicInfoForm.annualPowerConsumption" type="text" placeholder="万kWh/a，整数或小数一位" style="width:700px;"></el-input>
+      <el-form-item label="电年耗量(万kWh/a)" prop="annualPowerConsumption">
+        <el-input v-model="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="东" prop="east">
