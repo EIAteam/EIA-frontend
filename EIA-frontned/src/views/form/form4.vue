@@ -39,21 +39,21 @@
     </el-table-column>
 
       </el-table>
-    <el-button  style="margin-top:10px;margin-left:500px;width:300px;" type="primary" @click="addRow" >如有需要请按此按钮，新增一行环保工程</el-button>
+    <el-button  style="margin-top:10px;margin-left:500px;width:300px;" type="primary" @click="addRowEnvironmentalProtectionEngineering" >如有需要请按此按钮，新增一行环保工程</el-button>
     </el-tab-pane>
 <!-- ./敏感点信息 -->
     <el-tab-pane label="敏感点信息" name="second">
 
-  <el-table :data="sensitiveInfoData1" style="width: 100%"  fit highlight-current-row border :span-method="spanMethod">
+  <el-table :data="sensitiveInfoWaterData" style="width: 100%"  fit highlight-current-row border>
 
-    <el-table-column label="环境要素" width="180">
+    <el-table-column label="环境要素" width="100">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
       </template>
     </el-table-column>
     <el-table-column label="环境敏感点" width="300">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.environmentalSensitivePoint" placeholder="请填入附近的河涌名称"></el-input>
+        <el-input v-model="scope.row.environmentalSensitivePoint" placeholder="请填入附近的河涌名称" ></el-input>
       </template>
     </el-table-column>
     <el-table-column label="方位" width="180">
@@ -66,15 +66,21 @@
         <el-input v-model="scope.row.distance"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="380">
+    <el-table-column label="环境保护目标" width="350">
       <template slot-scope="scope">
         {{scope.row.environmentalObjective}}
+      </template>
+    </el-table-column>
+    <el-table-column label="操作" width="148">
+      <template slot-scope="scope">
+        <el-button  plain size="small" type="primary" @click="addRowWaterEnvironment" >增加</el-button>
+        <el-button plain type="danger" size="small" @click="deleteWaterEnvironment(scope.$index)" >删除</el-button>
       </template>
     </el-table-column>
 
   </el-table>
 
-  <el-table :data="sensitiveInfoData2" style="width: 100%"  fit highlight-current-row border>
+  <el-table :data="sensitiveInfoVoiceData" style="width: 100%"  fit highlight-current-row border>
 
     <el-table-column label="环境要素" width="180">
       <template slot-scope="scope">
@@ -99,11 +105,11 @@
 
   </el-table>
 
-  <el-table :data="sensitiveInfoData3" style="width: 100%"  fit highlight-current-row border>
+  <el-table :data="sensitiveInfoHouseData" style="width: 100%"  fit highlight-current-row border>
 
     <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.environmentalElements" placeholder="请填入名居名称或水源保护区名称，500米范围内"></el-input>
+        <el-input v-model="scope.row.environmentalElements" placeholder="请填入名居名称，500米范围内"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="方位" width="200">
@@ -116,14 +122,51 @@
         <el-input v-model="scope.row.distance"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="250">
+    <el-table-column label="环境保护目标" width="330">
       <template slot-scope="scope">
         {{scope.row.environmentalObjective}}
       </template>
     </el-table-column>
+    <el-table-column label="操作" width="148">
+      <template slot-scope="scope">
+        <el-button  plain size="small" type="primary" @click="addRowHouseName" >增加</el-button>
+        <el-button plain type="danger" size="small" @click="deleteHouseName(scope.$index)">删除</el-button>
+      </template>
+    </el-table-column>
 
   </el-table>
-    <el-button  style="margin-top:10px;margin-left:500px;width:300px; " type="primary" @click="addRow2" >按此按钮增加行数</el-button>
+
+  <el-table :data="sensitiveInfoReserveData" style="width: 100%"  fit highlight-current-row border>
+
+    <el-table-column label="环境要素" width="380">
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.environmentalElements" placeholder="请填入水源保护区名称，500米范围内"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="方位" width="200">
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.orientation"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="距离（m）" width="200">
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.distance"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="环境保护目标" width="330">
+      <template slot-scope="scope">
+        {{scope.row.environmentalObjective}}
+      </template>
+    </el-table-column>
+    <el-table-column label="操作" width="148">
+      <template slot-scope="scope">
+        <el-button  plain size="small" type="primary" @click="addRowWaterReserve" >增加</el-button>
+        <el-button plain type="danger" size="small" @click="deleteWaterReserve(scope.$index)">删除</el-button>
+      </template>
+    </el-table-column>
+
+
+  </el-table>
     </el-tab-pane>
 <!-- ./废气排放标准表 -->
     <el-tab-pane label="废气排放标准表" name="third">
@@ -152,16 +195,21 @@
         {{scope.row.emissionMonitoring}}
       </template>
     </el-table-column>
-    <el-table-column label="标准" width="600">
+    <el-table-column label="标准" width="550">
       <template slot-scope="scope">
         <el-select v-model="scope.row.standard" placeholder="请选择标准" @change="getStandard(scope.$index,$event)" style="width:530px;">
           <el-option v-for="item in standardOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
         </el-select>
       </template>
     </el-table-column>
+    <el-table-column label="操作" width="95">
+      <template slot-scope="scope">
+        <el-button plain type="danger" size="small" @click="deleteEmissions(scope.$index)">删除</el-button>
+      </template>
+    </el-table-column>
 
   </el-table>
-    <el-button  style="margin-top:10px;margin-left:500px;width:300px; " type="primary" @click="addRow1" >按此按钮增加行数</el-button>
+    <el-button  style="margin-top:10px;margin-left:500px;width:300px; " type="primary" @click="addRowEmissions" >按此按钮增加行数</el-button>
     </el-tab-pane>
 
   </el-tabs>
@@ -172,7 +220,6 @@
 </el-container>
 </div>
 </template>
-
 
 <script>
 import { getFormInfo } from '@/api/project'
@@ -209,30 +256,16 @@ export default {
           use: ''
         }
       ],
-      sensitiveInfoData1: [
+      sensitiveInfoWaterData: [
         {
           environmentalElements: '水环境',
-          environmentalSensitivePoint: '',
-          orientation: '',
-          distance: '',
-          environmentalObjective: '《地表水环境质量标准》（GB3838-2002）中的III类标准'
-        },
-        {
-          environmentalElements: '',
-          environmentalSensitivePoint: '',
-          orientation: '',
-          distance: '',
-          environmentalObjective: ''
-        },
-        {
-          environmentalElements: '',
           environmentalSensitivePoint: '',
           orientation: '',
           distance: '',
           environmentalObjective: ''
         }
       ],
-      sensitiveInfoData2: [
+      sensitiveInfoVoiceData: [
         {
           environmentalElements: '大气环境',
           orientation: '---',
@@ -243,15 +276,23 @@ export default {
           environmentalElements: '声环境',
           orientation: '---',
           distance: '---',
-          environmentalObjective: '《声环境质量标准》（GB3096-2008）中的2类标准'
+          environmentalObjective: ''
         }
       ],
-      sensitiveInfoData3: [
+      sensitiveInfoHouseData: [
         {
           environmentalElements: '',
           orientation: '',
           distance: '',
-          environmentalObjective: '环境空气二级标准，声环境2类标准'
+          environmentalObjective: ''
+        }
+      ],
+      sensitiveInfoReserveData: [
+        {
+          environmentalElements: '',
+          orientation: '',
+          distance: '',
+          environmentalObjective: ''
         }
       ],
       standardOptions: [
@@ -284,12 +325,15 @@ export default {
         getFormInfo().then(response => {
           this.tableData.content = response.tableData.content
           this.tableData.use = response.tableData.use
-          this.sensitiveInfoData1.environmentalSensitivePoint = response.sensitiveInfoData1.environmentalSensitivePoint
-          this.sensitiveInfoData1.orientation = response.sensitiveInfoData1.orientation
-          this.sensitiveInfoData1.distance = response.sensitiveInfoData1.distance
-          this.sensitiveInfoData3.environmentalElements = response.sensitiveInfoData3.environmentalElements
-          this.sensitiveInfoData3.orientation = response.sensitiveInfoData3.orientation
-          this.sensitiveInfoData3.distance = response.sensitiveInfoData3.distance
+          this.sensitiveInfoWaterData.environmentalSensitivePoint = response.sensitiveInfoWaterData.environmentalSensitivePoint
+          this.sensitiveInfoWaterData.orientation = response.sensitiveInfoWaterData.orientation
+          this.sensitiveInfoWaterData.distance = response.sensitiveInfoWaterData.distance
+          this.sensitiveInfoHouseData.environmentalElements = response.sensitiveInfoHouseData.environmentalElements
+          this.sensitiveInfoHouseData.orientation = response.sensitiveInfoHouseData.orientation
+          this.sensitiveInfoHouseData.distance = response.sensitiveInfoHouseData.distance
+          this.sensitiveInfoReserveData.environmentalElements = response.sensitiveInfoReserveData.environmentalElements
+          this.sensitiveInfoReserveData.orientation = response.sensitiveInfoReserveData.orientation
+          this.sensitiveInfoReserveData.distance = response.sensitiveInfoReserveData.distance
           this.emissionStandardFormData.standard = response.emissionStandardFormData.standard
           this.emissionStandardFormData.pollutant = response.emissionStandardFormData.pollutant
           this.emissionStandardFormData.pollutantOptions = response.emissionStandardFormData.pollutantOptions
@@ -302,32 +346,24 @@ export default {
         })
       })
     },
-    addRow() {
+    addRowEnvironmentalProtectionEngineering() {
       this.tableData.push({ project: '环保工程', content: '', use: '' })
     },
-    addRow1() {
+    addRowEmissions() {
       this.emissionStandardFormData.push({
         pollutant: '', standard: '', emissionMonitoring: '', maximumAllowableEmissionRate: '', maximumAllowableEmissionConcentration: '' })
     },
-    addRow2() {
-      this.sensitiveInfoData3.push({
-        environmentalElements: '', orientation: '', distance: '', environmentalObjective: '环境空气二级标准，声环境2类标准' })
+    addRowHouseName() {
+      this.sensitiveInfoHouseData.push({
+        environmentalElements: '', orientation: '', distance: '', environmentalObjective: '' })
     },
-    spanMethod({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex === 0) {
-        if (rowIndex === 0) {
-          return [3, 1]
-        } else {
-          return [0, 0]
-        }
-      }
-      if (columnIndex === 4) {
-        if (rowIndex === 0) {
-          return [3, 1]
-        } else {
-          return [0, 0]
-        }
-      }
+    addRowWaterReserve() {
+      this.sensitiveInfoReserveData.push({
+        environmentalElements: '', orientation: '', distance: '', environmentalObjective: '' })
+    },
+    addRowWaterEnvironment() {
+      this.sensitiveInfoWaterData.push({
+        environmentalElements: '水环境', environmentalSensitivePoint: '', orientation: '', distance: '', environmentalObjective: '' })
     },
     getStandard: function(index, standard) {
       const tempPollutantOptions = []
@@ -397,7 +433,7 @@ export default {
         message: '修改成功',
         type: 'success'
       })
-      putFormInfo(this.tableData, this.sensitiveInfoData1, this.materialData).then(response => {})
+      putFormInfo(this.tableData, this.sensitiveInfoWaterData, this.materialData).then(response => {})
       this.loading = false
     },
     next() {
@@ -426,6 +462,30 @@ export default {
       if (this.active > 0) {
         this.active--
         this.$router.go(-1)
+      }
+    },
+    deleteWaterEnvironment(index) {
+      if (this.sensitiveInfoWaterData.length === 1) {
+        this.sensitiveInfoWaterData.splice(index, 0)
+      } else {
+        this.sensitiveInfoWaterData.splice(index, 1)
+      }
+    },
+    deleteEmissions(index) {
+      this.emissionStandardFormData.splice(index, 1)
+    },
+    deleteHouseName(index) {
+      if (this.sensitiveInfoHouseData.length === 1) {
+        this.sensitiveInfoHouseData.splice(index, 0)
+      } else {
+        this.sensitiveInfoHouseData.splice(index, 1)
+      }
+    },
+    deleteWaterReserve(index) {
+      if (this.sensitiveInfoReserveData.length === 1) {
+        this.sensitiveInfoReserveData.splice(index, 0)
+      } else {
+        this.sensitiveInfoReserveData.splice(index, 1)
       }
     }
   }

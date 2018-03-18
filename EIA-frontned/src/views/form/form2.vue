@@ -83,7 +83,7 @@
         <el-input v-model="scope.row.remark" size="small"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="备注" width="180">
+    <el-table-column label="材料状态" width="180">
       <template slot-scope="scope">
         <el-select v-model="scope.row.state" placeholder="请选择">
           <el-option v-for="item in stateOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -95,7 +95,7 @@
         <el-input v-model="scope.row.ratio" size="small"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="操作" width="150">
+    <el-table-column label="操作" width="140">
       <template slot-scope="scope">
         <el-button plain type="danger" size="small" @click="deleteMaterial(scope.$index)">删除</el-button>
       </template>
@@ -112,7 +112,7 @@
     <el-table-column type="index" width="50">
     </el-table-column>
 
-    <el-table-column label="产品名称" width="200">
+    <el-table-column label="设备名称" width="200">
       <template slot-scope="scope">
         <el-input v-model="scope.row.equipmentName" size="small"></el-input>
         <el-input v-model="scope.row.id" size="small" style="display:none"></el-input>
@@ -252,10 +252,10 @@ export default {
       this.productsData.push({ productName: '', num: '', unit: '', remark: '' })
     },
     addMaterial() {
-      this.materialData.push({ productName: '', num: '', unit: '', remark: '' })
+      this.materialData.push({ materialData: '', num: '', unit: '', remark: '', state: '', ratio: '' })
     },
     addEquipment() {
-      this.equipmentData.push({ productName: '', num: '', unit: '', remark: '' })
+      this.equipmentData.push({ equipmentName: '', num: '', unit: '', remark: '' })
     },
     deleteProduct(index) {
       this.productsData.splice(index, 1)

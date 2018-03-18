@@ -1,23 +1,5 @@
 <template>
-  <div class="app-container">
-
-<el-container style="height: 650px;">
-<el-header style="margin-bottom:50px;" >
-  <el-steps :active="active" finish-status="success" align-center>
-      <el-step title="基础信息"></el-step>
-      <el-step title="产品表/材料表/设备表"></el-step>
-      <el-step title="地理信息"></el-step>
-      <el-step title="工程组成/敏感点信息/废气排放标准"></el-step>
-      <el-step title="基础信息附图"></el-step>
-  </el-steps>
-  <el-button-group style="margin-top:10px;margin-left:550px;width:300px;">
-    <el-button type="primary" icon="el-icon-arrow-left"  @click="previous">上一页</el-button>
-    <el-button type="primary" @click="next">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
-  </el-button-group>
-</el-header>
-
-<el-main>
-    <el-form :model="geographicInfoForm" label-width="100px;" ref="geographicInfoForm">
+    <el-form :model="geographicInfoForm" label-width="100px;" ref="geographicInfoForm" :rules="formRules">
       <el-form-item label="所在区镇" prop="township">
         <el-select v-model="geographicInfoForm.township" placeholder="请选择"
         style="width:400px;" @change="getSurfacewaterInformation($event), getDomesticSewage($event)">
@@ -110,38 +92,22 @@
       </el-form-item>
 
     </el-form>
-  <el-tooltip class="item" effect="dark" content="保存" placement="right">
-    <el-button  style="margin-top:10px" type="success" @click="putGeographicFormInfo" >提交修改</el-button>
-  </el-tooltip>
-</el-main>
-</el-container>
-  </div>
 </template>
 
 <script>
-import { getFormInfo } from '@/api/project'
-import { putFormInfo } from '@/api/project'
 export default {
+  name: 'geographicInfoFormComponent',
+  props: ['geographicInfoForm'],
   data() {
     return {
-      active: 2,
-      geographicInfoForm: {
-        township: '',
-        soundEnvironmentStandard: '',
-        waterSourceDistance: '',
-        sensitivePointDistance: '',
-        besideWaterTreatmentPlant: '',
-        groundwaterArea: '',
-        domesticSewageGo: '',
-        domesticSewageEnvironmentImpactAnalysis: '',
-        domesticSewageEmissionStandards: '',
-        groundwaterBodyNumber: '',
-        groundwaterQualityStandard: '',
-        groundwaterType: '',
-        specialOptionForSewageTreatmentWorks: '',
-        pollutantHoldingWaterBody: '',
-        surfaceWaterQualityStandard: '',
-        surfaceWaterFunction: ''
+      formRules: {
+        township: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        specialOptionForSewageTreatmentWorks: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        besideWaterTreatmentPlant: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        soundEnvironmentStandard: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        groundwaterArea: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        sensitivePointDistance: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        waterSourceDistance: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }]
       },
       groundwaterAreaOptions: [
         { label: '珠江三角洲佛山南海分散式开发利用区', value: '珠江三角洲佛山南海分散式开发利用区' },
@@ -180,66 +146,7 @@ export default {
       ]
     }
   },
-  created() {
-    this.getGeographicFormInfo()
-  },
   methods: {
-    getGeographicFormInfo() {
-      getFormInfo(this.projectId).then(response => {
-        this.geographicInfoForm.township = response.projectInfo.township
-        this.geographicInfoForm.soundEnvironmentStandard = response.projectInfo.soundEnvironmentStandard
-        this.geographicInfoForm.waterSourceDistance = response.projectInfo.waterSourceDistance
-        this.geographicInfoForm.sensitivePointDistance = response.projectInfo.sensitivePointDistance
-        this.geographicInfoForm.besideWaterTreatmentPlant = response.projectInfo.besideWaterTreatmentPlant
-        this.geographicInfoForm.groundwaterArea = response.projectInfo.groundwaterArea
-        this.geographicInfoForm.domesticSewageGo = response.projectInfo.domesticSewageGo
-        this.geographicInfoForm.domesticSewageEnvironmentImpactAnalysis = response.projectInfo.domesticSewageEnvironmentImpactAnalysis
-        this.geographicInfoForm.domesticSewageEmissionStandards = response.projectInfo.domesticSewageEmissionStandards
-        this.geographicInfoForm.groundwaterBodyNumber = response.projectInfo.groundwaterBodyNumber
-        this.geographicInfoForm.groundwaterQualityStandard = response.projectInfo.groundwaterQualityStandard
-        this.geographicInfoForm.groundwaterType = response.projectInfo.groundwaterType
-        this.geographicInfoForm.specialOptionForSewageTreatmentWorks = response.projectInfo.specialOptionForSewageTreatmentWorks
-        this.geographicInfoForm.pollutantHoldingWaterBody = response.projectInfo.pollutantHoldingWaterBody
-        this.geographicInfoForm.surfaceWaterQualityStandard = response.projectInfo.surfaceWaterQualityStandard
-        this.geographicInfoForm.surfaceWaterFunction = response.projectInfo.surfaceWaterFunction
-      })
-    },
-    putGeographicFormInfo() {
-      this.$message({
-        message: '修改成功',
-        type: 'success'
-      })
-      putFormInfo(this.geographicInfoForm).then(response => {})
-      this.loading = false
-    },
-    next() {
-      switch (this.active) {
-        case 0:
-          this.$router.push({ path: '/form/form2' })
-          break
-        case 1:
-          this.$router.push({ path: '/form/form3' })
-          break
-        case 2:
-          this.$router.push({ path: '/form/form4' })
-          break
-        case 3:
-          this.$router.push({ path: '/form/form5' })
-          break
-        default:
-          break
-      }
-      if (this.active++ > 4) {
-        this.active = 0
-        this.$router.push({ path: '/form/form1' })
-      }
-    },
-    previous() {
-      if (this.active > 0) {
-        this.active--
-        this.$router.go(-1)
-      }
-    },
     getGroundwaterInformation: function(groundwaterArea) {
       const allGroundwaterInformation = [
         { groundwaterArea: '珠江三角洲佛山南海分散式开发利用区', groundwaterInformation: ['孔隙水', 'III类', 'H074406001Q01'] },
