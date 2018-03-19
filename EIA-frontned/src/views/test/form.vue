@@ -107,18 +107,22 @@ export default {
           ratio: ''
         }
       ],
-      tableData: [
-        {
-          project: '',
-          content: '',
-          use: ''
-        },
-        {
-          project: '环保工程',
-          content: '',
-          use: ''
-        }
-      ],
+      tableData: {
+        environmentalProtectionData: [
+          {
+            project: '环保工程',
+            content: '',
+            use: ''
+          }
+        ],
+        referenceData: [
+          {
+            project: '',
+            content: '',
+            use: ''
+          }
+        ]
+      },
       sensitiveInfoData: {
         sensitiveInfoWaterData: [
           {
@@ -167,9 +171,31 @@ export default {
   watch: {
     'geographicInfoForm.surfaceWaterQualityStandard': {
       handler: function(val, oldVal) {
-        console.log(val)
         for (var i in this.sensitiveInfoData.sensitiveInfoWaterData) {
-          this.sensitiveInfoData.sensitiveInfoWaterData[i].environmentalObjective = 'dsdsdds'
+          this.sensitiveInfoData.sensitiveInfoWaterData[i].environmentalObjective = '《地表水环境质量标准》中的' +
+          this.geographicInfoForm.surfaceWaterQualityStandard + '标准'
+        }
+      },
+      deep: true
+    },
+    'geographicInfoForm.soundEnvironmentStandard': {
+      handler: function(val, oldVal) {
+        for (var i in this.sensitiveInfoData.sensitiveInfoVoiceData) {
+          this.sensitiveInfoData.sensitiveInfoVoiceData[i].environmentalObjective = '《声环境质量标准》中的' +
+          this.geographicInfoForm.soundEnvironmentStandard + '标准'
+        }
+        for (var j in this.sensitiveInfoData.sensitiveInfoHouseData) {
+          this.sensitiveInfoData.sensitiveInfoHouseData[j].environmentalObjective = '《环境空气质量标准》中的二级标准,' +
+          this.sensitiveInfoData.sensitiveInfoVoiceData[i].environmentalObjective
+        }
+      },
+      deep: true
+    },
+    'geographicInfoForm.domesticSewageGo': {
+      handler: function(val, oldVal) {
+        for (var i in this.tableData.environmentalProtectionData) {
+          this.tableData.environmentalProtectionData[i].content = '供水来源为市政自来水，生活污水' +
+          this.geographicInfoForm.domesticSewageGo
         }
       },
       deep: true

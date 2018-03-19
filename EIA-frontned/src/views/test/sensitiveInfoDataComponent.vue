@@ -11,19 +11,19 @@
         <el-input v-model="scope.row.environmentalSensitivePoint" placeholder="请填入附近的河涌名称" ></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="方位" width="180">
+    <el-table-column label="方位" width="150">
       <template slot-scope="scope">
         <el-input v-model="scope.row.orientation"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="距离（m）" width="180">
+    <el-table-column label="距离（m）" width="150">
       <template slot-scope="scope">
         <el-input v-model="scope.row.distance"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="375">
+    <el-table-column label="环境保护目标" width="418">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.environmentalObjective"></el-input>
+        {{scope.row.environmentalObjective}}
       </template>
     </el-table-column>
     <el-table-column label="操作" width="148">
@@ -159,7 +159,7 @@ export default {
   methods: {
     addRowHouseName() {
       this.sensitiveInfoData.sensitiveInfoHouseData.push({
-        environmentalElements: '', orientation: '', distance: '', environmentalObjective: '' })
+        environmentalElements: '', orientation: '', distance: '', environmentalObjective: this.sensitiveInfoData.sensitiveInfoHouseData[0].environmentalObjective })
     },
     addRowWaterReserve() {
       this.sensitiveInfoData.sensitiveInfoReserveData.push({
@@ -167,7 +167,7 @@ export default {
     },
     addRowWaterEnvironment() {
       this.sensitiveInfoData.sensitiveInfoWaterData.push({
-        environmentalElements: '水环境', environmentalSensitivePoint: '', orientation: '', distance: '', environmentalObjective: '' })
+        environmentalElements: '水环境', environmentalSensitivePoint: '', orientation: '', distance: '', environmentalObjective: this.sensitiveInfoData.sensitiveInfoWaterData[0].environmentalObjective })
     },
     deleteWaterEnvironment(index) {
       if (this.sensitiveInfoData.sensitiveInfoWaterData.length === 1) {

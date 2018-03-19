@@ -35,12 +35,12 @@
 
       <el-form-item label="声环境质量标准" prop="soundEnvironmentStandard">
         <el-select v-model="geographicInfoForm.soundEnvironmentStandard" placeholder="请选择">
-          <el-option label="0类" value=1></el-option>
-          <el-option label="1类" value=2></el-option>
-          <el-option label="2类" value=3></el-option>
-          <el-option label="3类" value=4></el-option>
-          <el-option label="4a类" value=5></el-option>
-          <el-option label="4b类" value=6></el-option>
+          <el-option label="0类" value="0类"></el-option>
+          <el-option label="1类" value="1类"></el-option>
+          <el-option label="2类" value="2类"></el-option>
+          <el-option label="3类" value="3类"></el-option>
+          <el-option label="4a类" value="4a类"></el-option>
+          <el-option label="4b类" value="4b类"></el-option>
         </el-select>
       </el-form-item>
 

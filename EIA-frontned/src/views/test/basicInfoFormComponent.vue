@@ -164,7 +164,7 @@ export default {
         environmentalEffectclassification: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
         EAcompanyName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         EAcompanyCertificatenumber: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        EAcompanyTelephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^1\d{10}$/ }],
+        EAcompanyTelephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/ }],
         EAcompanyAddress: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         address: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         postalCode: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^[1-9]\d{5}(?!\d)$/ }],
@@ -756,9 +756,9 @@ export default {
     },
     loadAll() {
       return [
-        { 'value': '广东森海环保顾问股份有限公司', lable: '广东森海环保顾问股份有限公司' },
-        { 'value': '深圳市环新环保技术有限公司', lable: '深圳市环新环保技术有限公司' },
-        { 'value': '广东顺德环境科学研究院有限公司', lable: '广东顺德环境科学研究院有限公司' }
+        { 'value': '广东森海环保顾问股份有限公司' },
+        { 'value': '深圳市环新环保技术有限公司' },
+        { 'value': '广东顺德环境科学研究院有限公司' }
       ]
     },
     handleSelect: function($event, item) {

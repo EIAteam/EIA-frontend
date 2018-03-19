@@ -1,6 +1,31 @@
 <template>
+<div>
+  <el-table :data="tableData.environmentalProtectionData" style="width: 100% " fit highlight-current-row border  ref="tableData.environmentalProtectionData" :rules="dataRules">
 
-  <el-table :data="tableData" style="width: 100% " fit highlight-current-row border  ref="tableData" :rules="dataRules">
+    <el-table-column label="项目" width="133">
+      <template slot-scope="scope">
+        {{scope.row.project}}
+      </template>
+    </el-table-column>
+    <el-table-column label="内容" width="500">
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.content" type="textarea"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="用途" width="500">
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.use" type="textarea"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="操作" width="150">
+      <template slot-scope="scope">
+        <el-button plain type="primary" size="small" @click="addEnvironmentalProtectionData" >增加</el-button>
+        <el-button plain type="danger" size="small" @click="deleteEnvironmentalProtectionData(scope.$index)">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+
+  <el-table :data="tableData.referenceData" style="width: 100% " fit highlight-current-row border  ref="tableData.referenceData" :rules="dataRules">
 
     <el-table-column label="项目" width="133">
       <template slot-scope="scope">
@@ -20,11 +45,13 @@
     </el-table-column>
     <el-table-column label="操作" width="150">
       <template slot-scope="scope">
-        <el-button plain type="primary" size="small" @click="addTable" >增加</el-button>
-        <el-button plain type="danger" size="small" @click="deleteTable(scope.$index)">删除</el-button>
+        <el-button plain type="primary" size="small" @click="addReferenceData" >增加</el-button>
+        <el-button plain type="danger" size="small" @click="deleteReferenceData(scope.$index)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
+
+</div>
 </template>
 
 <script>
@@ -41,32 +68,42 @@ export default {
     }
   },
   methods: {
-    addTable() {
-      this.tableData.push({ project: '', content: '', use: '' })
+    addEnvironmentalProtectionData() {
+      this.tableData.environmentalProtectionData.push({ project: '环保工程', content: this.tableData.environmentalProtectionData[0].content, use: '' })
     },
-    deleteTable(index) {
-      if (this.tableData.length === 1) {
-        this.tableData.splice(index, 0)
+    addReferenceData() {
+      this.tableData.referenceData.push({ project: '', content: '', use: '' })
+    },
+    deleteEnvironmentalProtectionData(index) {
+      if (this.tableData.environmentalProtectionData.length === 1) {
+        this.tableData.environmentalProtectionData.splice(index, 0)
       } else {
-        this.tableData.splice(index, 1)
+        this.tableData.environmentalProtectionData.splice(index, 1)
+      }
+    },
+    deleteReferenceData(index) {
+      if (this.tableData.referenceData.length === 1) {
+        this.tableData.referenceData.splice(index, 0)
+      } else {
+        this.tableData.referenceData.splice(index, 1)
       }
     },
     querySearch(queryString, cb) {
-      var engineering = this.engineering
-      var results = queryString ? engineering.filter(this.createFilter(queryString)) : engineering
+      var reference = this.reference
+      var results = queryString ? reference.filter(this.createFilter(queryString)) : reference
       cb(results)
     },
     createFilter(queryString) {
-      return (engineering) => {
-        return (engineering.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
+      return (reference) => {
+        return (reference.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
       }
     },
     loadAll() {
       return [
         { 'value': '主体工程' },
-        { 'value': '贮运工程' },
         { 'value': '辅助工程' },
-        { 'value': '公用工程' }
+        { 'value': '公用工程' },
+        { 'value': '贮运工程' }
       ]
     },
     handleSelect: function(item) {
@@ -74,7 +111,7 @@ export default {
     }
   },
   mounted() {
-    this.engineering = this.loadAll()
+    this.reference = this.loadAll()
   }
 }
 
