@@ -164,6 +164,17 @@ export default {
       }
     }
   },
+  watch: {
+    'geographicInfoForm.surfaceWaterQualityStandard': {
+      handler: function(val, oldVal) {
+        console.log(val)
+        for (var i in this.sensitiveInfoData.sensitiveInfoWaterData) {
+          this.sensitiveInfoData.sensitiveInfoWaterData[i].environmentalObjective = 'dsdsdds'
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
     test1() {
       this.$refs.basicInfoForm.$refs.basicInfoForm.validate(valid => { this.basicInfoFormValidate = valid })
