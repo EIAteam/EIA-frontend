@@ -109,7 +109,8 @@ export default {
             orientation: '',
             distance: '',
             environmentalObjective: ''
-          }],
+          }
+        ],
         sensitiveInfoVoiceData: [
           {
             environmentalElements: '大气环境',
@@ -130,7 +131,8 @@ export default {
             orientation: '',
             distance: '',
             environmentalObjective: ''
-          }],
+          }
+        ],
         sensitiveInfoHouseData: [
           {
             environmentalElements: '',

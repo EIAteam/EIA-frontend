@@ -72,7 +72,7 @@
       </el-form-item>
 
       <el-form-item label="生活污水排放标准" prop="domesticSewageEmissionStandards">
-        <el-input v-model="geographicInfoForm.domesticSewageEmissionStandards" type="textarea" rows="5" style="width:1000px;" :disabled="true"></el-input>
+        <el-input v-model="geographicInfoForm.domesticSewageEmissionStandards" type="textarea"  style="width:1000px;" :disabled="true"></el-input>
       </el-form-item>
 
       <el-form-item label="敏感点距离" prop="sensitivePointDistance">
