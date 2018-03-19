@@ -21,15 +21,38 @@
         <el-input v-model="scope.row.distance"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="350">
+    <el-table-column label="环境保护目标" width="375">
       <template slot-scope="scope">
-        {{scope.row.environmentalObjective}}
+        <el-input v-model="scope.row.environmentalObjective"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="操作" width="148">
       <template slot-scope="scope">
         <el-button  plain size="small" type="primary" @click="addRowWaterEnvironment" >增加</el-button>
         <el-button plain type="danger" size="small" @click="deleteWaterEnvironment(scope.$index)" >删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+
+  <el-table :data="sensitiveInfoData.sensitiveInfoAtmosphereData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoAtmosphereData" :rules="dataRules">
+    <el-table-column label="环境要素" width="180">
+      <template slot-scope="scope">
+        {{scope.row.environmentalElements}}
+      </template>
+    </el-table-column>
+    <el-table-column label="方位" width="200">
+      <template slot-scope="scope">
+        {{scope.row.orientation}}
+      </template>
+    </el-table-column>
+    <el-table-column label="距离（m）" width="200">
+      <template slot-scope="scope">
+        {{scope.row.distance}}
+      </template>
+    </el-table-column>
+    <el-table-column label="环境保护目标" width="380">
+      <template slot-scope="scope">
+        {{scope.row.environmentalObjective}}
       </template>
     </el-table-column>
   </el-table>

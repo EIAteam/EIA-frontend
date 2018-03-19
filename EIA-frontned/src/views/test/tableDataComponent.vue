@@ -1,14 +1,16 @@
 <template>
-      <el-table :data="tableData" style="width: 100% " fit highlight-current-row border  ref="tableData" :rules="dataRules">
+
+  <el-table :data="tableData" style="width: 100% " fit highlight-current-row border  ref="tableData" :rules="dataRules">
 
     <el-table-column label="项目" width="133">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.project" type="text"></el-input>
+        <el-autocomplete class="inline-input" v-model="scope.row.project" :fetch-suggestions="querySearch"
+         @select="handleSelect($event)"></el-autocomplete>
       </template>
     </el-table-column>
     <el-table-column label="内容" width="500">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.content" type="textarea" @change="getInformation($event)"></el-input>
+        <el-input v-model="scope.row.content" type="textarea"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="用途" width="500">
@@ -22,9 +24,9 @@
         <el-button plain type="danger" size="small" @click="deleteTable(scope.$index)">删除</el-button>
       </template>
     </el-table-column>
-      </el-table>
-
+  </el-table>
 </template>
+
 <script>
 export default {
   name: 'tableDataComponent',
@@ -49,14 +51,32 @@ export default {
         this.tableData.splice(index, 1)
       }
     },
-    getInformation: function($event) {
-      if (this.geographicInfoForm.domesticSewageGo === '经三级化粪处理后排入污水处理厂') {
-        this.scope.row.content = '供水来源为市政自来水，生活污水经三级化粪处理后排入污水处理厂'
-      } else if (this.geographicInfoForm.domesticSewageGo === '经独立生活污水处理设施处理后排入内河涌') {
-        this.scope.row.content = '供水来源为市政自来水，生活污水经独立生活污水处理设施处理后排入内河涌'
+    querySearch(queryString, cb) {
+      var engineering = this.engineering
+      var results = queryString ? engineering.filter(this.createFilter(queryString)) : engineering
+      cb(results)
+    },
+    createFilter(queryString) {
+      return (engineering) => {
+        return (engineering.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
       }
+    },
+    loadAll() {
+      return [
+        { 'value': '主体工程' },
+        { 'value': '贮运工程' },
+        { 'value': '辅助工程' },
+        { 'value': '公用工程' }
+      ]
+    },
+    handleSelect: function(item) {
+      console.log(item)
     }
+  },
+  mounted() {
+    this.engineering = this.loadAll()
   }
 }
+
 </script>
 

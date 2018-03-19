@@ -47,9 +47,27 @@ export default {
   },
   data() {
     return {
-      basicInfoForm: {}, geographicInfoForm: {},
+      basicInfoForm: {},
       basicInfoFormValidate: null, geographicInfoFormValidate: null, emissionStandardFormDataValidate: null,
       productsDataValidate: null, equipmentDataValidate: null, materialDataValidate: null, tableDataValidate: null, sensitiveInfoDataValidate: null,
+      geographicInfoForm: {
+        township: '',
+        soundEnvironmentStandard: '',
+        waterSourceDistance: '',
+        sensitivePointDistance: '',
+        besideWaterTreatmentPlant: '',
+        groundwaterArea: '',
+        domesticSewageGo: '',
+        domesticSewageEnvironmentImpactAnalysis: '',
+        domesticSewageEmissionStandards: '',
+        groundwaterBodyNumber: '',
+        groundwaterQualityStandard: '',
+        groundwaterType: '',
+        specialOptionForSewageTreatmentWorks: '',
+        pollutantHoldingWaterBody: '',
+        surfaceWaterQualityStandard: '',
+        surfaceWaterFunction: ''
+      },
       emissionStandardFormData: [
         {
           standard: '',
@@ -111,13 +129,15 @@ export default {
             environmentalObjective: ''
           }
         ],
-        sensitiveInfoVoiceData: [
+        sensitiveInfoAtmosphereData: [
           {
             environmentalElements: '大气环境',
             orientation: '---',
             distance: '---',
             environmentalObjective: '《环境空气质量标准》（GB3095-2012）二级标准'
-          },
+          }
+        ],
+        sensitiveInfoVoiceData: [
           {
             environmentalElements: '声环境',
             orientation: '---',
