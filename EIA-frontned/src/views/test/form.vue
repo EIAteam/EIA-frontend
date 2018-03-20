@@ -17,7 +17,7 @@
   <geographicInfoFormComponent :geographicInfoForm.sync='geographicInfoForm' ref='geographicInfoForm'></geographicInfoFormComponent>
   </el-tab-pane>
   <el-tab-pane label="工程组成">
-  <engineeringCompositionDataComponent :engineeringCompositionData.sync='engineeringCompositionData' ref='engineeringCompositionData'></engineeringCompositionDataComponent>
+  <tableDataComponent :tableData.sync='tableData' ref='tableData'></tableDataComponent>
   </el-tab-pane>
   <el-tab-pane label="敏感点信息">
   <sensitiveInfoDataComponent :sensitiveInfoData.sync='sensitiveInfoData' ref='sensitiveInfoData'></sensitiveInfoDataComponent>
@@ -38,17 +38,18 @@ import emissionStandardFormDataComponent from '@/views/test/emissionStandardForm
 import productsDataComponent from '@/views/test/productsDataComponent'
 import equipmentDataComponent from '@/views/test/equipmentDataComponent'
 import materialDataComponent from '@/views/test/materialDataComponent'
-import engineeringCompositionDataComponent from '@/views/test/engineeringCompositionDataComponent'
+import tableDataComponent from '@/views/test/tableDataComponent'
 import sensitiveInfoDataComponent from '@/views/test/sensitiveInfoDataComponent'
 export default {
   components: {
     basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
-    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent
+    equipmentDataComponent, materialDataComponent, tableDataComponent, sensitiveInfoDataComponent
   },
   data() {
     return {
       basicInfoForm: {},
-      basicInfoFormValidate: null, geographicInfoFormValidate: null,
+      basicInfoFormValidate: null, geographicInfoFormValidate: null, emissionStandardFormDataValidate: null,
+      productsDataValidate: null, equipmentDataValidate: null, materialDataValidate: null, tableDataValidate: null, sensitiveInfoDataValidate: null,
       geographicInfoForm: {
         township: '',
         soundEnvironmentStandard: '',
@@ -106,32 +107,17 @@ export default {
           ratio: ''
         }
       ],
-      engineeringCompositionData: {
-        otherEngineeringData: [
+      tableData: {
+        environmentalProtectionData: [
           {
-            project: '主体工程',
-            content: '',
-            use: ''
-          },
-          {
-            project: '储运工程',
-            content: '',
-            use: ''
-          },
-          {
-            project: '辅助工程',
-            content: '',
-            use: ''
-          },
-          {
-            project: '公用工程',
+            project: '环保工程',
             content: '',
             use: ''
           }
         ],
-        environmentalEngineeringData: [
+        referenceData: [
           {
-            project: '环保工程',
+            project: '',
             content: '',
             use: ''
           }
@@ -207,8 +193,8 @@ export default {
     },
     'geographicInfoForm.domesticSewageGo': {
       handler: function(val, oldVal) {
-        for (var i in this.engineeringCompositionData.environmentalEngineeringData) {
-          this.engineeringCompositionData.environmentalEngineeringData[i].content = '供水来源为市政自来水，生活污水' +
+        for (var i in this.tableData.environmentalProtectionData) {
+          this.tableData.environmentalProtectionData[i].content = '供水来源为市政自来水，生活污水' +
           this.geographicInfoForm.domesticSewageGo
         }
       },
@@ -221,6 +207,18 @@ export default {
       console.log(this.basicInfoFormValidate)
       this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => { this.geographicInfoFormValidate = valid })
       console.log(this.geographicInfoFormValidate)
+      this.$refs.emissionStandardFormData.$refs.emissionStandardFormData.validate(valid => { this.emissionStandardFormDataValidate = valid })
+      console.log(this.emissionStandardFormDataValidate)
+      this.$refs.productsData.$refs.productsData.validate(valid => { this.productsDataValidate = valid })
+      console.log(this.productsDataValidate)
+      this.$refs.equipmentData.$refs.equipmentData.validate(valid => { this.equipmentDataValidate = valid })
+      console.log(this.equipmentDataValidate)
+      this.$refs.materialData.$refs.materialData.validate(valid => { this.materialDataValidate = valid })
+      console.log(this.materialDataValidate)
+      this.$refs.tableData.$refs.tableData.validate(valid => { this.tableDataValidate = valid })
+      console.log(this.tableDataValidate)
+      this.$refs.sensitiveInfoData.$refs.sensitiveInfoData.validate(valid => { this.sensitiveInfoDataValidate = valid })
+      console.log(this.sensitiveInfoDataValidate)
     }
   }
 }
