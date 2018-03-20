@@ -3,7 +3,7 @@
 
 <el-row class="panel-group" :gutter="40">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" v-for="company in companyList" :key="company.id">
-      <div class='card-panel' @click="handleredirect(company.companyId)">
+      <div class='card-panel' @click="handleredirect(company.companyId,company.position)">
         <div class="card-panel-icon-wrapper icon-people">
           <svg-icon icon-class="peoples" class-name="card-panel-icon" />
         </div>
@@ -51,8 +51,8 @@ export default {
         this.companyList = response
       })
     },
-    handleredirect(companyId) {
-      this.$router.push({ name: 'companyDescription', params: { company_id: companyId }})
+    handleredirect(companyId, position) {
+      this.$router.push({ name: 'companyDescription', params: { companyId: companyId, position: position }})
     }
   }
 }

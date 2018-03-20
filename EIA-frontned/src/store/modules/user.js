@@ -6,7 +6,7 @@ const user = {
     token: getToken(),
     name: null,
     avatar: './src/assets/avatar.jpg',
-    id: 0
+    userId: 0
   },
 
   mutations: {
@@ -19,8 +19,8 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
-    SET_ID: (state, id) => {
-      state.id = id
+    SET_ID: (state, userId) => {
+      state.userId = userId
     }
   },
 

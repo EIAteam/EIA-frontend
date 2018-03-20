@@ -11,28 +11,60 @@ export function createProject(projectName, company) {
   })
 }
 
-export function getProjectsList(query) {
+export function getProjectsList(limit, offset, companyId) {
   return request({
-    url: '/project/list',
+    url: '/api/project/',
     method: 'get',
-    params: query
+    params: { limit, offset, companyId }
   })
 }
 
-export function getFormInfo(projectId) {
+export function putProjectWorkerMessage(id, workerMessage) {
   return request({
-    url: '/project',
-    method: 'get',
-    params: { projectId }
-  })
-}
-
-export function putFormInfo(basicInfoForm) {
-  return request({
-    url: '/project',
-    method: 'put',
+    url: '/api/project',
+    method: 'patch',
     data: {
-      basicInfoForm
+      workerMessage
+    }
+  })
+}
+
+export function putProjectAgencyMessage(id, agencyMessage) {
+  return request({
+    url: '/api/project',
+    method: 'patch',
+    data: {
+      agencyMessage
+    }
+  })
+}
+
+export function putProjectIsMaterialEnough(id, isMaterialEnough) {
+  return request({
+    url: '/api/project',
+    method: 'patch',
+    data: {
+      isMaterialEnough
+    }
+  })
+}
+
+export function putProjectType(id, projectType) {
+  return request({
+    url: '/api/project',
+    method: 'patch',
+    data: {
+      projectType
+    }
+  })
+}
+
+export function putProjectStatus(id, projectStatus) {
+  return request({
+    url: '/api/project',
+    method: 'patch',
+    data: {
+      projectStatus
     }
   })
 }
