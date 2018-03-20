@@ -3,7 +3,7 @@
     <template>
   <el-tabs v-model="activeName" type="card">
     <el-tab-pane label="人员管理" name="first">
-          <el-table  :data="companyMemberList"  fit highlight-current-row >
+          <el-table  :data="companyMemberList" v-loading="companyMemberListLoading" fit highlight-current-row >
       <el-table-column align="center" label="名字" width="200px">
         <template slot-scope="scope">
           <span>{{scope.row.name}}</span>
@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column width="500px" align="center" label="职位变更" >
         <template slot-scope="scope">
-      <el-collapse v-if="id!=scope.row.userId&&position=='superManager'" accordion>
+      <el-collapse v-if="userId!=scope.row.userId&&position=='superManager'" accordion>
           <el-collapse-item>
             <template slot="title">
               变更操作
@@ -34,7 +34,7 @@
             <el-button v-if="scope.row.position!='firstParty'" @click="handleModifyPosition(scope.row,'firstParty')" type="danger" size="mini">甲方</el-button>
             </el-collapse-item>
          </el-collapse>
-         <el-collapse v-if="id!=scope.row.userId&&position=='manager'&&scope.row.position!='superManager'&&scope.row.position!='manager'" accordion>
+         <el-collapse v-if="userId!=scope.row.userId&&position=='manager'&&scope.row.position!='superManager'&&scope.row.position!='manager'" accordion>
           <el-collapse-item>
             <template slot="title">
               变更操作
@@ -48,9 +48,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-container" style="margin-top:30px">
+    <el-pagination @size-change="handleCompanyMemberListSizeChange" @current-change="handleCompanyMemberListCurrentChange" 
+      :current-page.sync="companyMemberListQuery.offset" :page-sizes="[10, 20, 30, 40]" :page-size="companyMemberListQuery.limit" :total="companyMemberListTotal"
+      layout="total, sizes, prev, pager, next, jumper" background >
+    </el-pagination>
+    </div>
     </el-tab-pane>
     <el-tab-pane label="项目管理" name="second">
-      <el-table  :data="projectList" v-loading="listLoading" fit highlight-current-row >
+      <el-table  :data="projectList" v-loading="projectListLoading" fit highlight-current-row >
       <el-table-column type="index">
     </el-table-column>
       <el-table-column align="center" label="项目简称" width="200px">
@@ -58,27 +64,22 @@
           <span>{{scope.row.projectName}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="140px" align="center" label="中介" >
-        <template slot-scope="scope">
-           <span>{{scope.row.agencyName}}</span>
-        </template>
-      </el-table-column>
       <el-table-column width="140px" align="center" label="开始日期" >
         <template slot-scope="scope">
-          <span>{{scope.row.startDay}}</span>
+          <span>{{scope.row.createTime}}</span>
         </template>
       </el-table-column>
-      <el-table-column width="140px" align="center" label="进行天数" >
+      <el-table-column width="140px" align="center" label="最近更新" >
         <template slot-scope="scope">
-          <span>{{scope.row.duration}}</span>
+          <span>{{scope.row.updateTime}}</span>
         </template>
       </el-table-column>
        <el-table-column align="center" label="类型" width="140px">
         <template slot-scope="scope">
-          <el-select v-if="position=='manager'||position=='worker'"  placeholder="请选择" :value="scope.row.projectKind" @change="(value)=>handleChangeProjectKind(scope.row,value)">
-            <el-option v-for="item in projectKindOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select v-if="position=='manager'||position=='worker'"  placeholder="请选择" :value="scope.row.projectType" @change="(value)=>handleChangeProjectType(scope.row,value)">
+            <el-option v-for="item in projectTypeOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
-          <span v-else>{{scope.row.projectKind | projectKindFilter}}</span>
+          <span v-else>{{scope.row.projectType | projectTypeFilter}}</span>
         </template>
       </el-table-column>
        <el-table-column align="center" label="状态" width="140px">
@@ -102,7 +103,7 @@
             <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
               <tr>
               <th>中介留言</th>
-              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage" @blur="handleChangeMessage(scope.row,value)"></el-input></td>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage" @blur="handleChangeAgencyMessage(scope.row,value)"></el-input></td>
               </tr>
               <tr>
               <th>编写员留言</th>
@@ -118,7 +119,7 @@
               </tr>
               <tr>
               <th>编写员留言</th>
-              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.workerMessage" @blur="handleChangeMessage(scope.row,value)"></el-input></td>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.workerMessage" @blur="handleChangeWorkerMessage(scope.row,value)"></el-input></td>
               </tr>
             </table>
           </el-popover>
@@ -141,8 +142,8 @@
       </el-table-column>
     </el-table>
     <div class="pagination-container" style="margin-top:30px">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" 
-      :current-page.sync="listQuery.page" :page-sizes="[10, 20, 30, 40]" :page-size="listQuery.limit" :total="total"
+    <el-pagination @size-change="handleProjectListSizeChange" @current-change="handleProjectListCurrentChange" 
+      :current-page.sync="ProjectListQuery.offset" :page-sizes="[10, 20, 30, 40]" :page-size="ProjectListQuery.limit" :total="projectListTotal"
       layout="total, sizes, prev, pager, next, jumper" background >
     </el-pagination>
     </div>
@@ -174,6 +175,8 @@
 
 <script>
 import { getProjectsList } from '@/api/project'
+import { getCompanyMemberList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough } from '@/api/company'
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -181,56 +184,67 @@ export default {
       companyName: '',
       companyId: '',
       position: 'agency',
-      projectKindOptions: [
-        { value: 1, label: '新建' },
-        { value: 2, label: '扩建' },
-        { value: 3, label: '搬迁' }
+      companyMemberList: null,
+      projectList: null,
+
+      dialogVisible: false,
+      companyMemberListLoading: true,
+      projectListLoading: true,
+
+      companyMemberListTotal: 0,
+      companyMemberListQuery: {
+        offset: 1,
+        limit: 10
+      },
+      projectListTotal: 0,
+      ProjectListQuery: {
+        offset: 1,
+        limit: 10
+      },
+
+      projectTypeOptions: [
+        { value: 'none', label: '无' },
+        { value: 'newBuilt', label: '新建' },
+        { value: 'extension', label: '扩建' },
+        { value: 'removal', label: '搬迁' }
       ],
       projectStatusOptions: [
-        { value: 1, label: '收到资料' },
-        { value: 2, label: '报告编写' },
-        { value: 3, label: '资质材料完善' },
-        { value: 4, label: '入件' },
-        { value: 5, label: '审批修改' },
-        { value: 6, label: '取证' }
-      ],
-      companyMemberList: [
-        { userId: '1', username: '1', name: 'Jack', position: 'superManager', email: '291067847@qq.com' },
-        { userId: '1', username: '1', name: 'Tom', position: 'manager', email: '291067847@qq.com' },
-        { userId: '1', username: '1', name: 'Jerry', position: 'worker', email: '291067847@qq.com' },
-        { userId: '1', username: '1', name: 'Jemmy', position: 'agency', email: '291067847@qq.com' },
-        { userId: '1', username: '1', name: 'Tim', position: 'firstParty', email: '291067847@qq.com' },
-        { userId: '1', username: '1', name: 'Tim', position: 'noPosition', email: '291067847@qq.com' }
-      ],
-      dialogVisible: false,
-      projectList: null,
-      listLoading: true,
-      total: 22,
-      listQuery: {
-        page: 1,
-        limit: 20
-      }
+        { value: 'none', label: '无' },
+        { value: 'receivedInfo', label: '收到资料' },
+        { value: 'reportEdit', label: '报告编写' },
+        { value: 'InfoComplete', label: '资质材料完善' },
+        { value: 'submit', label: '入件' },
+        { value: 'investigate', label: '审批修改' },
+        { value: 'takeEvidence', label: '取证' }
+      ]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userId'
+    ])
   },
   filters: {
     projectStatusFilter(projectStatus) {
       const projectStatusMap = {
-        1: '收到资料',
-        2: '报告编写',
-        3: '资质材料完善',
-        4: '入件',
-        5: '审批修改',
-        6: '取证'
+        none: '无',
+        receivedInfo: '收到资料',
+        reportEdit: '报告编写',
+        InfoComplete: '资质材料完善',
+        submit: '入件',
+        investigate: '审批修改',
+        takeEvidence: '取证'
       }
       return projectStatusMap[projectStatus]
     },
-    projectKindFilter(projectKind) {
-      const projectKindMap = {
-        1: '新建',
-        2: '扩建',
-        3: '搬迁'
+    projectTypeFilter(projectType) {
+      const projectTypeMap = {
+        none: '无',
+        newBuilt: '新建',
+        extension: '扩建',
+        removal: '搬迁'
       }
-      return projectKindMap[projectKind]
+      return projectTypeMap[projectType]
     },
     positionStatusFilter(position) {
       const positionMap = {
@@ -260,48 +274,75 @@ export default {
   },
   methods: {
     getList() {
-      this.listLoading = true
-      getProjectsList(this.listQuery).then(response => {
-        this.projectList = response.data.projectList
-        this.total = response.data.total
-        this.listLoading = false
+      this.projectListLoading = true
+      this.companyMemberListLoading = true
+      this.companyId = this.$route.params.companyId
+      this.position = this.$route.params.position
+      getCompanyMemberList(this.companyMemberListQuery.limit, this.companyMemberListQuery.offset - 1, this.companyId).then(response => {
+        this.companyMemberListTotal = response.count
+        this.companyMemberList = response.results
+        this.companyMemberListLoading = false
+      })
+      getProjectsList(this.ProjectListQuery.limit, this.ProjectListQuery.offset - 1, this.companyId).then(response => {
+        this.projectListTotal = response.count
+        this.projectList = response.results
+        this.projectListLoading = false
       })
     },
-    handleChangeMessage(row, message) {
-      this.getList()
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+    handleChangeAgencyMessage(row, message) {
+      this.projectListLoading = true
+      putProjectAgencyMessage(row.id, message).then(response => {
+        this.getList()
+        this.projectListLoading = false
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
+      })
+    },
+    handleChangeWorkerMessage(row, message) {
+      this.projectListLoading = true
+      putProjectWorkerMessage(row.id, message).then(response => {
+        this.getList()
+        this.projectListLoading = false
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
       })
     },
     handleChangeMaterial(row, value) {
-      this.getList()
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+      this.projectListLoading = true
+      putProjectIsMaterialEnough(row.id, value).then(response => {
+        this.getList()
+        this.projectListLoading = false
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
       })
     },
-    handleChangeProjectKind(row, value) {
-      this.getList()
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+    handleChangeProjectType(row, value) {
+      this.projectListLoading = true
+      putProjectType(row.id, value).then(response => {
+        this.getList()
+        this.projectListLoading = false
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
       })
     },
     handleChangeProjectStatus(row, value) {
-      this.getList()
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+      this.projectListLoading = true
+      putProjectStatus(row.id, value).then(response => {
+        this.getList()
+        this.projectListLoading = false
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
       })
-    },
-    handleSizeChange(value) {
-      this.listQuery.limit = value
-      this.getList()
-    },
-    handleCurrentChange(value) {
-      this.listQuery.page = value
-      this.getList()
     },
     handleModifyPosition(row, position) {
       row.position = position
@@ -309,7 +350,27 @@ export default {
         message: '操作成功',
         type: 'success'
       })
+    },
+
+    handleCompanyMemberListSizeChange(value) {
+      this.companyMemberListQuery.limit = value
+      this.getList()
+    },
+    handleCompanyMemberListCurrentChange(value) {
+      this.companyMemberListQuery.offset = value
+      this.getList()
+      console.log(1)
+    },
+    handleProjectListSizeChange(value) {
+      this.ProjectListQuery.limit = value
+      this.getList()
+    },
+    handleProjectListCurrentChange(value) {
+      this.ProjectListQuery.offset = value
+      this.getList()
+      console.log(1)
     }
+
   }
 }
 </script>

@@ -39,83 +39,16 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/example',
+    path: '/dashboard',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/dashboard',
+    name: 'Dashboard',
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    redirect: '/form/form1',
-    name: '/form',
-    meta: { title: 'Form', icon: 'form' },
-    children: [
-      {
-
-        path: 'form1',
-        name: 'Form1',
-        component: () => import('@/views/form/form1'),
-        meta: { title: '基础信息', icon: 'form' }
-      },
-      {
-        hidden: true,
-        path: 'form2',
-        name: 'Form2',
-        component: () => import('@/views/form/form2'),
-        meta: { title: '产品表/材料表/设备表', icon: 'form' }
-      },
-      {
-        hidden: true,
-        path: 'form3',
-        name: 'Form3',
-        component: () => import('@/views/form/form3'),
-        meta: { title: '地理信息', icon: 'form' }
-      },
-      {
-        hidden: true,
-        path: 'form4',
-        name: 'Form4',
-        component: () => import('@/views/form/form4'),
-        meta: { title: '工程组成/敏感点信息/废气排放标准', icon: 'form' }
-      },
-      {
-        hidden: true,
-        path: 'form5',
-        name: 'Form5',
-        component: () => import('@/views/form/form5'),
-        meta: { title: '基础信息附图', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/project',
-    component: Layout,
-    redirect: '/project/projectList',
-    meta: { title: '我的项目', icon: 'form' },
-    children: [
-      {
-        path: 'projectList',
-        name: 'projectList',
-        component: () => import('@/views/project/projectList'),
-        meta: { title: '项目管理', icon: 'form' }
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'index',
+        meta: { title: '主页', icon: 'form' }
       }
     ]
   },
@@ -149,7 +82,7 @@ export const constantRouterMap = [
       },
       {
         hidden: true,
-        path: 'companyDescription/:company_id',
+        path: 'companyDescription/:companyId',
         name: 'companyDescription',
         component: () => import('@/views/company/companyDescription'),
         meta: { title: '公司详情', icon: 'form' }

@@ -12,7 +12,7 @@ export function createCompany(companyName) {
 
 export function joinCompany(username) {
   return request({
-    url: '/company/user',
+    url: '/membership/',
     method: 'post',
     data: {
       username
@@ -22,7 +22,15 @@ export function joinCompany(username) {
 
 export function getCompanyList() {
   return request({
-    url: '/api/companyList/',
+    url: '/api/company/',
     method: 'get'
+  })
+}
+
+export function getCompanyMemberList(limit, offset, companyId) {
+  return request({
+    url: '/api/membership/',
+    method: 'get',
+    params: { limit, offset, companyId }
   })
 }
