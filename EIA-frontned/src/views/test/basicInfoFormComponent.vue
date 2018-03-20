@@ -123,6 +123,14 @@
         <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
       </el-form-item>
 
+      <el-form-item label="能源使用情况" prop="energyUsage">
+        <el-select v-model="basicInfoForm.energyUsage" placeholder="请选择">
+          <el-option label="天然气" value="天然气"></el-option>
+          <el-option label="液化石油气" value="液化石油气"></el-option>
+          <el-option label="无" value="无"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="东" prop="east">
         <el-input v-model="basicInfoForm.east" type="text" placeholder="文字描述" style="width:700px;"></el-input>
       </el-form-item>
@@ -158,10 +166,11 @@ export default {
     return {
       formRules: {
         projectType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
+        energyUsage: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
         enterpriseName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         nameAbbreviation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        NEIType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
-        environmentalEffectclassification: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        NEIType: [{ required: true, trigger: 'change', message: '请选择' }],
+        environmentalEffectclassification: [{ required: true, trigger: 'change', message: '请选择' }],
         EAcompanyName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         EAcompanyCertificatenumber: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         EAcompanyTelephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/ }],

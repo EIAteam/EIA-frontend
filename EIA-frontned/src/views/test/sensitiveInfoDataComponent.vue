@@ -1,6 +1,6 @@
 <template>
 <div>
-  <el-table :data="sensitiveInfoData.sensitiveInfoWaterData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoWaterData" :rules="dataRules">
+  <el-table :data="sensitiveInfoData.sensitiveInfoWaterData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoWaterData" :rules="sensitiveInfoWaterDataRules">
     <el-table-column label="环境要素" width="100">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
@@ -34,7 +34,7 @@
     </el-table-column>
   </el-table>
 
-  <el-table :data="sensitiveInfoData.sensitiveInfoAtmosphereData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoAtmosphereData" :rules="dataRules">
+  <el-table :data="sensitiveInfoData.sensitiveInfoAtmosphereData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoAtmosphereData">
     <el-table-column label="环境要素" width="180">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
@@ -57,7 +57,7 @@
     </el-table-column>
   </el-table>
 
-  <el-table :data="sensitiveInfoData.sensitiveInfoVoiceData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoVoiceData" :rules="dataRules">
+  <el-table :data="sensitiveInfoData.sensitiveInfoVoiceData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoVoiceData">
     <el-table-column label="环境要素" width="180">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
@@ -80,7 +80,7 @@
     </el-table-column>
   </el-table>
 
-  <el-table :data="sensitiveInfoData.sensitiveInfoHouseData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoHouseData" :rules="dataRules">
+  <el-table :data="sensitiveInfoData.sensitiveInfoHouseData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoHouseData" :rules="sensitiveInfoHouseDataRules">
     <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
         <el-input v-model="scope.row.environmentalElements" placeholder="请填入名居名称，500米范围内"></el-input>
@@ -109,7 +109,7 @@
     </el-table-column>
   </el-table>
 
-  <el-table :data="sensitiveInfoData.sensitiveInfoReserveData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoReserveData" :rules="dataRules">
+  <el-table :data="sensitiveInfoData.sensitiveInfoReserveData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoReserveData" :rules="sensitiveInfoReserveDataRules">
 
     <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
@@ -147,11 +147,22 @@ export default {
   props: ['sensitiveInfoData'],
   data() {
     return {
-      dataRules: {
+      sensitiveInfoWaterDataRules: {
         environmentalElements: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         orientation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         distance: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         environmentalSensitivePoint: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        environmentalObjective: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }]
+      },
+      sensitiveInfoHouseDataRules: {
+        environmentalElements: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        orientation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        distance: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }]
+      },
+      sensitiveInfoReserveDataRules: {
+        environmentalElements: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        orientation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        distance: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         environmentalObjective: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }]
       }
     }
