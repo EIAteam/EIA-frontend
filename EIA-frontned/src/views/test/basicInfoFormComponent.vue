@@ -160,7 +160,7 @@ export default {
         projectType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
         enterpriseName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         nameAbbreviation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        NEIType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
+        NEIType: [{ required: true, trigger: 'change', message: '请选择' }],
         environmentalEffectclassification: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
         EAcompanyName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         EAcompanyCertificatenumber: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],

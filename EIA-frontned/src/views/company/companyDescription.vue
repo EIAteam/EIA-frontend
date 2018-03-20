@@ -174,8 +174,8 @@
 
 
 <script>
-import { getProjectsList } from '@/api/project'
-import { getCompanyMemberList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough } from '@/api/company'
+import { getProjectsList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough } from '@/api/project'
+import { getCompanyMemberList } from '@/api/company'
 import { mapGetters } from 'vuex'
 export default {
   data() {
