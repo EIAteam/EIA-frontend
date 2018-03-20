@@ -141,6 +141,14 @@
         <el-input v-model="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:700px;"></el-input>
       </el-form-item>
 
+      <el-form-item label="能源使用情况" prop="energyUsage">
+        <el-select v-model="basicInfoForm.energyUsage" placeholder="请选择">
+          <el-option label="天然气" value="天然气"></el-option>
+          <el-option label="液化石油气" value="液化石油气"></el-option>
+          <el-option label="无" value="无"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="东" prop="east">
         <el-input v-model="basicInfoForm.east" type="text" placeholder="文字描述" style="width:700px;"></el-input>
       </el-form-item>
@@ -186,6 +194,7 @@ export default {
       projectId: 1,
       basicInfoForm: {
         projectType: '',
+        energyUsage: '',
         enterpriseName: '',
         nameAbbreviation: '',
         NEIType: [],
