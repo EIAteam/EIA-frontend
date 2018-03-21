@@ -56,9 +56,10 @@
     </div>
     </el-tab-pane>
     <el-tab-pane label="项目管理" name="second">
-      <el-table  :data="projectList" v-loading="projectListLoading" fit highlight-current-row >
+
+    <el-table  :data="projectList" v-loading="projectListLoading" fit highlight-current-row >
       <el-table-column type="index">
-    </el-table-column>
+      </el-table-column>
       <el-table-column align="center" label="项目简称" width="200px">
         <template slot-scope="scope">
           <span>{{scope.row.projectName}}</span>
@@ -138,6 +139,11 @@
           <el-badge :is-dot="scope.row.agencyMessage!=''||scope.row.workerMessage!=''" class="item" style="margin-top: 10px;margin-right: 40px;">
             <el-button size="mini" v-popover:popover>留言</el-button>
           </el-badge>
+        </template>
+      </el-table-column>
+       <el-table-column width="140px" align="center" label="操作" >
+        <template slot-scope="scope">
+          <el-button ><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
         </template>
       </el-table-column>
     </el-table>

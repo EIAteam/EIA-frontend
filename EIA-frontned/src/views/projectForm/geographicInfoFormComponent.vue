@@ -101,13 +101,13 @@ export default {
   data() {
     return {
       formRules: {
-        township: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
-        specialOptionForSewageTreatmentWorks: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
-        besideWaterTreatmentPlant: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
-        soundEnvironmentStandard: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
-        groundwaterArea: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
-        sensitivePointDistance: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
-        waterSourceDistance: [{ required: false, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }]
+        township: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        specialOptionForSewageTreatmentWorks: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        besideWaterTreatmentPlant: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        soundEnvironmentStandard: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        groundwaterArea: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        sensitivePointDistance: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
+        waterSourceDistance: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }]
       },
       groundwaterAreaOptions: [
         { label: '珠江三角洲佛山南海分散式开发利用区', value: '珠江三角洲佛山南海分散式开发利用区' },

@@ -2,14 +2,14 @@
   <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm" :rules="formRules">
       <el-form-item label="项目性质" prop="projectType">
         <el-select v-model="basicInfoForm.projectType" placeholder="请选择">
-          <el-option label="新建" value="新建"></el-option>
-          <el-option label="搬迁" value="搬迁"></el-option>
-          <el-option label="扩建" value="扩建"></el-option>
+          <el-option label="新建" value="newBuilt"></el-option>
+          <el-option label="搬迁" value="extension"></el-option>
+          <el-option label="扩建" value="removal"></el-option>
         </el-select>
       </el-form-item>
 
-      <el-form-item label="建设单位名称" prop="enterpriseName">
-        <el-input v-model="basicInfoForm.enterpriseName" type="text" placeholder="项目名称（与营业执照一致）" style="width:700px;"></el-input>
+      <el-form-item label="建设单位名称" prop="constructionCompanyName">
+        <el-input v-model="basicInfoForm.constructionCompanyName" type="text" placeholder="项目名称（与营业执照一致）" style="width:700px;"></el-input>
       </el-form-item>
 
       <el-form-item label="名称缩写" prop="nameAbbreviation">
@@ -125,9 +125,9 @@
 
       <el-form-item label="能源使用情况" prop="energyUsage">
         <el-select v-model="basicInfoForm.energyUsage" placeholder="请选择">
-          <el-option label="天然气" value="天然气"></el-option>
-          <el-option label="液化石油气" value="液化石油气"></el-option>
-          <el-option label="无" value="无"></el-option>
+          <el-option label="天然气" value="NG"></el-option>
+          <el-option label="液化石油气" value="LPG"></el-option>
+          <el-option label="无" value="none"></el-option>
         </el-select>
       </el-form-item>
 
@@ -165,42 +165,42 @@ export default {
   data() {
     return {
       formRules: {
-        projectType: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
-        energyUsage: [{ required: false, trigger: 'change', type: 'string', message: '请选择' }],
-        enterpriseName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        nameAbbreviation: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        projectType: [{ required: true, trigger: 'change', type: 'string', message: '请选择' }],
+        energyUsage: [{ required: true, trigger: 'change', type: 'string', message: '请选择' }],
         NEIType: [{ required: true, trigger: 'change', message: '请选择' }],
         environmentalEffectclassification: [{ required: true, trigger: 'change', message: '请选择' }],
-        EAcompanyName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        EAcompanyCertificatenumber: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        EAcompanyTelephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/ }],
-        EAcompanyAddress: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        address: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        postalCode: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^[1-9]\d{5}(?!\d)$/ }],
-        corporateName: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        corporateId: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/ }],
-        constructionScale: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        societyCreditcode: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        businessRange: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        contacts: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        telephone: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^1\d{10}$/ }],
-        totalInvestment: [{ required: false, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
-        environmentalProtectionInvestment: [{ required: false, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
-        floorSpace: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        managementSpace: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        nonAccommodationNum: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        accommodationNum: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        dinningNum: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        dayWorkTime: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        yearWorkTime: [{ required: false, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
-        investmentTime: [{ required: false, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
-        annualPowerConsumption: [{ required: false, whitespace: true, trigger: 'blur', type: 'float', message: '请输入正确的格式' }],
-        east: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        south: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        west: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        north: [{ required: false, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        longtitude: [{ required: false, whitespace: true, trigger: 'blur', type: 'float', message: '请输入正确的格式' }],
-        latitude: [{ required: false, whitespace: true, trigger: 'blur', type: 'float', message: '请输入正确的格式' }]
+        constructionCompanyName: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        nameAbbreviation: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        EAcompanyName: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请输入正确的格式' }],
+        EAcompanyCertificatenumber: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请输入正确的格式' }],
+        EAcompanyTelephone: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请输入正确的格式', pattern: /^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/ }],
+        EAcompanyAddress: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请输入正确的格式' }],
+        address: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        postalCode: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^[1-9]\d{5}(?!\d)$/ }],
+        corporateName: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        corporateId: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/ }],
+        constructionScale: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        societyCreditcode: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        businessRange: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        contacts: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        telephone: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^1\d{10}$/ }],
+        totalInvestment: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        environmentalProtectionInvestment: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        floorSpace: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        managementSpace: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        nonAccommodationNum: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        accommodationNum: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        dinningNum: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        dayWorkTime: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        yearWorkTime: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        investmentTime: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        annualPowerConsumption: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        east: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        south: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        west: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        north: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
+        longtitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
       },
       NEITypeOptions: [{
         value: '农副食品', label: '农副食品',

@@ -1,0 +1,467 @@
+<template>
+ <div class="app-container">
+<el-tabs type="border-card">
+  <el-tab-pane label="基础信息">
+  <basicInfoFormComponent :basicInfoForm.sync='basicInfoForm' ref='basicInfoForm'></basicInfoFormComponent>
+  <button @click="putBasicInfo">保存信息1</button>
+  </el-tab-pane>
+  <el-tab-pane label="产品表">
+  <productsDataComponent :productsData.sync='productsData' ref='productsData'></productsDataComponent>
+  <button @click="putProductInfo">保存信息2</button>
+  </el-tab-pane>
+  <el-tab-pane label="设备表">
+  <equipmentDataComponent :equipmentData.sync='equipmentData' ref='equipmentData'></equipmentDataComponent>
+  <button @click="putEquipmentInfo">保存信息3</button>
+  </el-tab-pane>
+  <el-tab-pane label="材料表">
+  <materialDataComponent :materialData.sync='materialData' ref='materialData'></materialDataComponent>
+  <button @click="putMaterialInfo">保存信息4</button>
+  </el-tab-pane>
+  <el-tab-pane label="地理信息">
+  <geographicInfoFormComponent :geographicInfoForm.sync='geographicInfoForm' ref='geographicInfoForm'></geographicInfoFormComponent>
+    <button @click="putGeographicInfo">保存信息5</button>
+  </el-tab-pane>
+  <el-tab-pane label="工程组成">
+  <engineeringCompositionDataComponent :engineeringCompositionData.sync='engineeringCompositionData' ref='engineeringCompositionData'></engineeringCompositionDataComponent>
+      <button @click="putEngineeringCompositionInfo">保存信息6</button>
+  </el-tab-pane>
+  <el-tab-pane label="敏感点信息">
+  <sensitiveInfoDataComponent :sensitiveInfoData.sync='sensitiveInfoData' ref='sensitiveInfoData'></sensitiveInfoDataComponent>
+        <button @click="putSensitiveInfo">保存信息7</button>
+  </el-tab-pane>
+  <el-tab-pane label="废弃排放标准">
+  <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
+        <button @click="putEmissionStandardInfo">保存信息8</button>
+  </el-tab-pane>
+<button @click="getInfo">获取信息</button>
+
+</el-tabs>
+ </div>
+</template>
+
+<script>
+import basicInfoFormComponent from '@/views/projectForm/basicInfoFormComponent'
+import geographicInfoFormComponent from '@/views/projectForm/geographicInfoFormComponent'
+import emissionStandardFormDataComponent from '@/views/projectForm/emissionStandardFormDataComponent'
+import productsDataComponent from '@/views/projectForm/productsDataComponent'
+import equipmentDataComponent from '@/views/projectForm/equipmentDataComponent'
+import materialDataComponent from '@/views/projectForm/materialDataComponent'
+import engineeringCompositionDataComponent from '@/views/projectForm/engineeringCompositionDataComponent'
+import sensitiveInfoDataComponent from '@/views/projectForm/sensitiveInfoDataComponent'
+import { getProjectInfo, putProjectBasicInfo, putProjectProductInfo,
+  putProjectEquipmentInfo, putProjectMaterialInfo, putProjectGeographicInfo,
+  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo } from '@/api/project'
+export default {
+  components: {
+    basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
+    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent
+  },
+  data() {
+    return {
+      projectId: null,
+      projectName: null,
+      basicInfoForm: {
+        projectType: '',
+        energyUsage: '',
+        constructionCompanyName: '',
+        nameAbbreviation: '',
+        NEIType: [],
+        dinningNum: '',
+        address: '',
+        postalCode: '',
+        corporateName: '',
+        corporateId: '',
+        contacts: '',
+        telephone: '',
+        totalInvestment: '',
+        environmentalProtectionInvestment: '',
+        floorSpace: '',
+        managementSpace: '',
+        nonAccommodationNum: '',
+        accommodationNum: '',
+        dayWorkTime: '',
+        yearWorkTime: '',
+        investmentTime: '',
+        annualPowerConsumption: '',
+        east: '',
+        south: '',
+        west: '',
+        north: '',
+        longtitude: '',
+        latitude: '',
+        constructionScale: '',
+        societyCreditcode: '',
+        businessRange: '',
+        EAcompanyCertificatenumber: '',
+        EAcompanyTelephone: '',
+        EAcompanyAddress: '',
+        EAcompanyName: '',
+        environmentalEffectclassification: []
+      },
+      geographicInfoForm: {
+        township: '',
+        soundEnvironmentStandard: '',
+        waterSourceDistance: '',
+        sensitivePointDistance: '',
+        besideWaterTreatmentPlant: '',
+        groundwaterArea: '',
+        domesticSewageGo: '',
+        domesticSewageEnvironmentImpactAnalysis: '',
+        domesticSewageEmissionStandards: '',
+        groundwaterBodyNumber: '',
+        groundwaterQualityStandard: '',
+        groundwaterType: '',
+        specialOptionForSewageTreatmentWorks: '',
+        pollutantHoldingWaterBody: '',
+        surfaceWaterQualityStandard: '',
+        surfaceWaterFunction: ''
+      },
+      emissionStandardFormData: [
+        {
+          standard: '',
+          pollutant: '',
+          pollutantOptions: [],
+          emissionMonitoring: '',
+          maximumAllowableEmissionRate: '',
+          maximumAllowableEmissionConcentration: ''
+        }
+      ],
+      productsData: [
+        {
+          id: '',
+          productName: '',
+          num: '',
+          unit: '',
+          remark: ''
+        }
+      ],
+      equipmentData: [
+        {
+          id: '',
+          equipmentName: '',
+          num: '',
+          unit: '',
+          remark: ''
+        }
+      ],
+      materialData: [
+        {
+          id: '',
+          materialName: '',
+          num: '',
+          unit: '',
+          remark: '',
+          state: '',
+          ratio: ''
+        }
+      ],
+      engineeringCompositionData: {
+        otherEngineeringData: [
+          {
+            project: '主体工程',
+            content: '',
+            use: ''
+          },
+          {
+            project: '储运工程',
+            content: '',
+            use: ''
+          },
+          {
+            project: '辅助工程',
+            content: '',
+            use: ''
+          },
+          {
+            project: '公用工程',
+            content: '',
+            use: ''
+          }
+        ],
+        environmentalEngineeringData: [
+          {
+            project: '环保工程',
+            content: '',
+            use: ''
+          }
+        ]
+      },
+      sensitiveInfoData: {
+        sensitiveInfoWaterData: [
+          {
+            environmentalElements: '水环境',
+            environmentalSensitivePoint: '',
+            orientation: '',
+            distance: '',
+            environmentalObjective: ''
+          }
+        ],
+        sensitiveInfoAtmosphereData: [
+          {
+            environmentalElements: '大气环境',
+            orientation: '---',
+            distance: '---',
+            environmentalObjective: '《环境空气质量标准》（GB3095-2012）二级标准'
+          }
+        ],
+        sensitiveInfoVoiceData: [
+          {
+            environmentalElements: '声环境',
+            orientation: '---',
+            distance: '---',
+            environmentalObjective: ''
+          }
+        ],
+        sensitiveInfoReserveData: [
+          {
+            environmentalElements: '',
+            orientation: '',
+            distance: '',
+            environmentalObjective: ''
+          }
+        ],
+        sensitiveInfoHouseData: [
+          {
+            environmentalElements: '',
+            orientation: '',
+            distance: '',
+            environmentalObjective: ''
+          }
+        ]
+      }
+    }
+  },
+  watch: {
+    'geographicInfoForm.surfaceWaterQualityStandard': {
+      handler: function(val, oldVal) {
+        for (var i in this.sensitiveInfoData.sensitiveInfoWaterData) {
+          this.sensitiveInfoData.sensitiveInfoWaterData[i].environmentalObjective = '《地表水环境质量标准》中的' +
+          this.geographicInfoForm.surfaceWaterQualityStandard + '标准'
+        }
+      },
+      deep: true
+    },
+    'geographicInfoForm.soundEnvironmentStandard': {
+      handler: function(val, oldVal) {
+        for (var i in this.sensitiveInfoData.sensitiveInfoVoiceData) {
+          this.sensitiveInfoData.sensitiveInfoVoiceData[i].environmentalObjective = '《声环境质量标准》中的' +
+          this.geographicInfoForm.soundEnvironmentStandard + '标准'
+        }
+        for (var j in this.sensitiveInfoData.sensitiveInfoHouseData) {
+          this.sensitiveInfoData.sensitiveInfoHouseData[j].environmentalObjective = '《环境空气质量标准》中的二级标准,' +
+          this.sensitiveInfoData.sensitiveInfoVoiceData[i].environmentalObjective
+        }
+      },
+      deep: true
+    },
+    'geographicInfoForm.domesticSewageGo': {
+      handler: function(val, oldVal) {
+        for (var i in this.engineeringCompositionData.environmentalEngineeringData) {
+          this.engineeringCompositionData.environmentalEngineeringData[i].content = '供水来源为市政自来水，生活污水' +
+          this.geographicInfoForm.domesticSewageGo
+        }
+      },
+      deep: true
+    }
+  },
+  created() {
+    this.projectId = this.$route.params.projectId
+    this.projectName = this.$route.params.projectName
+    console.log(this.projectName)
+  },
+  methods: {
+    getInfo() {
+      getProjectInfo(14).then(Response => {
+        this.basicInfoForm.projectType = Response.projectType
+        this.basicInfoForm.energyUsage = Response.energyUsage
+        this.basicInfoForm.constructionCompanyName = Response.constructionCompanyName
+        this.basicInfoForm.nameAbbreviation = Response.nameAbbreviation
+        this.basicInfoForm.NEIType = JSON.parse(Response.NEIType)
+        this.basicInfoForm.dinningNum = Response.dinningNum
+        this.basicInfoForm.address = Response.address
+        this.basicInfoForm.postalCode = Response.postalCode
+        this.basicInfoForm.corporateName = Response.corporateName
+        this.basicInfoForm.corporateId = Response.corporateId
+        this.basicInfoForm.contacts = Response.contacts
+        this.basicInfoForm.telephone = Response.telephone
+        this.basicInfoForm.totalInvestment = Response.totalInvestment
+        this.basicInfoForm.environmentalProtectionInvestment = Response.environmentalProtectionInvestment
+        this.basicInfoForm.floorSpace = Response.floorSpace
+        this.basicInfoForm.managementSpace = Response.managementSpace
+        this.basicInfoForm.nonAccommodationNum = Response.nonAccommodationNum
+        this.basicInfoForm.accommodationNum = Response.accommodationNum
+        this.basicInfoForm.dayWorkTime = Response.dayWorkTime
+        this.basicInfoForm.yearWorkTime = Response.yearWorkTime
+        this.basicInfoForm.investmentTime = Response.investmentTime
+        this.basicInfoForm.annualPowerConsumption = Response.annualPowerConsumption
+        this.basicInfoForm.east = Response.east
+        this.basicInfoForm.south = Response.south
+        this.basicInfoForm.west = Response.west
+        this.basicInfoForm.north = Response.north
+        this.basicInfoForm.longtitude = Response.longtitude
+        this.basicInfoForm.latitude = Response.latitude
+        this.basicInfoForm.constructionScale = Response.constructionScale
+        this.basicInfoForm.societyCreditcode = Response.societyCreditcode
+        this.basicInfoForm.businessRange = Response.businessRange
+        this.basicInfoForm.EAcompanyCertificatenumber = Response.EAcompanyCertificatenumber
+        this.basicInfoForm.EAcompanyTelephone = Response.EAcompanyTelephone
+        this.basicInfoForm.EAcompanyAddress = Response.EAcompanyAddress
+        this.basicInfoForm.EAcompanyName = Response.EAcompanyName
+        this.basicInfoForm.environmentalEffectclassification = JSON.parse(Response.environmentalEffectclassification)
+
+        this.geographicInfoForm.township = Response.township
+        this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
+        this.geographicInfoForm.waterSourceDistance = Response.waterSourceDistance
+        this.geographicInfoForm.sensitivePointDistance = Response.sensitivePointDistance
+        this.geographicInfoForm.besideWaterTreatmentPlant = Response.besideWaterTreatmentPlant
+        this.geographicInfoForm.groundwaterArea = Response.groundwaterArea
+        this.geographicInfoForm.domesticSewageGo = Response.domesticSewageGo
+        this.geographicInfoForm.domesticSewageEnvironmentImpactAnalysis = Response.domesticSewageEnvironmentImpactAnalysis
+        this.geographicInfoForm.domesticSewageEmissionStandards = Response.domesticSewageEmissionStandards
+        this.geographicInfoForm.groundwaterBodyNumber = Response.groundwaterBodyNumber
+        this.geographicInfoForm.groundwaterQualityStandard = Response.groundwaterQualityStandard
+        this.geographicInfoForm.groundwaterType = Response.groundwaterType
+        this.geographicInfoForm.specialOptionForSewageTreatmentWorks = Response.specialOptionForSewageTreatmentWorks
+        this.geographicInfoForm.pollutantHoldingWaterBody = Response.pollutantHoldingWaterBody
+        this.geographicInfoForm.surfaceWaterQualityStandard = Response.surfaceWaterQualityStandard
+        this.geographicInfoForm.surfaceWaterFunction = Response.surfaceWaterFunction
+
+        this.productsData = JSON.parse(Response.product)
+        this.materialData = JSON.parse(Response.material)
+        this.equipmentData = JSON.parse(Response.equipment)
+
+        this.emissionStandardFormData = JSON.parse(Response.emissionStandard)
+
+        this.engineeringCompositionData.otherEngineeringData = JSON.parse(Response.otherEngineering)
+        this.engineeringCompositionData.environmentalEngineeringData = JSON.parse(Response.environmentalEngineering)
+
+        this.sensitiveInfoData.sensitiveInfoWaterData = JSON.parse(Response.sensitiveInfoWater)
+        this.sensitiveInfoData.sensitiveInfoAtmosphereData = JSON.parse(Response.sensitiveInfoAtmosphere)
+        this.sensitiveInfoData.sensitiveInfoVoiceData = JSON.parse(Response.sensitiveInfoVoice)
+        this.sensitiveInfoData.sensitiveInfoReserveData = JSON.parse(Response.sensitiveInfoReserve)
+        this.sensitiveInfoData.sensitiveInfoHouseData = JSON.parse(Response.sensitiveInfoHouse)
+      })
+    },
+    putBasicInfo() {
+      this.$refs.basicInfoForm.$refs.basicInfoForm.validate(valid => {
+        putProjectBasicInfo(
+          this.projectId,
+          this.basicInfoForm.projectType,
+          this.basicInfoForm.energyUsage,
+          this.basicInfoForm.constructionCompanyName,
+          this.basicInfoForm.nameAbbreviation,
+          JSON.stringify(this.basicInfoForm.NEIType),
+          this.basicInfoForm.dinningNum,
+          this.basicInfoForm.address,
+          this.basicInfoForm.postalCode,
+          this.basicInfoForm.corporateName,
+          this.basicInfoForm.corporateId,
+          this.basicInfoForm.contacts,
+          this.basicInfoForm.telephone,
+          this.basicInfoForm.totalInvestment,
+          this.basicInfoForm.environmentalProtectionInvestment,
+          this.basicInfoForm.floorSpace,
+          this.basicInfoForm.managementSpace,
+          this.basicInfoForm.nonAccommodationNum,
+          this.basicInfoForm.accommodationNum,
+          this.basicInfoForm.dayWorkTime,
+          this.basicInfoForm.yearWorkTime,
+          this.basicInfoForm.investmentTime,
+          this.basicInfoForm.annualPowerConsumption,
+          this.basicInfoForm.east,
+          this.basicInfoForm.south,
+          this.basicInfoForm.west,
+          this.basicInfoForm.north,
+          this.basicInfoForm.longtitude,
+          this.basicInfoForm.latitude,
+          this.basicInfoForm.constructionScale,
+          this.basicInfoForm.societyCreditcode,
+          this.basicInfoForm.businessRange,
+          this.basicInfoForm.EAcompanyCertificatenumber,
+          this.basicInfoForm.EAcompanyTelephone,
+          this.basicInfoForm.EAcompanyAddress,
+          this.basicInfoForm.EAcompanyName,
+          JSON.stringify(this.basicInfoForm.environmentalEffectclassification),
+        ).then(Response => {
+          this.getInfo()
+        })
+      })
+    },
+    putProductInfo() {
+      putProjectProductInfo(this.projectId, JSON.stringify(this.productsData)).then(Response => {
+        this.getInfo()
+      })
+    },
+    putEquipmentInfo() {
+      putProjectEquipmentInfo(this.projectId, JSON.stringify(this.equipmentData)).then(Response => {
+        this.getInfo()
+      })
+    },
+    putMaterialInfo() {
+      putProjectMaterialInfo(this.projectId, JSON.stringify(this.materialData)).then(Response => {
+        this.getInfo()
+      })
+    },
+    putGeographicInfo() {
+      this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => {
+        putProjectGeographicInfo(
+          this.projectId,
+          this.geographicInfoForm.township,
+          this.geographicInfoForm.soundEnvironmentStandard,
+          this.geographicInfoForm.waterSourceDistance,
+          this.geographicInfoForm.sensitivePointDistance,
+          this.geographicInfoForm.besideWaterTreatmentPlant,
+          this.geographicInfoForm.groundwaterArea,
+          this.geographicInfoForm.domesticSewageGo,
+          this.geographicInfoForm.domesticSewageEnvironmentImpactAnalysis,
+          this.geographicInfoForm.domesticSewageEmissionStandards,
+          this.geographicInfoForm.groundwaterBodyNumber,
+          this.geographicInfoForm.groundwaterQualityStandard,
+          this.geographicInfoForm.groundwaterType,
+          this.geographicInfoForm.specialOptionForSewageTreatmentWorks,
+          this.geographicInfoForm.pollutantHoldingWaterBody,
+          this.geographicInfoForm.surfaceWaterQualityStandard,
+          this.geographicInfoForm.surfaceWaterFunction
+        ).then(Response => {
+          this.putEngineeringCompositionInfo()
+          this.putSensitiveInfo()
+          this.getInfo()
+        })
+      })
+    },
+    putEngineeringCompositionInfo() {
+      putProjectEngineeringCompositionInfo(
+        this.projectId,
+        JSON.stringify(this.engineeringCompositionData.otherEngineeringData),
+        JSON.stringify(this.engineeringCompositionData.environmentalEngineeringData)
+      ).then(Response => {
+        this.getInfo()
+      })
+    },
+    putSensitiveInfo() {
+      putProjectSensitiveInfo(
+        this.projectId,
+        JSON.stringify(this.sensitiveInfoData.sensitiveInfoWaterData),
+        JSON.stringify(this.sensitiveInfoData.sensitiveInfoAtmosphereData),
+        JSON.stringify(this.sensitiveInfoData.sensitiveInfoVoiceData),
+        JSON.stringify(this.sensitiveInfoData.sensitiveInfoReserveData),
+        JSON.stringify(this.sensitiveInfoData.sensitiveInfoHouseData)
+      ).then(Response => {
+        this.getInfo()
+      })
+    },
+    putEmissionStandardInfo() {
+      putProjectEmissionStandardInfo(
+        this.projectId,
+        JSON.stringify(this.emissionStandardFormData)
+      ).then(Response => {
+        this.getInfo()
+      })
+    }
+  }
+}
+</script>
+
+
+
+

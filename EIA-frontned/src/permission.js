@@ -7,6 +7,7 @@ import { getToken } from '@/utils/auth' // 验权
 
 const whiteList = ['/login', '/register'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
+  console.log(to.path)
   NProgress.start()
   if (getToken()) { // 判断是否有token
     if (to.path === '/login') {

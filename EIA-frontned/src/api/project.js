@@ -68,3 +68,217 @@ export function putProjectStatus(id, projectStatus) {
     }
   })
 }
+
+export function getProjectInfo(id) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'get'
+  })
+}
+
+export function putProjectBasicInfo(
+  id,
+  projectType,
+  energyUsage,
+  constructionCompanyName,
+  nameAbbreviation,
+  NEIType,
+  dinningNum,
+  address,
+  postalCode,
+  corporateName,
+  corporateId,
+  contacts,
+  telephone,
+  totalInvestment,
+  environmentalProtectionInvestment,
+  floorSpace,
+  managementSpace,
+  nonAccommodationNum,
+  accommodationNum,
+  dayWorkTime,
+  yearWorkTime,
+  investmentTime,
+  annualPowerConsumption,
+  east,
+  south,
+  west,
+  north,
+  longtitude,
+  latitude,
+  constructionScale,
+  societyCreditcode,
+  businessRange,
+  EAcompanyCertificatenumber,
+  EAcompanyTelephone,
+  EAcompanyAddress,
+  EAcompanyName,
+  environmentalEffectclassification,
+
+) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      projectType,
+      energyUsage,
+      constructionCompanyName,
+      nameAbbreviation,
+      NEIType,
+      dinningNum,
+      address,
+      postalCode,
+      corporateName,
+      corporateId,
+      contacts,
+      telephone,
+      totalInvestment,
+      environmentalProtectionInvestment,
+      floorSpace,
+      managementSpace,
+      nonAccommodationNum,
+      accommodationNum,
+      dayWorkTime,
+      yearWorkTime,
+      investmentTime,
+      annualPowerConsumption,
+      east,
+      south,
+      west,
+      north,
+      longtitude,
+      latitude,
+      constructionScale,
+      societyCreditcode,
+      businessRange,
+      EAcompanyCertificatenumber,
+      EAcompanyTelephone,
+      EAcompanyAddress,
+      EAcompanyName,
+      environmentalEffectclassification
+
+    }
+  })
+}
+
+export function putProjectProductInfo(id, product) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      product
+    }
+  })
+}
+
+export function putProjectEquipmentInfo(id, equipment) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      equipment
+    }
+  })
+}
+
+export function putProjectMaterialInfo(id, material) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      material
+    }
+  })
+}
+
+export function putProjectGeographicInfo(
+  id,
+  township,
+  soundEnvironmentStandard,
+  waterSourceDistance,
+  sensitivePointDistance,
+  besideWaterTreatmentPlant,
+  groundwaterArea,
+  domesticSewageGo,
+  domesticSewageEnvironmentImpactAnalysis,
+  domesticSewageEmissionStandards,
+  groundwaterBodyNumber,
+  groundwaterQualityStandard,
+  groundwaterType,
+  specialOptionForSewageTreatmentWorks,
+  pollutantHoldingWaterBody,
+  surfaceWaterQualityStandard,
+  surfaceWaterFunction
+) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      township,
+      soundEnvironmentStandard,
+      waterSourceDistance,
+      sensitivePointDistance,
+      besideWaterTreatmentPlant,
+      groundwaterArea,
+      domesticSewageGo,
+      domesticSewageEnvironmentImpactAnalysis,
+      domesticSewageEmissionStandards,
+      groundwaterBodyNumber,
+      groundwaterQualityStandard,
+      groundwaterType,
+      specialOptionForSewageTreatmentWorks,
+      pollutantHoldingWaterBody,
+      surfaceWaterQualityStandard,
+      surfaceWaterFunction
+    }
+  })
+}
+
+export function putProjectEngineeringCompositionInfo(id, otherEngineering, environmentalEngineering) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      otherEngineering,
+      environmentalEngineering
+    }
+  })
+}
+
+export function putProjectSensitiveInfo(
+  id,
+  sensitiveInfoWater,
+  sensitiveInfoAtmosphere,
+  sensitiveInfoVoice,
+  sensitiveInfoReserve,
+  sensitiveInfoHouse
+) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      sensitiveInfoWater,
+      sensitiveInfoAtmosphere,
+      sensitiveInfoVoice,
+      sensitiveInfoReserve,
+      sensitiveInfoHouse
+    }
+  })
+}
+
+export function putProjectEmissionStandardInfo(id, emissionStandard) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      emissionStandard
+    }
+  })
+}

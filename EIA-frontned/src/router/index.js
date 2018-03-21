@@ -42,7 +42,7 @@ export const constantRouterMap = [
     path: '/dashboard',
     component: Layout,
     redirect: '/dashboard',
-    name: 'Dashboard',
+    name: 'Dashboards',
     children: [
       {
         path: 'dashboard',
@@ -52,22 +52,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
-  {
-    path: '/test',
-    component: Layout,
-    redirect: '/test/form',
-    meta: { title: '测试', icon: 'form' },
-    children: [
-      {
-        path: 'form',
-        name: 'form',
-        component: () => import('@/views/test/form'),
-        meta: { title: '测试', icon: 'form' }
-      }
-    ]
-  },
-
   {
     path: '/company',
     component: Layout,
@@ -86,11 +70,17 @@ export const constantRouterMap = [
         name: 'companyDescription',
         component: () => import('@/views/company/companyDescription'),
         meta: { title: '公司详情', icon: 'form' }
+      },
+      {
+        hidden: true,
+        path: 'project/:projectId/:projectName',
+        name: 'project',
+        component: () => import('@/views/projectForm/form'),
+        meta: { title: '项目', icon: 'form' }
       }
     ]
-  },
-
-  { path: '*', redirect: '/404', hidden: true }
+  }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
