@@ -34,3 +34,15 @@ export function getCompanyMemberList(limit, offset, companyId) {
     params: { limit, offset, companyId }
   })
 }
+
+export function putMembershipPosition(user, company, position) {
+  return request({
+    url: '/api/membership/0/',
+    method: 'put',
+    data: {
+      user,
+      company,
+      position
+    }
+  })
+}

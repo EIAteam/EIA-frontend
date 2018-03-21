@@ -82,7 +82,7 @@ export const constantRouterMap = [
       },
       {
         hidden: true,
-        path: 'companyDescription/:companyId',
+        path: 'companyDescription/:companyId/:position',
         name: 'companyDescription',
         component: () => import('@/views/company/companyDescription'),
         meta: { title: '公司详情', icon: 'form' }

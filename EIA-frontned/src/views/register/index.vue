@@ -10,7 +10,7 @@
         <span class="svg-container svg-container_register">
           <svg-icon icon-class="user" />
         </span>
-        <el-input name="username" type="text" v-model="registerForm.username" autoComplete="on" placeholder="username" />
+        <el-input name="username" type="text" v-model="registerForm.username" autoComplete="on" placeholder="邮箱注册" />
       </el-form-item>
     <!--./用户名-->
 
@@ -19,8 +19,18 @@
         <span class="svg-container">
           <svg-icon icon-class="password"></svg-icon>
         </span>
-        <el-input name="password" :type="pwdType" @keyup.enter.native="handleRegister" v-model="registerForm.password" autoComplete="on"
-          placeholder="password"></el-input>
+        <el-input name="password" :type="pwdType" v-model="registerForm.password" autoComplete="on"
+          placeholder="密码"></el-input>
+          <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
+      </el-form-item>
+    <!--./密码-->
+    <!--密码-->
+      <el-form-item prop="rePassword">
+        <span class="svg-container">
+          <svg-icon icon-class="password"></svg-icon>
+        </span>
+        <el-input name="rePassword" :type="pwdType"  v-model="registerForm.rePassword" autoComplete="on"
+          placeholder="密码确认"></el-input>
           <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
       </el-form-item>
     <!--./密码-->
@@ -31,66 +41,32 @@
           Sign up
         </el-button>
       </el-form-item>
+       <el-form-item>
+        <el-button type="success" style="width:100%;" :loading="loading">
+          <router-link to="/login">已有账户，去登陆</router-link>
+        </el-button>
+      </el-form-item>
     <!--./按钮-->
-      <div class="tips">
-        <span style="margin-left:80px;">EIA智能环评管家</span>
-      </div>
     </el-form>
   <!--./登陆表单-->
   </div>
 </template>
 
-<!--data>
-ref:
-loginForm
-
-v-bind:
-model-loginForm
-rules-loginRules
-type-pwdType
-loading-loading
-
-v-models:
-loginForm.username
-loginForm.password
-
-显示密码按钮@click:
-showPwd()
-
-登陆按钮@click.native.prevent:
-handleLogin()
-
-
-<./data-->
-
 <script>
-import { isvalidUsername, isvalidPassword } from '@/utils/validate'
-
+import { Message } from 'element-ui'
 export default {
   name: 'register',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
-    const validatePass = (rule, value, callback) => {
-      if (!isvalidPassword(value)) {
-        callback(new Error('密码不能小于5位'))
-      } else {
-        callback()
-      }
-    }
     return {
       registerForm: {
         username: '',
-        password: ''
+        password: '',
+        rePassword: ''
       },
       registerRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        username: [{ required: true, trigger: 'blur', message: '请输入正确的邮箱格式', type: 'email' }],
+        password: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入6-18位密码', pattern: /^[a-z0-9_-]{6,18}$/ }],
+        repassword: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入6-18位密码', pattern: /^[a-z0-9_-]{6,18}$/ }]
       },
       loading: false,
       pwdType: 'password'
@@ -106,20 +82,26 @@ export default {
       }
     },
     handleRegister() {
-      this.$refs.registerForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('Register', this.registerForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: '/login' })
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
+      if (this.registerForm.password === this.registerForm.rePassword) {
+        this.$refs.registerForm.validate(valid => {
+          if (valid) {
+            this.loading = true
+            this.$store.dispatch('Register', this.registerForm).then(() => {
+              this.loading = false
+              this.$router.push({ path: '/login' })
+            }).catch(() => {
+              this.loading = false
+            })
+          }
+        })
+      } else {
+        Message({
+          message: '两次密码不一致',
+          type: 'error',
+          duration: 1 * 1000
+        })
+        return false
+      }
     }
   }
 }

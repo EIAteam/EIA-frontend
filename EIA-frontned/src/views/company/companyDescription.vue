@@ -175,7 +175,7 @@
 
 <script>
 import { getProjectsList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough } from '@/api/project'
-import { getCompanyMemberList } from '@/api/company'
+import { getCompanyMemberList, putMembershipPosition } from '@/api/company'
 import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -183,7 +183,7 @@ export default {
       activeName: 'first',
       companyName: '',
       companyId: '',
-      position: 'agency',
+      position: '',
       companyMemberList: null,
       projectList: null,
 
@@ -345,10 +345,14 @@ export default {
       })
     },
     handleModifyPosition(row, position) {
-      row.position = position
-      this.$message({
-        message: '操作成功',
-        type: 'success'
+      this.companyMemberListLoading = true
+      putMembershipPosition(row.userId, this.companyId, position).then(response => {
+        this.getList()
+        this.companyMemberListLoading = false
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        })
       })
     },
 

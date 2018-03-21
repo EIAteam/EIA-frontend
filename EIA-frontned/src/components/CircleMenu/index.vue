@@ -149,7 +149,7 @@ export default {
           createCompany(this.createCompanyForm.companyName).then(() => {
             this.loading = false
             this.dialogVisible1 = false
-            this.$router.push({ path: '/' })
+            this.$router.go(0)
           }).catch(() => {
             this.loading = false
           })
@@ -166,7 +166,7 @@ export default {
           joinCompany(this.joinCompanyForm.companyName).then(() => {
             this.loading = false
             this.dialogVisible1 = false
-            this.$router.push({ path: '/' })
+            this.$router.go(0)
           }).catch(() => {
             this.loading = false
           })
@@ -191,14 +191,13 @@ export default {
           createProject(this.createProjectForm.projectName, this.createProjectForm.company).then(response => {})
           this.loading = false
           this.dialogVisible2 = false
-          this.$router.push({ path: '/dashboard' })
+          this.$router.go(0)
         } else {
           console.log('error submit!!')
           return false
         }
       })
     },
-
     reset() {
       this.createProjectForm.projectName = ''
       this.createProjectForm.company = ''

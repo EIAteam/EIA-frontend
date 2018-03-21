@@ -21,7 +21,7 @@ export function getProjectsList(limit, offset, companyId) {
 
 export function putProjectWorkerMessage(id, workerMessage) {
   return request({
-    url: '/api/project',
+    url: '/api/project/' + id + '/',
     method: 'patch',
     data: {
       workerMessage
@@ -31,7 +31,7 @@ export function putProjectWorkerMessage(id, workerMessage) {
 
 export function putProjectAgencyMessage(id, agencyMessage) {
   return request({
-    url: '/api/project',
+    url: '/api/project/' + id + '/',
     method: 'patch',
     data: {
       agencyMessage
@@ -41,7 +41,7 @@ export function putProjectAgencyMessage(id, agencyMessage) {
 
 export function putProjectIsMaterialEnough(id, isMaterialEnough) {
   return request({
-    url: '/api/project',
+    url: '/api/project/' + id + '/',
     method: 'patch',
     data: {
       isMaterialEnough
@@ -51,7 +51,7 @@ export function putProjectIsMaterialEnough(id, isMaterialEnough) {
 
 export function putProjectType(id, projectType) {
   return request({
-    url: '/api/project',
+    url: '/api/project/' + id + '/',
     method: 'patch',
     data: {
       projectType
@@ -61,7 +61,7 @@ export function putProjectType(id, projectType) {
 
 export function putProjectStatus(id, projectStatus) {
   return request({
-    url: '/api/project',
+    url: '/api/project/' + id + '/',
     method: 'patch',
     data: {
       projectStatus

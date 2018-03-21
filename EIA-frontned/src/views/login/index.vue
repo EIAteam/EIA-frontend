@@ -28,8 +28,14 @@
     <!--按钮-->
       <el-form-item>
         <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
-          Sign in
+          登陆
         </el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="success" style="width:100%;" :loading="loading">
+          <router-link to="/register">还没有账户？注册一下吧</router-link>
+        </el-button>
+
       </el-form-item>
     <!--./按钮-->
     </el-form>
@@ -37,56 +43,18 @@
   </div>
 </template>
 
-<!--data>
-ref:
-loginForm
-
-v-bind:
-model-loginForm
-rules-loginRules
-type-pwdType
-loading-loading
-
-v-models:
-loginForm.username
-loginForm.password
-
-显示密码按钮@click:
-showPwd()
-
-登陆按钮@click.native.prevent:
-handleLogin()
-
-<./data-->
-
 <script>
-import { isvalidUsername, isvalidPassword } from '@/utils/validate'
-
 export default {
   name: 'login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
-    const validatePass = (rule, value, callback) => {
-      if (!isvalidPassword(value)) {
-        callback(new Error('密码不能小于6位'))
-      } else {
-        callback()
-      }
-    }
     return {
       loginForm: {
         username: 'admin@qq.com',
         password: 'admin123'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        username: [{ required: true, trigger: 'blur', message: '请输入正确的邮箱格式', type: 'email' }],
+        password: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入密码', type: 'string' }]
       },
       loading: false,
       pwdType: 'password'
@@ -111,9 +79,6 @@ export default {
           }).catch(() => {
             this.loading = false
           })
-        } else {
-          console.log('error submit!!')
-          return false
         }
       })
     }
