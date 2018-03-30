@@ -49,7 +49,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination-container" style="margin-top:30px">
-    <el-pagination @size-change="handleCompanyMemberListSizeChange" @current-change="handleCompanyMemberListCurrentChange"
+    <el-pagination @size-change="handleCompanyMemberListSizeChange" @current-change="handleCompanyMemberListCurrentChange" 
       :current-page.sync="companyMemberListQuery.offset" :page-sizes="[10, 20, 30, 40]" :page-size="companyMemberListQuery.limit" :total="companyMemberListTotal"
       layout="total, sizes, prev, pager, next, jumper" background >
     </el-pagination>
@@ -104,9 +104,7 @@
             <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
               <tr>
               <th>中介留言</th>
-              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage"></el-input>
-                <button @click="handleChangeAgencyMessage(scope.row,value)" type="primary" size="mini">更改</button>
-              </td>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage" @blur="handleChangeAgencyMessage(scope.row,value)"></el-input></td>
               </tr>
               <tr>
               <th>编写员留言</th>
@@ -122,9 +120,7 @@
               </tr>
               <tr>
               <th>编写员留言</th>
-              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.workerMessage"></el-input>
-                <button @click="handleChangeWorkerMessage(scope.row,value)" type="primary" size="mini">更改</button>
-              </td>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.workerMessage" @blur="handleChangeWorkerMessage(scope.row,value)"></el-input></td>
               </tr>
             </table>
           </el-popover>
@@ -147,12 +143,12 @@
       </el-table-column>
        <el-table-column width="140px" align="center" label="操作" >
         <template slot-scope="scope">
-          <el-button><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
+          <el-button ><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-container" style="margin-top:30px">
-    <el-pagination @size-change="handleProjectListSizeChange" @current-change="handleProjectListCurrentChange"
+    <el-pagination @size-change="handleProjectListSizeChange" @current-change="handleProjectListCurrentChange" 
       :current-page.sync="ProjectListQuery.offset" :page-sizes="[10, 20, 30, 40]" :page-size="ProjectListQuery.limit" :total="projectListTotal"
       layout="total, sizes, prev, pager, next, jumper" background >
     </el-pagination>
@@ -163,7 +159,7 @@
   </el-tabs>
 </template>
 
-
+    
 
   </div>
 </template>

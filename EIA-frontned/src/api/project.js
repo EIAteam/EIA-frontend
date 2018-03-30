@@ -79,7 +79,6 @@ export function getProjectInfo(id) {
 export function putProjectBasicInfo(
   id,
   projectType,
-  township,
   energyUsage,
   constructionCompanyName,
   nameAbbreviation,
@@ -122,7 +121,6 @@ export function putProjectBasicInfo(
     method: 'patch',
     data: {
       projectType,
-      township,
       energyUsage,
       constructionCompanyName,
       nameAbbreviation,
@@ -174,6 +172,39 @@ export function putProjectProductInfo(id, product) {
   })
 }
 
+export function putProjectSecongLevelData(id, exhaustGas) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      exhaustGas
+    }
+  })
+}
+
+export function putVBA(id, projectName) {
+  return request({
+    url: '/api/VBA/create/' + projectName + '/',
+    method: 'post',
+    data: {
+      id,
+      projectName
+    }
+  })
+}
+
+export function createWord(id, projectName) {
+  return request({
+    url: '/api/Word/create/' + projectName + '/',
+    method: 'post',
+    data: {
+      id,
+      projectName
+    }
+  })
+}
+
 export function putProjectEquipmentInfo(id, equipment) {
   return request({
     url: '/api/project/' + id + '/',
@@ -198,7 +229,7 @@ export function putProjectMaterialInfo(id, material) {
 
 export function putProjectGeographicInfo(
   id,
-  districtTown,
+  township,
   soundEnvironmentStandard,
   waterSourceDistance,
   sensitivePointDistance,
@@ -220,7 +251,7 @@ export function putProjectGeographicInfo(
     method: 'patch',
     data: {
       id,
-      districtTown,
+      township,
       soundEnvironmentStandard,
       waterSourceDistance,
       sensitivePointDistance,
