@@ -79,6 +79,7 @@ export function getProjectInfo(id) {
 export function putProjectBasicInfo(
   id,
   projectType,
+  township,
   energyUsage,
   constructionCompanyName,
   nameAbbreviation,
@@ -121,6 +122,7 @@ export function putProjectBasicInfo(
     method: 'patch',
     data: {
       projectType,
+      township,
       energyUsage,
       constructionCompanyName,
       nameAbbreviation,
@@ -196,7 +198,7 @@ export function putProjectMaterialInfo(id, material) {
 
 export function putProjectGeographicInfo(
   id,
-  township,
+  districtTown,
   soundEnvironmentStandard,
   waterSourceDistance,
   sensitivePointDistance,
@@ -218,7 +220,7 @@ export function putProjectGeographicInfo(
     method: 'patch',
     data: {
       id,
-      township,
+      districtTown,
       soundEnvironmentStandard,
       waterSourceDistance,
       sensitivePointDistance,

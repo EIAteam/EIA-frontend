@@ -1,41 +1,49 @@
 <template>
  <div class="app-container">
+
+  <el-tabs v-model="activeName">
+    <el-tab-pane label="表单填写" name="first">
+
 <el-tabs type="border-card">
   <el-tab-pane label="基础信息">
   <basicInfoFormComponent :basicInfoForm.sync='basicInfoForm' ref='basicInfoForm'></basicInfoFormComponent>
-  <button @click="putBasicInfo">保存信息1</button>
+  <el-button type="primary" @click="putBasicInfo" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="产品表">
   <productsDataComponent :productsData.sync='productsData' ref='productsData'></productsDataComponent>
-  <button @click="putProductInfo">保存信息2</button>
+  <el-button @click="putProductInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="设备表">
   <equipmentDataComponent :equipmentData.sync='equipmentData' ref='equipmentData'></equipmentDataComponent>
-  <button @click="putEquipmentInfo">保存信息3</button>
+  <el-button @click="putEquipmentInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="材料表">
   <materialDataComponent :materialData.sync='materialData' ref='materialData'></materialDataComponent>
-  <button @click="putMaterialInfo">保存信息4</button>
+  <el-button @click="putMaterialInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="地理信息">
   <geographicInfoFormComponent :geographicInfoForm.sync='geographicInfoForm' ref='geographicInfoForm'></geographicInfoFormComponent>
-    <button @click="putGeographicInfo">保存信息5</button>
+    <el-button @click="putGeographicInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="工程组成">
   <engineeringCompositionDataComponent :engineeringCompositionData.sync='engineeringCompositionData' ref='engineeringCompositionData'></engineeringCompositionDataComponent>
-      <button @click="putEngineeringCompositionInfo">保存信息6</button>
+      <el-button @click="putEngineeringCompositionInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="敏感点信息">
   <sensitiveInfoDataComponent :sensitiveInfoData.sync='sensitiveInfoData' ref='sensitiveInfoData'></sensitiveInfoDataComponent>
-        <button @click="putSensitiveInfo">保存信息7</button>
+        <el-button @click="putSensitiveInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
-  <el-tab-pane label="废弃排放标准">
+  <el-tab-pane label="废气排放标准">
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
-        <button @click="putEmissionStandardInfo">保存信息8</button>
+        <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
-<button @click="getInfo">获取信息</button>
+  </el-tabs>
+    </el-tab-pane>
 
-</el-tabs>
+    <el-tab-pane label="智能分析器" name="second"></el-tab-pane>
+    <el-tab-pane label="报告下载" name="third"></el-tab-pane>
+
+  </el-tabs>
  </div>
 </template>
 
@@ -60,8 +68,10 @@ export default {
     return {
       projectId: null,
       projectName: null,
+      activeName: 'first',
       basicInfoForm: {
         projectType: '',
+        township: '',
         energyUsage: '',
         constructionCompanyName: '',
         nameAbbreviation: '',
@@ -99,7 +109,7 @@ export default {
         environmentalEffectclassification: []
       },
       geographicInfoForm: {
-        township: '',
+        districtTown: '',
         soundEnvironmentStandard: '',
         waterSourceDistance: '',
         sensitivePointDistance: '',
@@ -262,17 +272,25 @@ export default {
         }
       },
       deep: true
+    },
+    'basicInfoForm.township': {
+      handler: function(val, oldVal) {
+        this.geographicInfoForm.districtTown = this.basicInfoForm.township
+      },
+      deep: true
     }
   },
   created() {
     this.projectId = this.$route.params.projectId
     this.projectName = this.$route.params.projectName
+    this.getInfo()
     console.log(this.projectName)
   },
   methods: {
     getInfo() {
-      getProjectInfo(14).then(Response => {
+      getProjectInfo(this.projectId).then(Response => {
         this.basicInfoForm.projectType = Response.projectType
+        this.basicInfoForm.township = Response.township
         this.basicInfoForm.energyUsage = Response.energyUsage
         this.basicInfoForm.constructionCompanyName = Response.constructionCompanyName
         this.basicInfoForm.nameAbbreviation = Response.nameAbbreviation
@@ -309,7 +327,7 @@ export default {
         this.basicInfoForm.EAcompanyName = Response.EAcompanyName
         this.basicInfoForm.environmentalEffectclassification = JSON.parse(Response.environmentalEffectclassification)
 
-        this.geographicInfoForm.township = Response.township
+        this.geographicInfoForm.districtTown = Response.districtTown
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
         this.geographicInfoForm.waterSourceDistance = Response.waterSourceDistance
         this.geographicInfoForm.sensitivePointDistance = Response.sensitivePointDistance
@@ -347,6 +365,7 @@ export default {
         putProjectBasicInfo(
           this.projectId,
           this.basicInfoForm.projectType,
+          this.basicInfoForm.township,
           this.basicInfoForm.energyUsage,
           this.basicInfoForm.constructionCompanyName,
           this.basicInfoForm.nameAbbreviation,
@@ -406,7 +425,7 @@ export default {
       this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => {
         putProjectGeographicInfo(
           this.projectId,
-          this.geographicInfoForm.township,
+          this.geographicInfoForm.districtTown,
           this.geographicInfoForm.soundEnvironmentStandard,
           this.geographicInfoForm.waterSourceDistance,
           this.geographicInfoForm.sensitivePointDistance,

@@ -1,161 +1,262 @@
 <template>
-  <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm" :rules="formRules">
+  <el-form :model="basicInfoForm" label-width="120px;" ref="basicInfoForm" :rules="formRules" labelPosition="top">
+
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="项目性质" prop="projectType">
-        <el-select v-model="basicInfoForm.projectType" placeholder="请选择">
+        <el-select v-model="basicInfoForm.projectType" placeholder="请选择" style="width:350px;">
           <el-option label="新建" value="newBuilt"></el-option>
           <el-option label="搬迁" value="extension"></el-option>
           <el-option label="扩建" value="removal"></el-option>
         </el-select>
       </el-form-item>
+      </el-col>
+      <el-col :span="12">
+      <el-form-item label="所在区镇" prop="township">
+        <el-select v-model="basicInfoForm.township" placeholder="请选择" style="width:350px;">
+          <el-option v-for="item in surfacewaterOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
+        </el-select>
+      </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="建设单位名称" prop="constructionCompanyName">
-        <el-input v-model="basicInfoForm.constructionCompanyName" type="text" placeholder="项目名称（与营业执照一致）" style="width:700px;"></el-input>
+        <el-input v-model="basicInfoForm.constructionCompanyName" type="text" placeholder="项目名称（与营业执照一致）" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="名称缩写" prop="nameAbbreviation">
-        <el-input v-model="basicInfoForm.nameAbbreviation" type="text" placeholder="单位名称" style="width:700px;"></el-input>
+        <el-input v-model="basicInfoForm.nameAbbreviation" type="text" placeholder="单位名称" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="国民经济行业类别及代码" prop="NEIType">
         <el-cascader :options="NEITypeOptions" :show-all-levels="false" v-model="basicInfoForm.NEIType"
-        placeholder="请选择" style="width:400px;" expand-trigger="hover"></el-cascader>
+        placeholder="请选择" style="width:350px;" expand-trigger="hover"></el-cascader>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="环境影响评价行业类别" prop="environmentalEffectclassification">
         <el-cascader :options="environmentalEffectclassificationOptions" expand-trigger="hover"
-        v-model="basicInfoForm.environmentalEffectclassification" placeholder="请选择" style="width:1200px;"></el-cascader>
+        v-model="basicInfoForm.environmentalEffectclassification" placeholder="请选择" style="width:350px;"></el-cascader>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="环评单位名称" prop="EAcompanyName" class="demo-autocomplete">
         <el-autocomplete class="inline-input" v-model="basicInfoForm.EAcompanyName" :fetch-suggestions="querySearch"
-        placeholder="请输入环评单位全称" @select="handleSelect($event)" style="width:400px;"></el-autocomplete>
+        placeholder="请输入环评单位全称" @select="handleSelect($event)" style="width:350px;"></el-autocomplete>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="环评单位证书编号" prop="EAcompanyCertificatenumber">
-        <el-input v-model="basicInfoForm.EAcompanyCertificatenumber" type="text" placeholder="环评单位号码" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.EAcompanyCertificatenumber" type="text" placeholder="环评单位号码" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="环评单位联系电话" prop="EAcompanyTelephone">
-        <el-input v-model="basicInfoForm.EAcompanyTelephone" type="text" placeholder="环评报告联系人电话" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.EAcompanyTelephone" type="text" placeholder="环评报告联系人电话" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="环评单位联系地址" prop="EAcompanyAddress">
-        <el-input v-model="basicInfoForm.EAcompanyAddress" type="text" placeholder="环评单位地址" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.EAcompanyAddress" type="text" placeholder="环评单位地址" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="项目地址" prop="address">
-        <el-input v-model="basicInfoForm.address" type="text" placeholder="与营业执照一致" style="width:700px;"></el-input>
+        <el-input v-model="basicInfoForm.address" type="text" placeholder="与营业执照一致" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="邮政编码" prop="postalCode">
-        <el-input v-model="basicInfoForm.postalCode" type="text" placeholder="6位数字" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.postalCode" type="text" placeholder="6位数字" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="法人代表" prop="corporateName">
-        <el-input v-model="basicInfoForm.corporateName" type="text" placeholder="法人姓名" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.corporateName" type="text" placeholder="法人姓名" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="法人身份证号" prop="corporateId">
-        <el-input v-model="basicInfoForm.corporateId" type="text" placeholder="身份证号码" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.corporateId" type="text" placeholder="身份证号码" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="项目规模" prop="constructionScale">
-        <el-input v-model="basicInfoForm.constructionScale" type="text" placeholder="年产量" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.constructionScale" type="text" placeholder="年产量" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="统一社会信用代码" prop="societyCreditcode">
-        <el-input v-model="basicInfoForm.societyCreditcode" type="text" placeholder="与营业执照一致" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.societyCreditcode" type="text" placeholder="与营业执照一致" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
       <el-form-item label="营业执照经营范围" prop="businessRange">
-        <el-input v-model="basicInfoForm.businessRange" type="text" placeholder="与营业执照一致" style="width:700px;"></el-input>
+        <el-input v-model="basicInfoForm.businessRange" type="text" placeholder="与营业执照一致" style="width:600px;"></el-input>
       </el-form-item>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="联系人" prop="contacts">
-        <el-input v-model="basicInfoForm.contacts" type="text" placeholder="联系人姓名" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.contacts" type="text" placeholder="联系人姓名" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="联系电话" prop="telephone">
-        <el-input v-model="basicInfoForm.telephone" type="text" placeholder="手机号码" style="width:400px;"></el-input>
+        <el-input v-model="basicInfoForm.telephone" type="text" placeholder="手机号码" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="项目总投资（万元）" prop="totalInvestment">
-        <el-input v-model.number="basicInfoForm.totalInvestment" type="text" placeholder="对照营业执照，数字" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.totalInvestment" type="text" placeholder="对照营业执照，数字" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="环保投资（万元）" prop="environmentalProtectionInvestment">
-        <el-input v-model.number="basicInfoForm.environmentalProtectionInvestment" type="text" placeholder="比例约为项目总投资的10-15%" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.environmentalProtectionInvestment" type="text" placeholder="比例约为项目总投资的10-15%" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="占地面积（m²）" prop="floorSpace">
-        <el-input v-model.number="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致，整数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致，整数" style="width:350px;"></el-input>
       </el-form-item>
-
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="经营面积（m²）" prop="managementSpace">
-        <el-input v-model.number="basicInfoForm.managementSpace" type="text" placeholder="多层建筑要用占地面积乘以层数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.managementSpace" type="text" placeholder="多层建筑要用占地面积乘以层数" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="东" prop="east">
+        <el-input v-model="basicInfoForm.east" type="text" placeholder="文字描述" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="职工不住宿人数（人）" prop="nonAccommodationNum">
-        <el-input v-model.number="basicInfoForm.nonAccommodationNum" type="text" placeholder="整数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.nonAccommodationNum" type="text" placeholder="整数" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="南" prop="south">
+        <el-input v-model="basicInfoForm.south" type="text" placeholder="文字描述" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="职工住宿人数（人）" prop="accommodationNum">
-        <el-input v-model.number="basicInfoForm.accommodationNum" type="text" placeholder="整数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.accommodationNum" type="text" placeholder="整数" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="西" prop="west">
+        <el-input v-model="basicInfoForm.west" type="text" placeholder="文字描述" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="员工吃饭人数（人）" prop="dinningNum">
-        <el-input v-model.number="basicInfoForm.dinningNum" type="text" placeholder="整数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.dinningNum" type="text" placeholder="整数" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="北" prop="north">
+        <el-input v-model="basicInfoForm.north" type="text" placeholder="文字描述" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="日工作时间（小时）" prop="dayWorkTime">
-        <el-input v-model.number="basicInfoForm.dayWorkTime" type="text" placeholder="小时数，整数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.dayWorkTime" type="text" placeholder="小时数，整数" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="经度" prop="longtitude">
+        <el-input v-model.number="basicInfoForm.longtitude" type="text" placeholder="小数点后6位" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="年工作时间（日）" prop="yearWorkTime">
-        <el-input v-model.number="basicInfoForm.yearWorkTime" type="text" placeholder="天数，整数" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.yearWorkTime" type="text" placeholder="天数，整数" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="纬度" prop="latitude">
+        <el-input v-model.number="basicInfoForm.latitude" type="text" placeholder="小数点后6位" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
       <el-form-item label="投产时间" prop="investmentTime">
-        <el-input v-model.number="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算" style="width:400px;"></el-input>
+        <el-input v-model.number="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
-      <el-form-item label="电年耗量（万kWh/a）" prop="annualPowerConsumption">
-        <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
-      </el-form-item>
-
+    <el-row>
+      <el-col :span="12">
       <el-form-item label="能源使用情况" prop="energyUsage">
-        <el-select v-model="basicInfoForm.energyUsage" placeholder="请选择">
+        <el-select v-model="basicInfoForm.energyUsage" placeholder="请选择" style="width:350px;">
           <el-option label="天然气" value="NG"></el-option>
           <el-option label="液化石油气" value="LPG"></el-option>
           <el-option label="无" value="none"></el-option>
         </el-select>
       </el-form-item>
-
-      <el-form-item label="东" prop="east">
-        <el-input v-model="basicInfoForm.east" type="text" placeholder="文字描述" style="width:700px;"></el-input>
+      </el-col>
+      <el-col :span="12">
+      <el-form-item label="电年耗量（万kWh/a）" prop="annualPowerConsumption">
+        <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
       </el-form-item>
+      </el-col>
+    </el-row>
 
-      <el-form-item label="南" prop="south">
-        <el-input v-model="basicInfoForm.south" type="text" placeholder="文字描述" style="width:700px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="西" prop="west">
-        <el-input v-model="basicInfoForm.west" type="text" placeholder="文字描述" style="width:700px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="北" prop="north">
-        <el-input v-model="basicInfoForm.north" type="text" placeholder="文字描述" style="width:700px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="经度" prop="longtitude">
-        <el-input v-model.number="basicInfoForm.longtitude" type="text" placeholder="小数点后6位" style="width:400px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="纬度" prop="latitude">
-        <el-input v-model.number="basicInfoForm.latitude" type="text" placeholder="小数点后6位" style="width:400px;"></el-input>
-      </el-form-item>
     </el-form>
 </template>
+
 
 <script>
 // import { isvalidUsername } from '@/utils/validate'
@@ -166,6 +267,7 @@ export default {
     return {
       formRules: {
         projectType: [{ required: true, trigger: 'change', type: 'string', message: '请选择' }],
+        township: [{ required: true, trigger: 'change', type: 'string', message: '请选择' }],
         energyUsage: [{ required: true, trigger: 'change', type: 'string', message: '请选择' }],
         NEIType: [{ required: true, trigger: 'change', message: '请选择' }],
         environmentalEffectclassification: [{ required: true, trigger: 'change', message: '请选择' }],
@@ -202,6 +304,17 @@ export default {
         longtitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
       },
+      surfacewaterOptions: [
+        { label: '勒流', value: '勒流' },
+        { label: '大良', value: '大良' },
+        { label: '容桂', value: '容桂' },
+        { label: '均安', value: '均安' },
+        { label: '杏坛', value: '杏坛' },
+        { label: '伦教', value: '伦教' },
+        { label: '乐从', value: '乐从' },
+        { label: '北滘', value: '北滘' },
+        { label: '龙江', value: '龙江' }
+      ],
       NEITypeOptions: [{
         value: '农副食品', label: '农副食品',
         children: [
@@ -792,4 +905,13 @@ export default {
 }
 
 </script>
+
+<style>
+.divider{
+    padding: 0;
+    margin: 20px 0;
+    line-height: 1px;
+    color:#ddd;
+}
+</style>
 
