@@ -205,6 +205,16 @@ export function createWord(id, projectName) {
   })
 }
 
+export function projectUpdownload(projectName, filetype, operation) {
+  return request({
+    url: '/api/updownload/' + projectName + '/' + filetype + '/' + operation + '/',
+    method: 'post',
+    data: {
+      projectName
+    }
+  })
+}
+
 export function putProjectEquipmentInfo(id, equipment) {
   return request({
     url: '/api/project/' + id + '/',

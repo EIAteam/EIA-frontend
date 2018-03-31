@@ -29,7 +29,8 @@ export default {
       },
       remarkOption: [
         { value: 1, label: '有组织排放' },
-        { value: 2, label: '无组织排放' }
+        { value: 2, label: '无组织排放1' },
+        { value: 2, label: '无组织排放1' }
       ]
     }
   },
