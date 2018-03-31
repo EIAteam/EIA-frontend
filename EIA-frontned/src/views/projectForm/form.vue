@@ -327,7 +327,7 @@ export default {
         this.basicInfoForm.EAcompanyName = Response.EAcompanyName
         this.basicInfoForm.environmentalEffectclassification = JSON.parse(Response.environmentalEffectclassification)
 
-        this.geographicInfoForm.districtTown = Response.districtTown
+        this.geographicInfoForm.districtTown = Response.township
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
         this.geographicInfoForm.waterSourceDistance = Response.waterSourceDistance
         this.geographicInfoForm.sensitivePointDistance = Response.sensitivePointDistance
@@ -425,7 +425,6 @@ export default {
       this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => {
         putProjectGeographicInfo(
           this.projectId,
-          this.geographicInfoForm.districtTown,
           this.geographicInfoForm.soundEnvironmentStandard,
           this.geographicInfoForm.waterSourceDistance,
           this.geographicInfoForm.sensitivePointDistance,
