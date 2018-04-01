@@ -15,6 +15,21 @@
         </el-select>
       </template>
     </el-table-column>
+    <el-table-column label="材料" width="200" >
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.material" size="small" v-bind:readonly="true"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="用量" width="150" >
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.usage" size="small" v-bind:readonly="true"></el-input>
+      </template>
+    </el-table-column>
+    <el-table-column label="系数" width="150" >
+      <template slot-scope="scope">
+        <el-input v-model="scope.row.ratio" size="small" v-bind:readonly="true"></el-input>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
@@ -30,7 +45,7 @@ export default {
       remarkOption: [
         { value: 1, label: '有组织排放' },
         { value: 2, label: '无组织排放1' },
-        { value: 2, label: '无组织排放1' }
+        { value: 3, label: '无组织排放2' }
       ]
     }
   },

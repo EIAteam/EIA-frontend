@@ -100,6 +100,7 @@ export function putProjectBasicInfo(
   yearWorkTime,
   investmentTime,
   annualPowerConsumption,
+  annualLeftover,
   east,
   south,
   west,
@@ -113,8 +114,10 @@ export function putProjectBasicInfo(
   EAcompanyTelephone,
   EAcompanyAddress,
   EAcompanyName,
+  noiseMonitoringPoints,
+  gasCylinderHeight,
+  airQuantity,
   environmentalEffectclassification,
-
 ) {
   return request({
     url: '/api/project/' + id + '/',
@@ -155,6 +158,9 @@ export function putProjectBasicInfo(
       EAcompanyTelephone,
       EAcompanyAddress,
       EAcompanyName,
+      noiseMonitoringPoints,
+      gasCylinderHeight,
+      airQuantity,
       environmentalEffectclassification
 
     }

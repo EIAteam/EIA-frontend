@@ -127,6 +127,18 @@
         <el-input v-model.number="basicInfoForm.annualLeftover" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
       </el-form-item>
 
+      <el-form-item label="噪声监测点数目" prop="noiseMonitoringPoints">
+        <el-input v-model.number="basicInfoForm.noiseMonitoringPoints" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="排风筒高度(m)" prop="gasCylinderHeight">
+        <el-input v-model.number="basicInfoForm.gasCylinderHeight" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
+      </el-form-item>
+
+      <el-form-item label="风量(m3/h)" prop="airQuantity">
+        <el-input v-model.number="basicInfoForm.airQuantity" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
+      </el-form-item>
+
       <el-form-item label="能源使用情况" prop="energyUsage">
         <el-select v-model="basicInfoForm.energyUsage" placeholder="请选择">
           <el-option label="天然气" value="NG"></el-option>
@@ -205,7 +217,10 @@ export default {
         west: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         north: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         longtitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
-        latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
+        latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        noiseMonitoringPoints: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        gasCylinderHeight: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        airQuantity: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
       },
       NEITypeOptions: [{
         value: '农副食品', label: '农副食品',

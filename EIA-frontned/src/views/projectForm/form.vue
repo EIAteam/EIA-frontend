@@ -103,6 +103,9 @@ export default {
         EAcompanyTelephone: '',
         EAcompanyAddress: '',
         EAcompanyName: '',
+        noiseMonitoringPoints: '',
+        gasCylinderHeight: '',
+        airQuantity: '',
         environmentalEffectclassification: []
       },
       geographicInfoForm: {
@@ -323,6 +326,9 @@ export default {
         this.basicInfoForm.EAcompanyAddress = Response.EAcompanyAddress
         this.basicInfoForm.EAcompanyName = Response.EAcompanyName
         this.basicInfoForm.environmentalEffectclassification = JSON.parse(Response.environmentalEffectclassification)
+        this.basicInfoForm.noiseMonitoringPoints = Response.noiseMonitoringPoints
+        this.basicInfoForm.gasCylinderHeight = Response.gasCylinderHeight
+        this.basicInfoForm.airQuantity = Response.airQuantity
 
         this.geographicInfoForm.township = Response.township
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
@@ -397,7 +403,10 @@ export default {
           this.basicInfoForm.EAcompanyTelephone,
           this.basicInfoForm.EAcompanyAddress,
           this.basicInfoForm.EAcompanyName,
-          JSON.stringify(this.basicInfoForm.environmentalEffectclassification),
+          this.basicInfoForm.noiseMonitoringPoints,
+          this.basicInfoForm.gasCylinderHeight,
+          this.basicInfoForm.airQuantity,
+          JSON.stringify(this.basicInfoForm.environmentalEffectclassification)
         ).then(Response => {
           this.getInfo()
         })
