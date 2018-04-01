@@ -49,7 +49,7 @@
       </el-table-column>
     </el-table>
     <div class="pagination-container" style="margin-top:30px">
-    <el-pagination @size-change="handleCompanyMemberListSizeChange" @current-change="handleCompanyMemberListCurrentChange"
+    <el-pagination @size-change="handleCompanyMemberListSizeChange" @current-change="handleCompanyMemberListCurrentChange" 
       :current-page.sync="companyMemberListQuery.offset" :page-sizes="[10, 20, 30, 40]" :page-size="companyMemberListQuery.limit" :total="companyMemberListTotal"
       layout="total, sizes, prev, pager, next, jumper" background >
     </el-pagination>
@@ -104,9 +104,7 @@
             <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
               <tr>
               <th>中介留言</th>
-              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage"></el-input>
-                <button @click="handleChangeAgencyMessage(scope.row,value)" type="primary" size="mini">更改</button>
-              </td>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage" @blur="handleChangeAgencyMessage(scope.row,value)"></el-input></td>
               </tr>
               <tr>
               <th>编写员留言</th>
@@ -122,9 +120,7 @@
               </tr>
               <tr>
               <th>编写员留言</th>
-              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.workerMessage"></el-input>
-                <button @click="handleChangeWorkerMessage(scope.row,value)" type="primary" size="mini">更改</button>
-              </td>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.workerMessage" @blur="handleChangeWorkerMessage(scope.row,value)"></el-input></td>
               </tr>
             </table>
           </el-popover>
@@ -142,17 +138,50 @@
           </el-popover>
           <el-badge :is-dot="scope.row.agencyMessage!=''||scope.row.workerMessage!=''" class="item" style="margin-top: 10px;margin-right: 40px;">
             <el-button size="mini" v-popover:popover>留言</el-button>
+            <el-popover  v-if="position=='agency'" ref="popover" placement="left"  width="400" trigger="click">
+            <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
+              <tr>
+              <th>中介留言</th>
+              <td><el-input type="textarea" autosize placeholder="请输入内容" :value="scope.row.agencyMessage" @blur="handleChangeAgencyMessage(scope.row,value)"></el-input></td>
+              </tr>
+              <tr>
+              <th>编写员留言</th>
+              <td>{{scope.row.workerMessage}}</td>
+              </tr>
+            </table>
+          </el-popover>
           </el-badge>
         </template>
       </el-table-column>
-       <el-table-column width="140px" align="center" label="操作" >
+       <el-table-column width="300px" align="center" label="操作" >
         <template slot-scope="scope">
-          <el-button><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
+          <el-button ><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
+          <el-popover ref="popover2" placement="bottom" width="500" trigger="click">
+            <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
+              <tr>
+              <th>文件选择</th>
+              <td>
+                <el-select v-model="updownloadFileType" placeholder="请选择" @change="(value) => filechange(value)" prop="filetype">
+                <el-option v-for="item in fileOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select></td>
+              </tr>
+              <tr>
+              <th>操作选择</th>
+              <td>
+                <el-select v-model="updownloadOpType" placeholder="请选择" @change="(value) => opchange(value)" prop="optype">
+                <el-option v-for="item in operationOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </td>
+              </tr>
+            </table>
+            <el-button @click="updownload(scope.row.projectName, 1, 2)">确定</el-button>
+          </el-popover>
+          <el-button v-popover:popover2>上传/下载</el-button>          
         </template>
       </el-table-column>
     </el-table>
     <div class="pagination-container" style="margin-top:30px">
-    <el-pagination @size-change="handleProjectListSizeChange" @current-change="handleProjectListCurrentChange"
+    <el-pagination @size-change="handleProjectListSizeChange" @current-change="handleProjectListCurrentChange" 
       :current-page.sync="ProjectListQuery.offset" :page-sizes="[10, 20, 30, 40]" :page-size="ProjectListQuery.limit" :total="projectListTotal"
       layout="total, sizes, prev, pager, next, jumper" background >
     </el-pagination>
@@ -163,7 +192,7 @@
   </el-tabs>
 </template>
 
-
+    
 
   </div>
 </template>
@@ -184,16 +213,19 @@
 
 
 <script>
-import { getProjectsList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough } from '@/api/project'
+import { getProjectsList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough, projectUpdownload } from '@/api/project'
 import { getCompanyMemberList, putMembershipPosition } from '@/api/company'
 import { mapGetters } from 'vuex'
 export default {
+  props: ['updownloadForm'],
   data() {
     return {
       activeName: 'first',
       companyName: '',
       companyId: '',
       position: '',
+      updownloadFileType: '',
+      updownloadOpType: '',
       companyMemberList: null,
       projectList: null,
 
@@ -211,7 +243,6 @@ export default {
         offset: 1,
         limit: 10
       },
-
       projectTypeOptions: [
         { value: 'none', label: '无' },
         { value: 'newBuilt', label: '新建' },
@@ -226,6 +257,16 @@ export default {
         { value: 'submit', label: '入件' },
         { value: 'investigate', label: '审批修改' },
         { value: 'takeEvidence', label: '取证' }
+      ],
+      fileOption: [
+        { value: 1, label: 'Word初稿' },
+        { value: 2, label: 'Excel基础信息' },
+        { value: 3, label: 'Excel生产信息' },
+        { value: 4, label: 'Word终稿' }
+      ],
+      operationOption: [
+        { value: 1, label: '上传' },
+        { value: 2, label: '下载' }
       ]
     }
   },
@@ -365,7 +406,6 @@ export default {
         })
       })
     },
-
     handleCompanyMemberListSizeChange(value) {
       this.companyMemberListQuery.limit = value
       this.getList()
@@ -383,6 +423,15 @@ export default {
       this.ProjectListQuery.offset = value
       this.getList()
       console.log(1)
+    },
+    filechange(value) {
+      this.updownloadFileType = value
+    },
+    opchange(value) {
+      this.updownloadOpType = value
+    },
+    updownload(projectName, filetype, operation) {
+      projectUpdownload(projectName, filetype, operation)
     }
 
   }

@@ -34,7 +34,6 @@
     </el-table-column>
   </el-table>
 
-    <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
   <el-table :data="sensitiveInfoData.sensitiveInfoAtmosphereData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoAtmosphereData">
     <el-table-column label="环境要素" width="180">
       <template slot-scope="scope">
@@ -58,7 +57,6 @@
     </el-table-column>
   </el-table>
 
-    <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
   <el-table :data="sensitiveInfoData.sensitiveInfoVoiceData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoVoiceData">
     <el-table-column label="环境要素" width="180">
       <template slot-scope="scope">
@@ -82,11 +80,10 @@
     </el-table-column>
   </el-table>
 
-    <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
   <el-table :data="sensitiveInfoData.sensitiveInfoHouseData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoHouseData" :rules="sensitiveInfoHouseDataRules">
     <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.environmentalElements" placeholder="请填入民居名称，500米范围内"></el-input>
+        <el-input v-model="scope.row.environmentalElements" placeholder="请填入名居名称，500米范围内"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="方位" width="200">
@@ -112,8 +109,8 @@
     </el-table-column>
   </el-table>
 
-    <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
   <el-table :data="sensitiveInfoData.sensitiveInfoReserveData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoReserveData" :rules="sensitiveInfoReserveDataRules">
+
     <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
         <el-input v-model="scope.row.environmentalElements" placeholder="请填入水源保护区名称，500米范围内"></el-input>
@@ -208,12 +205,3 @@ export default {
 }
 
 </script>
-
-<style>
-.divider{
-    padding: 0;
-    margin: 20px 0;
-    line-height: 1px;
-    color:#ddd;
-}
-</style>
