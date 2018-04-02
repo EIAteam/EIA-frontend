@@ -101,6 +101,7 @@ export function putProjectBasicInfo(
   yearWorkTime,
   investmentTime,
   annualPowerConsumption,
+  annualLeftover,
   east,
   south,
   west,
@@ -114,8 +115,10 @@ export function putProjectBasicInfo(
   EAcompanyTelephone,
   EAcompanyAddress,
   EAcompanyName,
+  noiseMonitoringPoints,
+  gasCylinderHeight,
+  airQuantity,
   environmentalEffectclassification,
-
 ) {
   return request({
     url: '/api/project/' + id + '/',
@@ -157,6 +160,9 @@ export function putProjectBasicInfo(
       EAcompanyTelephone,
       EAcompanyAddress,
       EAcompanyName,
+      noiseMonitoringPoints,
+      gasCylinderHeight,
+      airQuantity,
       environmentalEffectclassification
 
     }
@@ -170,6 +176,49 @@ export function putProjectProductInfo(id, product) {
     data: {
       id,
       product
+    }
+  })
+}
+
+export function putProjectSecongLevelData(id, exhaustGas) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      exhaustGas
+    }
+  })
+}
+
+export function putVBA(id, projectName) {
+  return request({
+    url: '/api/VBA/create/' + projectName + '/',
+    method: 'post',
+    data: {
+      id,
+      projectName
+    }
+  })
+}
+
+export function createWord(id, projectName) {
+  return request({
+    url: '/api/Word/create/' + projectName + '/',
+    method: 'post',
+    data: {
+      id,
+      projectName
+    }
+  })
+}
+
+export function projectUpdownload(projectName, filetype, operation) {
+  return request({
+    url: '/api/updownload/' + projectName + '/' + filetype + '/' + operation + '/',
+    method: 'post',
+    data: {
+      projectName
     }
   })
 }

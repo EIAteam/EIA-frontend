@@ -148,6 +148,28 @@
        <el-table-column width="140px" align="center" label="操作" >
         <template slot-scope="scope">
           <el-button><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
+          <el-button ><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
+          <el-popover ref="popover2" placement="bottom" width="500" trigger="click">
+            <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
+              <tr>
+              <th>文件选择</th>
+              <td>
+                <el-select v-model="updownloadFileType" placeholder="请选择" @change="(value) => filechange(value)" prop="filetype">
+                <el-option v-for="item in fileOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select></td>
+              </tr>
+              <tr>
+              <th>操作选择</th>
+              <td>
+                <el-select v-model="updownloadOpType" placeholder="请选择" @change="(value) => opchange(value)" prop="optype">
+                <el-option v-for="item in operationOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </td>
+              </tr>
+            </table>
+            <el-button @click="updownload(scope.row.projectName, 1, 2)">确定</el-button>
+          </el-popover>
+          <el-button v-popover:popover2>上传/下载</el-button>          
         </template>
       </el-table-column>
     </el-table>
@@ -185,15 +207,19 @@
 
 <script>
 import { getProjectsList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough } from '@/api/project'
+import { getProjectsList, putProjectAgencyMessage, putProjectWorkerMessage, putProjectStatus, putProjectType, putProjectIsMaterialEnough, projectUpdownload } from '@/api/project'
 import { getCompanyMemberList, putMembershipPosition } from '@/api/company'
 import { mapGetters } from 'vuex'
 export default {
+  props: ['updownloadForm'],
   data() {
     return {
       activeName: 'first',
       companyName: '',
       companyId: '',
       position: '',
+      updownloadFileType: '',
+      updownloadOpType: '',
       companyMemberList: null,
       projectList: null,
 
@@ -226,6 +252,16 @@ export default {
         { value: 'submit', label: '入件' },
         { value: 'investigate', label: '审批修改' },
         { value: 'takeEvidence', label: '取证' }
+      ],
+      fileOption: [
+        { value: 1, label: 'Word初稿' },
+        { value: 2, label: 'Excel基础信息' },
+        { value: 3, label: 'Excel生产信息' },
+        { value: 4, label: 'Word终稿' }
+      ],
+      operationOption: [
+        { value: 1, label: '上传' },
+        { value: 2, label: '下载' }
       ]
     }
   },
@@ -383,6 +419,15 @@ export default {
       this.ProjectListQuery.offset = value
       this.getList()
       console.log(1)
+    },
+    filechange(value) {
+      this.updownloadFileType = value
+    },
+    opchange(value) {
+      this.updownloadOpType = value
+    },
+    updownload(projectName, filetype, operation) {
+      projectUpdownload(projectName, filetype, operation)
     }
 
   }
