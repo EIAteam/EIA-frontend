@@ -61,7 +61,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 
 .companylist-container {
-  height: 100%;
+  min-height: 700px;
   padding: 32px;
   background-color: rgb(240, 242, 245);
   .chart-wrapper {

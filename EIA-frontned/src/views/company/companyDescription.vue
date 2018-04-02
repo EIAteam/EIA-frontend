@@ -278,7 +278,7 @@ export default {
   filters: {
     projectStatusFilter(projectStatus) {
       const projectStatusMap = {
-        null: '无',
+        none: '无',
         receivedInfo: '收到资料',
         reportEdit: '报告编写',
         InfoComplete: '资质材料完善',
@@ -290,7 +290,7 @@ export default {
     },
     projectTypeFilter(projectType) {
       const projectTypeMap = {
-        null: '无',
+        none: '无',
         newBuilt: '新建',
         extension: '扩建',
         removal: '搬迁'
