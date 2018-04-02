@@ -330,11 +330,7 @@ export default {
         this.basicInfoForm.gasCylinderHeight = Response.gasCylinderHeight
         this.basicInfoForm.airQuantity = Response.airQuantity
 
-<<<<<<< HEAD
         this.geographicInfoForm.districtTown = Response.township
-=======
-        this.geographicInfoForm.township = Response.township
->>>>>>> scz_branch
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
         this.geographicInfoForm.waterSourceDistance = Response.waterSourceDistance
         this.geographicInfoForm.sensitivePointDistance = Response.sensitivePointDistance
@@ -446,10 +442,6 @@ export default {
       this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => {
         putProjectGeographicInfo(
           this.projectId,
-<<<<<<< HEAD
-=======
-          this.geographicInfoForm.township,
->>>>>>> scz_branch
           this.geographicInfoForm.soundEnvironmentStandard,
           this.geographicInfoForm.waterSourceDistance,
           this.geographicInfoForm.sensitivePointDistance,
