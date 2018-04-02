@@ -1,46 +1,49 @@
 <template>
  <div class="app-container">
+
+  <el-tabs v-model="activeName">
+    <el-tab-pane label="表单填写" name="first">
+
 <el-tabs type="border-card">
   <el-tab-pane label="基础信息">
   <basicInfoFormComponent :basicInfoForm.sync='basicInfoForm' ref='basicInfoForm'></basicInfoFormComponent>
-  <button @click="putBasicInfo">保存信息1</button>
+  <el-button type="primary" @click="putBasicInfo" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="产品表">
   <productsDataComponent :productsData.sync='productsData' ref='productsData'></productsDataComponent>
-  <button @click="putProductInfo">保存信息2</button>
+  <el-button @click="putProductInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="设备表">
   <equipmentDataComponent :equipmentData.sync='equipmentData' ref='equipmentData'></equipmentDataComponent>
-  <button @click="putEquipmentInfo">保存信息3</button>
+  <el-button @click="putEquipmentInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="材料表">
   <materialDataComponent :materialData.sync='materialData' ref='materialData'></materialDataComponent>
-  <button @click="putMaterialInfo">保存信息4</button>
+  <el-button @click="putMaterialInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="地理信息">
   <geographicInfoFormComponent :geographicInfoForm.sync='geographicInfoForm' ref='geographicInfoForm'></geographicInfoFormComponent>
-    <button @click="putGeographicInfo">保存信息5</button>
+    <el-button @click="putGeographicInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="工程组成">
   <engineeringCompositionDataComponent :engineeringCompositionData.sync='engineeringCompositionData' ref='engineeringCompositionData'></engineeringCompositionDataComponent>
-      <button @click="putEngineeringCompositionInfo">保存信息6</button>
+      <el-button @click="putEngineeringCompositionInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="敏感点信息">
   <sensitiveInfoDataComponent :sensitiveInfoData.sync='sensitiveInfoData' ref='sensitiveInfoData'></sensitiveInfoDataComponent>
-        <button @click="putSensitiveInfo">保存信息7</button>
+        <el-button @click="putSensitiveInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
   <el-tab-pane label="废气排放标准">
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
-        <button @click="putEmissionStandardInfo">保存信息8</button>
+        <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
-  <el-tab-pane label="二级信息（需要完成一级信息）">
-  <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
-        <button @click="putSecondLevelData">保存二级信息</button>
-  </el-tab-pane>
-<button @click="getInfo">获取信息</button>
-<button @click="testVBA">VBA模块测试</button>
-<button @click="createProjectWord">生成word初稿</button>
-</el-tabs>
+  </el-tabs>
+    </el-tab-pane>
+
+    <el-tab-pane label="智能分析器" name="second"></el-tab-pane>
+    <el-tab-pane label="报告下载" name="third"></el-tab-pane>
+
+  </el-tabs>
  </div>
 </template>
 
@@ -53,21 +56,22 @@ import equipmentDataComponent from '@/views/projectForm/equipmentDataComponent'
 import materialDataComponent from '@/views/projectForm/materialDataComponent'
 import engineeringCompositionDataComponent from '@/views/projectForm/engineeringCompositionDataComponent'
 import sensitiveInfoDataComponent from '@/views/projectForm/sensitiveInfoDataComponent'
-import secondLevelDataComponent from '@/views/projectForm/secondLevelDataComponent'
 import { getProjectInfo, putProjectBasicInfo, putProjectProductInfo,
   putProjectEquipmentInfo, putProjectMaterialInfo, putProjectGeographicInfo,
-  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putProjectSecongLevelData, createWord } from '@/api/project'
+  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo } from '@/api/project'
 export default {
   components: {
     basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
-    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent, secondLevelDataComponent
+    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent
   },
   data() {
     return {
       projectId: null,
       projectName: null,
+      activeName: 'first',
       basicInfoForm: {
         projectType: '',
+        township: '',
         energyUsage: '',
         constructionCompanyName: '',
         nameAbbreviation: '',
@@ -89,7 +93,6 @@ export default {
         yearWorkTime: '',
         investmentTime: '',
         annualPowerConsumption: '',
-        annualLeftover: '',
         east: '',
         south: '',
         west: '',
@@ -103,13 +106,10 @@ export default {
         EAcompanyTelephone: '',
         EAcompanyAddress: '',
         EAcompanyName: '',
-        noiseMonitoringPoints: '',
-        gasCylinderHeight: '',
-        airQuantity: '',
         environmentalEffectclassification: []
       },
       geographicInfoForm: {
-        township: '',
+        districtTown: '',
         soundEnvironmentStandard: '',
         waterSourceDistance: '',
         sensitivePointDistance: '',
@@ -163,12 +163,6 @@ export default {
           remark: '',
           state: '',
           ratio: ''
-        }
-      ],
-      secondLevelData: [
-        {
-          gasName: '',
-          remark: ''
         }
       ],
       engineeringCompositionData: {
@@ -278,18 +272,25 @@ export default {
         }
       },
       deep: true
+    },
+    'basicInfoForm.township': {
+      handler: function(val, oldVal) {
+        this.geographicInfoForm.districtTown = this.basicInfoForm.township
+      },
+      deep: true
     }
   },
   created() {
     this.projectId = this.$route.params.projectId
     this.projectName = this.$route.params.projectName
+    this.getInfo()
     console.log(this.projectName)
   },
   methods: {
-
     getInfo() {
       getProjectInfo(this.projectId).then(Response => {
         this.basicInfoForm.projectType = Response.projectType
+        this.basicInfoForm.township = Response.township
         this.basicInfoForm.energyUsage = Response.energyUsage
         this.basicInfoForm.constructionCompanyName = Response.constructionCompanyName
         this.basicInfoForm.nameAbbreviation = Response.nameAbbreviation
@@ -311,7 +312,6 @@ export default {
         this.basicInfoForm.yearWorkTime = Response.yearWorkTime
         this.basicInfoForm.investmentTime = Response.investmentTime
         this.basicInfoForm.annualPowerConsumption = Response.annualPowerConsumption
-        this.basicInfoForm.annualLeftover = Response.annualLeftover
         this.basicInfoForm.east = Response.east
         this.basicInfoForm.south = Response.south
         this.basicInfoForm.west = Response.west
@@ -326,9 +326,6 @@ export default {
         this.basicInfoForm.EAcompanyAddress = Response.EAcompanyAddress
         this.basicInfoForm.EAcompanyName = Response.EAcompanyName
         this.basicInfoForm.environmentalEffectclassification = JSON.parse(Response.environmentalEffectclassification)
-        this.basicInfoForm.noiseMonitoringPoints = Response.noiseMonitoringPoints
-        this.basicInfoForm.gasCylinderHeight = Response.gasCylinderHeight
-        this.basicInfoForm.airQuantity = Response.airQuantity
 
         this.geographicInfoForm.township = Response.township
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
@@ -351,6 +348,7 @@ export default {
         this.materialData = JSON.parse(Response.material)
         this.equipmentData = JSON.parse(Response.equipment)
         this.secondLevelData = JSON.parse(Response.exhaustGas)
+
         this.emissionStandardFormData = JSON.parse(Response.emissionStandard)
 
         this.engineeringCompositionData.otherEngineeringData = JSON.parse(Response.otherEngineering)
@@ -368,6 +366,7 @@ export default {
         putProjectBasicInfo(
           this.projectId,
           this.basicInfoForm.projectType,
+          this.basicInfoForm.township,
           this.basicInfoForm.energyUsage,
           this.basicInfoForm.constructionCompanyName,
           this.basicInfoForm.nameAbbreviation,
@@ -389,7 +388,6 @@ export default {
           this.basicInfoForm.yearWorkTime,
           this.basicInfoForm.investmentTime,
           this.basicInfoForm.annualPowerConsumption,
-          this.basicInfoForm.annualLeftover,
           this.basicInfoForm.east,
           this.basicInfoForm.south,
           this.basicInfoForm.west,
@@ -403,20 +401,11 @@ export default {
           this.basicInfoForm.EAcompanyTelephone,
           this.basicInfoForm.EAcompanyAddress,
           this.basicInfoForm.EAcompanyName,
-          this.basicInfoForm.noiseMonitoringPoints,
-          this.basicInfoForm.gasCylinderHeight,
-          this.basicInfoForm.airQuantity,
-          JSON.stringify(this.basicInfoForm.environmentalEffectclassification)
+          JSON.stringify(this.basicInfoForm.environmentalEffectclassification),
         ).then(Response => {
           this.getInfo()
         })
       })
-    },
-    testVBA() {
-      putVBA(this.projectId, this.projectName)
-    },
-    createProjectWord() {
-      createWord(this.projectId, this.projectName)
     },
     putProductInfo() {
       putProjectProductInfo(this.projectId, JSON.stringify(this.productsData)).then(Response => {
@@ -433,16 +422,10 @@ export default {
         this.getInfo()
       })
     },
-    putSecondLevelData() {
-      putProjectSecongLevelData(this.projectId, JSON.stringify(this.secondLevelData)).then(Response => {
-        this.getInfo()
-      })
-    },
     putGeographicInfo() {
       this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => {
         putProjectGeographicInfo(
           this.projectId,
-          this.geographicInfoForm.township,
           this.geographicInfoForm.soundEnvironmentStandard,
           this.geographicInfoForm.waterSourceDistance,
           this.geographicInfoForm.sensitivePointDistance,

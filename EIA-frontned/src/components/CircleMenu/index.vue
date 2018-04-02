@@ -51,12 +51,12 @@
 
     <el-form ref="createProjectForm" :model="createProjectForm" label-width="100px" :rules="creatProjectRules">
 
-      <el-form-item label="项目名称" prop="projectName">
+      <el-form-item label="项目简称" prop="projectName">
         <el-input v-model="createProjectForm.projectName" type="text" name="projectName"></el-input>
       </el-form-item>
 
-      <el-form-item label="项目类型" prop="projectKind">
-        <el-select v-model="createProjectForm.company" placeholder="请选择项目类型" size="35px" name="projectKind">
+      <el-form-item label="所属公司" prop="projectKind">
+        <el-select v-model="createProjectForm.company" placeholder="请选择所属公司" size="35px" name="projectKind">
           <el-option v-for="companyName in companyList"
           :value="companyName.companyId"
           :key="companyName.id"
