@@ -14,7 +14,7 @@
       <el-col :span="12">
       <el-form-item label="所在区镇" prop="township">
         <el-select v-model="basicInfoForm.township" placeholder="请选择" style="width:350px;">
-          <el-option v-for="item in surfacewaterOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
+          <el-option v-for="item in townshipOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
         </el-select>
       </el-form-item>
       </el-col>
@@ -332,7 +332,7 @@ export default {
         gasCylinderHeight: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         airQuantity: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
       },
-      surfacewaterOptions: [
+      townshipOptions: [
         { label: '勒流', value: '勒流' },
         { label: '大良', value: '大良' },
         { label: '容桂', value: '容桂' },
