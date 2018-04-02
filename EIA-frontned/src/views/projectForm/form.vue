@@ -37,6 +37,10 @@
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
         <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
+  <el-tab-pane label="二级信息（需要完成一级信息）">
+  <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
+        <button @click="putSecondLevelData">保存二级信息</button>
+  </el-tab-pane>
   </el-tabs>
     </el-tab-pane>
 
@@ -44,14 +48,9 @@
     <el-tab-pane label="报告下载" name="third"></el-tab-pane>
 
   </el-tabs>
-  <el-tab-pane label="二级信息（需要完成一级信息）">
-  <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
-        <button @click="putSecondLevelData">保存二级信息</button>
-  </el-tab-pane>
 <button @click="getInfo">获取信息</button>
 <button @click="testVBA">VBA模块测试</button>
 <button @click="createProjectWord">生成word初稿</button>
-</el-tabs>
  </div>
 </template>
 

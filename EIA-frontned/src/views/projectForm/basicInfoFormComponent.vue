@@ -234,29 +234,21 @@
       <el-form-item label="投产时间" prop="investmentTime">
         <el-input v-model.number="basicInfoForm.investmentTime" type="text" placeholder="一般以接单时间往后推半年计算，多以年计算" style="width:350px;"></el-input>
       </el-form-item>
-
-      <el-form-item label="电年耗量（万kWh/a）" prop="annualPowerConsumption">
-        <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
-      </el-form-item>
-
-	    <el-form-item label="边角料年产量" prop="annualLeftover">
-        <el-input v-model.number="basicInfoForm.annualLeftover" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="噪声监测点数目" prop="noiseMonitoringPoints">
-        <el-input v-model.number="basicInfoForm.noiseMonitoringPoints" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="排风筒高度(m)" prop="gasCylinderHeight">
-        <el-input v-model.number="basicInfoForm.gasCylinderHeight" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
-      </el-form-item>
-
-      <el-form-item label="风量(m3/h)" prop="airQuantity">
-        <el-input v-model.number="basicInfoForm.airQuantity" type="text" placeholder="整数或小数一位" style="width:400px;"></el-input>
-      </el-form-item>
       </el-col>
     </el-row>
 
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="电年耗量（万kWh/a）" prop="annualPowerConsumption">
+        <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
+	    <el-form-item label="边角料年产量" prop="annualLeftover">
+        <el-input v-model.number="basicInfoForm.annualLeftover" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+    </el-row>
     <el-row>
       <el-col :span="12">
       <el-form-item label="能源使用情况" prop="energyUsage">
@@ -268,8 +260,20 @@
       </el-form-item>
       </el-col>
       <el-col :span="12">
-      <el-form-item label="电年耗量（万kWh/a）" prop="annualPowerConsumption">
-        <el-input v-model.number="basicInfoForm.annualPowerConsumption" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
+      <el-form-item label="噪声监测点数目" prop="noiseMonitoringPoints">
+        <el-input v-model.number="basicInfoForm.noiseMonitoringPoints" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+      <el-form-item label="排风筒高度(m)" prop="gasCylinderHeight">
+        <el-input v-model.number="basicInfoForm.gasCylinderHeight" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
+      </el-form-item>
+      </el-col>
+      <el-col :span="12">
+      <el-form-item label="风量(m3/h)" prop="airQuantity">
+        <el-input v-model.number="basicInfoForm.airQuantity" type="text" placeholder="整数或小数一位" style="width:350px;"></el-input>
       </el-form-item>
       </el-col>
     </el-row>
@@ -323,7 +327,7 @@ export default {
         west: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         north: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         longtitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
-        latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
+        latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         noiseMonitoringPoints: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         gasCylinderHeight: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         airQuantity: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }]
