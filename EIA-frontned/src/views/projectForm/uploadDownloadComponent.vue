@@ -1,42 +1,41 @@
 <template>
-  <el-table :data="uploadDownloadComponent" style="width: 100% " fit highlight-current-row ref="secondLevelData" :rules="dataRules">
-    <el-table-column type="index" width="50">
-    </el-table-column>
-
-    <el-table-column label="文件" width="180">
-      <template slot-scope="scope">
-        
-      </template>
-    </el-table-column>
-    <el-table-column label="操作" width="180">
-      <template slot-scope="scope">
-        <el-select v-model="scope.row.operationOption" placeholder="请选择">
-          <el-option v-for="item in operationOption" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
-      </template>
-    </el-table-column>
-  </el-table>
+  <el-upload
+  class="upload-demo"
+  action="https://jsonplaceholder.typicode.com/posts/"
+  :on-preview="handlePreview"
+  :on-remove="handleRemove"
+  :before-remove="beforeRemove"
+  multiple
+  :limit="3"
+  :on-exceed="handleExceed"
+  :file-list="fileList">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
 </template>
 
 <script>
 export default {
   name: 'uploadDownloadComponent',
-  props: ['uploadDownload'],
   data() {
     return {
-      fileOption: [
-        { value: 1, label: 'Word初稿' },
-        { value: 2, label: 'Excel基础信息' },
-        { value: 3, label: 'Excel生产信息' },
-        { value: 4, label: 'Word终稿' }
-      ],
-      operationOption: [
-        { value: 1, label: '上传' },
-        { value: 2, label: '下载' }
-      ]
+      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }]
     }
   },
   methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList)
+    },
+    handlePreview(file) {
+      console.log(file)
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}?`)
+    }
   }
 }
+
 </script>
