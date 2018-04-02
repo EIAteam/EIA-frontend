@@ -147,6 +147,7 @@ export function putProjectBasicInfo(
       yearWorkTime,
       investmentTime,
       annualPowerConsumption,
+      annualLeftover,
       east,
       south,
       west,

@@ -148,7 +148,6 @@
        <el-table-column width="140px" align="center" label="操作" >
         <template slot-scope="scope">
           <el-button><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
-          <el-button ><router-link :to="{ name: 'project', params: { projectId: scope.row.id, projectName: scope.row.projectName }}">编辑</router-link></el-button>
           <el-popover ref="popover2" placement="bottom" width="500" trigger="click">
             <table v-if="scope.row.agencyMessage!=''||scope.row.workerMessage!=''">
               <tr>
