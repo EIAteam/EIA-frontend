@@ -213,9 +213,9 @@ export default {
           this.geographicInfoForm.surfaceWaterFunction = val.surfacewaterInformation[2]
           break
         } else {
-          this.geographicInfoForm.pollutantHoldingWaterBody = ''
-          this.geographicInfoForm.surfaceWaterQualityStandard = ''
-          this.geographicInfoForm.surfaceWaterFunction = ''
+          this.geographicInfoForm.pollutantHoldingWaterBody = '内河涌'
+          this.geographicInfoForm.surfaceWaterQualityStandard = 'IV类'
+          this.geographicInfoForm.surfaceWaterFunction = '景观、农用功能'
         }
       }
     },
