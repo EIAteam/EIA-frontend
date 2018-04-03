@@ -37,6 +37,10 @@
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
         <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
+  <el-tab-pane label="二级信息（需要完成一级信息）">
+  <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
+        <button @click="putSecondLevelData">保存二级信息</button>
+  </el-tab-pane>
   </el-tabs>
     </el-tab-pane>
 
@@ -44,6 +48,9 @@
     <el-tab-pane label="报告下载" name="third"></el-tab-pane>
 
   </el-tabs>
+<button @click="getInfo">获取信息</button>
+<button @click="testVBA">VBA模块测试</button>
+<button @click="createProjectWord">生成word初稿</button>
  </div>
 </template>
 
@@ -56,13 +63,14 @@ import equipmentDataComponent from '@/views/projectForm/equipmentDataComponent'
 import materialDataComponent from '@/views/projectForm/materialDataComponent'
 import engineeringCompositionDataComponent from '@/views/projectForm/engineeringCompositionDataComponent'
 import sensitiveInfoDataComponent from '@/views/projectForm/sensitiveInfoDataComponent'
+import secondLevelDataComponent from '@/views/projectForm/secondLevelDataComponent'
 import { getProjectInfo, putProjectBasicInfo, putProjectProductInfo,
   putProjectEquipmentInfo, putProjectMaterialInfo, putProjectGeographicInfo,
-  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo } from '@/api/project'
+  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putProjectSecongLevelData, createWord } from '@/api/project'
 export default {
   components: {
     basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
-    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent
+    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent, secondLevelDataComponent
   },
   data() {
     return {
@@ -93,6 +101,7 @@ export default {
         yearWorkTime: '',
         investmentTime: '',
         annualPowerConsumption: '',
+        annualLeftover: '',
         east: '',
         south: '',
         west: '',
@@ -106,6 +115,9 @@ export default {
         EAcompanyTelephone: '',
         EAcompanyAddress: '',
         EAcompanyName: '',
+        noiseMonitoringPoints: '',
+        gasCylinderHeight: '',
+        airQuantity: '',
         environmentalEffectclassification: []
       },
       geographicInfoForm: {
@@ -163,6 +175,12 @@ export default {
           remark: '',
           state: '',
           ratio: ''
+        }
+      ],
+      secondLevelData: [
+        {
+          gasName: '',
+          remark: ''
         }
       ],
       engineeringCompositionData: {
@@ -312,6 +330,7 @@ export default {
         this.basicInfoForm.yearWorkTime = Response.yearWorkTime
         this.basicInfoForm.investmentTime = Response.investmentTime
         this.basicInfoForm.annualPowerConsumption = Response.annualPowerConsumption
+        this.basicInfoForm.annualLeftover = Response.annualLeftover
         this.basicInfoForm.east = Response.east
         this.basicInfoForm.south = Response.south
         this.basicInfoForm.west = Response.west
@@ -326,6 +345,9 @@ export default {
         this.basicInfoForm.EAcompanyAddress = Response.EAcompanyAddress
         this.basicInfoForm.EAcompanyName = Response.EAcompanyName
         this.basicInfoForm.environmentalEffectclassification = JSON.parse(Response.environmentalEffectclassification)
+        this.basicInfoForm.noiseMonitoringPoints = Response.noiseMonitoringPoints
+        this.basicInfoForm.gasCylinderHeight = Response.gasCylinderHeight
+        this.basicInfoForm.airQuantity = Response.airQuantity
 
         this.geographicInfoForm.districtTown = Response.districtTown
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
@@ -347,7 +369,7 @@ export default {
         this.productsData = JSON.parse(Response.product)
         this.materialData = JSON.parse(Response.material)
         this.equipmentData = JSON.parse(Response.equipment)
-
+        this.secondLevelData = JSON.parse(Response.exhaustGas)
         this.emissionStandardFormData = JSON.parse(Response.emissionStandard)
 
         this.engineeringCompositionData.otherEngineeringData = JSON.parse(Response.otherEngineering)
@@ -387,6 +409,7 @@ export default {
           this.basicInfoForm.yearWorkTime,
           this.basicInfoForm.investmentTime,
           this.basicInfoForm.annualPowerConsumption,
+          this.basicInfoForm.annualLeftover,
           this.basicInfoForm.east,
           this.basicInfoForm.south,
           this.basicInfoForm.west,
@@ -400,11 +423,20 @@ export default {
           this.basicInfoForm.EAcompanyTelephone,
           this.basicInfoForm.EAcompanyAddress,
           this.basicInfoForm.EAcompanyName,
-          JSON.stringify(this.basicInfoForm.environmentalEffectclassification),
+          this.basicInfoForm.noiseMonitoringPoints,
+          this.basicInfoForm.gasCylinderHeight,
+          this.basicInfoForm.airQuantity,
+          JSON.stringify(this.basicInfoForm.environmentalEffectclassification)
         ).then(Response => {
           this.getInfo()
         })
       })
+    },
+    testVBA() {
+      putVBA(this.projectId, this.projectName)
+    },
+    createProjectWord() {
+      createWord(this.projectId, this.projectName)
     },
     putProductInfo() {
       putProjectProductInfo(this.projectId, JSON.stringify(this.productsData)).then(Response => {
@@ -418,6 +450,11 @@ export default {
     },
     putMaterialInfo() {
       putProjectMaterialInfo(this.projectId, JSON.stringify(this.materialData)).then(Response => {
+        this.getInfo()
+      })
+    },
+    putSecondLevelData() {
+      putProjectSecongLevelData(this.projectId, JSON.stringify(this.secondLevelData)).then(Response => {
         this.getInfo()
       })
     },

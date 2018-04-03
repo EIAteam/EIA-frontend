@@ -1,32 +1,32 @@
 <template>
 <div>
   <el-table :data="sensitiveInfoData.sensitiveInfoWaterData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoWaterData" :rules="sensitiveInfoWaterDataRules">
-    <el-table-column label="环境要素" width="100">
+    <el-table-column label="环境要素" width="180">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
       </template>
     </el-table-column>
-    <el-table-column label="环境敏感点" width="300">
+    <el-table-column label="环境敏感点" width="200">
       <template slot-scope="scope">
         <el-input v-model="scope.row.environmentalSensitivePoint" placeholder="请填入附近的河涌名称" ></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="方位" width="150">
+    <el-table-column label="方位" width="200">
       <template slot-scope="scope">
         <el-input v-model="scope.row.orientation"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="距离（m）" width="150">
+    <el-table-column label="距离（m）" width="200">
       <template slot-scope="scope">
         <el-input v-model="scope.row.distance"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="418">
+    <el-table-column label="环境保护目标" width="330">
       <template slot-scope="scope">
         {{scope.row.environmentalObjective}}
       </template>
     </el-table-column>
-    <el-table-column label="操作" width="148">
+    <el-table-column label="操作" width="150">
       <template slot-scope="scope">
         <el-button  plain size="small" type="primary" @click="addRowWaterEnvironment" >增加</el-button>
         <el-button plain type="danger" size="small" @click="deleteWaterEnvironment(scope.$index)" >删除</el-button>
@@ -51,7 +51,7 @@
         {{scope.row.distance}}
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="380">
+    <el-table-column label="环境保护目标" width="680">
       <template slot-scope="scope">
         {{scope.row.environmentalObjective}}
       </template>
@@ -75,7 +75,7 @@
         {{scope.row.distance}}
       </template>
     </el-table-column>
-    <el-table-column label="环境保护目标" width="380">
+    <el-table-column label="环境保护目标" width="680">
       <template slot-scope="scope">
         {{scope.row.environmentalObjective}}
       </template>
@@ -104,7 +104,7 @@
         {{scope.row.environmentalObjective}}
       </template>
     </el-table-column>
-    <el-table-column label="操作" width="148">
+    <el-table-column label="操作" width="150">
       <template slot-scope="scope">
         <el-button  plain size="small" type="primary" @click="addRowHouseName" >增加</el-button>
         <el-button plain type="danger" size="small" @click="deleteHouseName(scope.$index)">删除</el-button>
@@ -134,7 +134,7 @@
         <el-input v-model="scope.row.environmentalObjective" placeholder="请填入水源保护区保护级别"></el-input>
       </template>
     </el-table-column>
-    <el-table-column label="操作" width="148">
+    <el-table-column label="操作" width="150">
       <template slot-scope="scope">
         <el-button  plain size="small" type="primary" @click="addRowWaterReserve" >增加</el-button>
         <el-button plain type="danger" size="small" @click="deleteWaterReserve(scope.$index)">删除</el-button>
