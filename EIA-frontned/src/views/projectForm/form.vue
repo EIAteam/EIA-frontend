@@ -349,7 +349,7 @@ export default {
         this.basicInfoForm.gasCylinderHeight = Response.gasCylinderHeight
         this.basicInfoForm.airQuantity = Response.airQuantity
 
-        this.geographicInfoForm.districtTown = Response.districtTown
+        this.geographicInfoForm.districtTown = Response.township
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
         this.geographicInfoForm.waterSourceDistance = Response.waterSourceDistance
         this.geographicInfoForm.sensitivePointDistance = Response.sensitivePointDistance

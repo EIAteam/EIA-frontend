@@ -4,9 +4,7 @@
     <el-row>
       <el-col :span="12">
       <el-form-item label="所在区镇" prop="districtTown">
-        <el-select v-model="geographicInfoForm.districtTown" placeholder="请选择" style="width:400px;" >
-          <el-option v-for="item in townshipOptions" :label="item.label" :value="item.value" :key="item.value" ></el-option>
-        </el-select>
+        <el-input v-model="geographicInfoForm.districtTown" style="width:400px;" :disabled="true"></el-input>
       </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -155,17 +153,6 @@ export default {
         { label: '珠江三角洲佛山三水储备区', value: '珠江三角洲佛山三水储备区' },
         { label: '北江佛山三水应急水源区', value: '北江佛山三水应急水源区' },
         { label: '珠江三角洲佛山南海应急水源区', value: '珠江三角洲佛山南海应急水源区' }
-      ],
-      townshipOptions: [
-        { label: '勒流', value: '勒流' },
-        { label: '大良', value: '大良' },
-        { label: '容桂', value: '容桂' },
-        { label: '均安', value: '均安' },
-        { label: '杏坛', value: '杏坛' },
-        { label: '伦教', value: '伦教' },
-        { label: '乐从', value: '乐从' },
-        { label: '北滘', value: '北滘' },
-        { label: '龙江', value: '龙江' }
       ],
       specialOptionForSewageTreatmentWorksOptions: [
         { label: '无', value: '无' },
