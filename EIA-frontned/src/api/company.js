@@ -12,7 +12,7 @@ export function createCompany(companyName) {
 
 export function joinCompany(username) {
   return request({
-    url: '/membership/',
+    url: '/api/membership/',
     method: 'post',
     data: {
       username

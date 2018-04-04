@@ -45,8 +45,9 @@
     </el-tab-pane>
 
     <el-tab-pane label="智能分析器" name="second"></el-tab-pane>
-    <el-tab-pane label="报告下载" name="third"></el-tab-pane>
-
+    <el-tab-pane label="报告下载" name="third">
+      <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
+    </el-tab-pane>
   </el-tabs>
 <button @click="getInfo">获取信息</button>
 <button @click="testVBA">VBA模块测试</button>
@@ -64,13 +65,14 @@ import materialDataComponent from '@/views/projectForm/materialDataComponent'
 import engineeringCompositionDataComponent from '@/views/projectForm/engineeringCompositionDataComponent'
 import sensitiveInfoDataComponent from '@/views/projectForm/sensitiveInfoDataComponent'
 import secondLevelDataComponent from '@/views/projectForm/secondLevelDataComponent'
+import uploadDownloadComponent from '@/views/projectForm/uploadDownloadComponent'
 import { getProjectInfo, putProjectBasicInfo, putProjectProductInfo,
   putProjectEquipmentInfo, putProjectMaterialInfo, putProjectGeographicInfo,
   putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putProjectSecongLevelData, createWord } from '@/api/project'
 export default {
   components: {
     basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
-    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent, secondLevelDataComponent
+    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent, secondLevelDataComponent, uploadDownloadComponent
   },
   data() {
     return {
