@@ -39,6 +39,20 @@ export function putProjectAgencyMessage(id, agencyMessage) {
   })
 }
 
+export function getFileUrl(id) {
+  return request({
+    url: '/api/projectFiles/' + id + '/',
+    method: 'get'
+  })
+}
+
+export function deleteFile(projectId, fileType, fileId) {
+  return request({
+    url: '/api/file/' + projectId + '/' + fileType + '/' + fileId + '/',
+    method: 'delete'
+  })
+}
+
 export function putProjectIsMaterialEnough(id, isMaterialEnough) {
   return request({
     url: '/api/project/' + id + '/',

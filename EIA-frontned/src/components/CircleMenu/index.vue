@@ -59,9 +59,9 @@
         <el-select v-model="createProjectForm.company" placeholder="请选择所属公司" size="35px" name="projectKind">
           <el-option v-for="companyName in companyList"
           :value="companyName.companyId"
-          :key="companyName.id"
-          :label="companyName.label"
-          >{{companyName.companyName}}</el-option>
+          :key="companyName.companyId"
+          :label="companyName.companyName"
+          ></el-option>
         </el-select>
       </el-form-item>
 

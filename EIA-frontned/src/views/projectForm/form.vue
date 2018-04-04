@@ -45,8 +45,9 @@
     </el-tab-pane>
 
     <el-tab-pane label="智能分析器" name="second"></el-tab-pane>
-    <el-tab-pane label="报告下载" name="third"></el-tab-pane>
-  <uploadDownloadComponent ref='uploadDownloadComponent'></uploadDownloadComponent>
+    <el-tab-pane label="报告下载" name="third">
+      <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
+    </el-tab-pane>
   </el-tabs>
 <button @click="getInfo">获取信息</button>
 <button @click="testVBA">VBA模块测试</button>
