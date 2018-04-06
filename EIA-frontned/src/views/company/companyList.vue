@@ -2,10 +2,10 @@
 <div class="companylist-container">
 
 <el-row class="panel-group" :gutter="40">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" v-for="company in companyList" :key="company.id">
+    <el-col :xs="12" :sm="12" :lg="4" class="card-panel-col" v-for="company in companyList" :key="company.id">
       <div class='card-panel' @click="handleredirect(company.companyId,company.position)">
         <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="peoples" class-name="card-panel-icon" />
+          <svg-icon icon-class="peoples" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">公司名称：{{company.companyName}}</div>
@@ -61,7 +61,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 
 .companylist-container {
-  height: 100%;
+  height: 895px;
   padding: 32px;
   background-color: rgb(240, 242, 245);
   .chart-wrapper {
@@ -119,7 +119,7 @@ export default {
     .card-panel-icon-wrapper {
       float: left;
       margin: 14px 0 0 14px;
-      padding: 16px;
+      padding: 10px;
       transition: all 0.38s ease-out;
       border-radius: 6px;
     }
@@ -128,13 +128,13 @@ export default {
       font-size: 48px;
     }
     .card-panel-description {
-      float: right;
+      float: left;
       font-weight: bold;
       margin: 26px;
       margin-left: 0px;
       .card-panel-text {
         line-height: 18px;
-        color: rgba(0, 0, 0, 0.45);
+        color: rgba(0, 0, 0, 0.753);
         font-size: 16px;
         margin-bottom: 12px;
       }

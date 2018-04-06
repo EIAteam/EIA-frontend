@@ -300,6 +300,12 @@ export default {
         this.geographicInfoForm.districtTown = this.basicInfoForm.township
       },
       deep: true
+    },
+    'geographicInfoForm.districtTown': {
+      handler: function(val, oldVal) {
+        this.basicInfoForm.township = this.geographicInfoForm.districtTown
+      },
+      deep: true
     }
   },
   created() {

@@ -39,16 +39,17 @@ export function putProjectAgencyMessage(id, agencyMessage) {
   })
 }
 
-export function getFileUrl(id) {
+export function getProjectFile(projectId) {
   return request({
-    url: '/api/projectFiles/' + id + '/',
-    method: 'get'
+    url: '/api/projectFile/',
+    method: 'get',
+    params: { projectId }
   })
 }
 
-export function deleteFile(projectId, fileType, fileId) {
+export function deleteFile(fileId) {
   return request({
-    url: '/api/file/' + projectId + '/' + fileType + '/' + fileId + '/',
+    url: '/api/projectFile/' + fileId + '/',
     method: 'delete'
   })
 }
@@ -273,7 +274,7 @@ export function putProjectMaterialInfo(id, material) {
 
 export function putProjectGeographicInfo(
   id,
-  districtTown,
+  township,
   soundEnvironmentStandard,
   waterSourceDistance,
   sensitivePointDistance,
@@ -295,7 +296,7 @@ export function putProjectGeographicInfo(
     method: 'patch',
     data: {
       id,
-      districtTown,
+      township,
       soundEnvironmentStandard,
       waterSourceDistance,
       sensitivePointDistance,

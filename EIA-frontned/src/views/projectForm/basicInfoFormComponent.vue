@@ -149,7 +149,7 @@
     <el-row>
       <el-col :span="12">
       <el-form-item label="占地面积（m²）" prop="floorSpace">
-        <el-input v-model.number="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致，整数" style="width:350px;"></el-input>
+        <el-input v-model.number="basicInfoForm.floorSpace" type="text" placeholder="与经营场所使用证明或房产证一致" style="width:350px;"></el-input>
       </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -312,7 +312,7 @@ export default {
         telephone: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式', pattern: /^1\d{10}$/ }],
         totalInvestment: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         environmentalProtectionInvestment: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
-        floorSpace: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
+        floorSpace: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         managementSpace: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
         nonAccommodationNum: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],
         accommodationNum: [{ required: true, whitespace: true, trigger: 'blur', type: 'integer', message: '请输入正确的格式' }],

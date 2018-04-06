@@ -10,12 +10,12 @@ export function createCompany(companyName) {
   })
 }
 
-export function joinCompany(username) {
+export function joinCompany(companyName) {
   return request({
     url: '/api/membership/',
     method: 'post',
     data: {
-      username
+      companyName
     }
   })
 }

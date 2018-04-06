@@ -3,8 +3,10 @@
 
     <el-row>
       <el-col :span="12">
-      <el-form-item label="所在区镇" prop="districtTown">
-        <el-input v-model="geographicInfoForm.districtTown" style="width:400px;" :disabled="true"></el-input>
+      <el-form-item label="所在区镇(与基础表单一致)" prop="districtTown">
+        <el-select v-model="geographicInfoForm.districtTown" placeholder="请选择" style="width:400px;">
+          <el-option v-for="item in townshipOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
+        </el-select>
       </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -141,6 +143,17 @@ export default {
         sensitivePointDistance: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
         waterSourceDistance: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }]
       },
+      townshipOptions: [
+        { label: '勒流', value: '勒流' },
+        { label: '大良', value: '大良' },
+        { label: '容桂', value: '容桂' },
+        { label: '均安', value: '均安' },
+        { label: '杏坛', value: '杏坛' },
+        { label: '伦教', value: '伦教' },
+        { label: '乐从', value: '乐从' },
+        { label: '北滘', value: '北滘' },
+        { label: '龙江', value: '龙江' }
+      ],
       groundwaterAreaOptions: [
         { label: '珠江三角洲佛山南海分散式开发利用区', value: '珠江三角洲佛山南海分散式开发利用区' },
         { label: '珠江三角洲佛山南海大沥至顺德勒流地质灾害易发区', value: '珠江三角洲佛山南海大沥至顺德勒流地质灾害易发区' },
@@ -169,42 +182,9 @@ export default {
   },
   watch: {
     'geographicInfoForm.districtTown': {
-      handler: function(value, oldVal) {
-        const allSurfacewaterInformation = [
-          { districtTown: '勒流', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['顺德支流', 'III类', '综合用水'] },
-          { districtTown: '北滘', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['潭洲水道', 'III类', '综合用水'] },
-          { districtTown: '龙江', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['内河涌', 'IV类', '景观、农用功能'] },
-          { districtTown: '大良', specialOptionForSewageTreatmentWorks: '大门', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['顺德支流', 'III类', '综合用水'] },
-          { districtTown: '大良', specialOptionForSewageTreatmentWorks: '逢沙', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['李家沙水道', 'III类', '综合用水'] },
-          { districtTown: '均安', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['海洲水道', 'III类', '综合用水'] },
-          { districtTown: '伦教', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['李家沙水道', 'III类', '综合用水'] },
-          { districtTown: '杏坛', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['顺德支流', 'III类', '综合用水'] },
-          { districtTown: '乐从', specialOptionForSewageTreatmentWorks: '无', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['内河涌', 'IV类', '景观、农用功能'] },
-          { districtTown: '容桂', specialOptionForSewageTreatmentWorks: '一污', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['桂洲水道', 'III类', '综合用水'] },
-          { districtTown: '容桂', specialOptionForSewageTreatmentWorks: '二污', besideWaterTreatmentPlant: '是', surfacewaterInformation: ['洪奇沥洲水道', 'III类', '综合用水'] }
-        ]
-        for (var val of allSurfacewaterInformation) {
-          if (this.geographicInfoForm.districtTown === val.districtTown && this.geographicInfoForm.specialOptionForSewageTreatmentWorks === val.specialOptionForSewageTreatmentWorks && this.geographicInfoForm.besideWaterTreatmentPlant === val.besideWaterTreatmentPlant) {
-            this.geographicInfoForm.pollutantHoldingWaterBody = val.surfacewaterInformation[0]
-            this.geographicInfoForm.surfaceWaterQualityStandard = val.surfacewaterInformation[1]
-            this.geographicInfoForm.surfaceWaterFunction = val.surfacewaterInformation[2]
-            break
-          } else {
-            this.geographicInfoForm.pollutantHoldingWaterBody = ''
-            this.geographicInfoForm.surfaceWaterQualityStandard = ''
-            this.geographicInfoForm.surfaceWaterFunction = ''
-          }
-        }
-        if (this.geographicInfoForm.besideWaterTreatmentPlant === '是') {
-          this.geographicInfoForm.domesticSewageGo = '经三级化粪处理后排入污水处理厂'
-          this.geographicInfoForm.domesticSewageEnvironmentImpactAnalysis = '经三级化粪处理达到广东省地方标准《水污染物排放限值》（DB44/26-2001）第二时段三级标准后经市政管网排入污水处理厂进一步处理，尾水排入。废水经达标处理后对周围环境影响不大。'
-          this.geographicInfoForm.domesticSewageEmissionStandards = '经三级化粪处理达到广东省地方标准《水污染物排放限值》（DB44/26-2001）第二时段三级标准：COD≤500mg/L、BOD5≤300mg/L、SS≤400mg/L，等等；达标后排入' +
-          this.geographicInfoForm.districtTown + '污水处理厂处理。根据2013年7月11日颁布的《顺德区环境运输和城市管理局关于全区城镇污水处理厂尾水排放执行标准的通知》规定：污水处理厂的尾水COD、氨氮执行《城镇污水处理厂污染物排放标准》（GB18918-2002）一级B标准及《水污染物排放限值》（DB44/26-2001）第二时段一级标准的较严者，其他指标现执行《城镇污水处理厂污染物排放标准》（GB18918-2002）一级B标准：即CODcr≤40mg/L，BOD5≤20mg/L，NH3-N≤8mg/L，SS≤20mg/L，总磷≤1mg/L，动植物油3mg/L，LAS≤1mg/L。'
-        } else if (this.geographicInfoForm.besideWaterTreatmentPlant === '否') {
-          this.geographicInfoForm.domesticSewageGo = '经独立生活污水处理设施处理后排入内河涌'
-          this.geographicInfoForm.domesticSewageEnvironmentImpactAnalysis = '经独立生活污水处理设施处理达到《城镇污水处理厂污染物排放标准》（GB18918-2002）中的二级标准后排入附近内河涌'
-          this.geographicInfoForm.domesticSewageEmissionStandards = '经自建废水处理设施处理后，达到《城镇污水处理厂污染物排放标准》（GB18918-2002）中的二级标准后排入内河涌，即CODcr≤100mg/L，BOD≤30mg/L,SS≤30mg/L,NH3-N≤25mg/L。'
-        }
+      handler: function(val, oldVal) {
+        this.getSurfacewaterInformation()
+        this.getDomesticSewage()
       },
       deep: true
     }
