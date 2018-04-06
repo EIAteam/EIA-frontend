@@ -37,6 +37,9 @@
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
         <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
+  <el-tab-pane label="材料上传/下载">
+        <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
+  </el-tab-pane>
   <el-tab-pane label="二级信息（需要完成一级信息）">
   <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
         <button @click="putSecondLevelData">保存二级信息</button>
@@ -45,13 +48,10 @@
     </el-tab-pane>
 
     <el-tab-pane label="智能分析器" name="second"></el-tab-pane>
-    <el-tab-pane label="报告下载" name="third">
-      <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
+    <el-tab-pane label="报告上传/下载" name="third">
+
     </el-tab-pane>
   </el-tabs>
-<button @click="getInfo">获取信息</button>
-<button @click="testVBA">VBA模块测试</button>
-<button @click="createProjectWord">生成word初稿</button>
  </div>
 </template>
 
@@ -298,6 +298,12 @@ export default {
         this.geographicInfoForm.districtTown = this.basicInfoForm.township
       },
       deep: true
+    },
+    'geographicInfoForm.districtTown': {
+      handler: function(val, oldVal) {
+        this.basicInfoForm.township = this.geographicInfoForm.districtTown
+      },
+      deep: true
     }
   },
   created() {
@@ -351,7 +357,7 @@ export default {
         this.basicInfoForm.gasCylinderHeight = Response.gasCylinderHeight
         this.basicInfoForm.airQuantity = Response.airQuantity
 
-        this.geographicInfoForm.township = Response.township
+        this.geographicInfoForm.districtTown = Response.township
         this.geographicInfoForm.soundEnvironmentStandard = Response.soundEnvironmentStandard
         this.geographicInfoForm.waterSourceDistance = Response.waterSourceDistance
         this.geographicInfoForm.sensitivePointDistance = Response.sensitivePointDistance
@@ -464,6 +470,7 @@ export default {
       this.$refs.geographicInfoForm.$refs.geographicInfoForm.validate(valid => {
         putProjectGeographicInfo(
           this.projectId,
+          this.geographicInfoForm.districtTown,
           this.geographicInfoForm.soundEnvironmentStandard,
           this.geographicInfoForm.waterSourceDistance,
           this.geographicInfoForm.sensitivePointDistance,

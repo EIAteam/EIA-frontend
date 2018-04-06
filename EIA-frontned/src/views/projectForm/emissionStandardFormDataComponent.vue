@@ -1,10 +1,9 @@
 <template>
   <el-table :data="emissionStandardFormData" style="width: 100%"  fit highlight-current-row border ref="emissionStandardFormData" :rules="dataRules">
-
-    <el-table-column label="污染物" width="180">
+ <el-table-column label="标准" width="593">
       <template slot-scope="scope">
-        <el-select v-model="scope.row.pollutant" placeholder="请选择污染物" @change="getPollutant(scope.row,scope.$index)" v-if="scope.row.standard!=''">
-          <el-option v-for="item in scope.row.pollutantOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
+        <el-select v-model="scope.row.standard" placeholder="请选择标准" @change="getStandard(scope.$index,$event)" style="width:550px;">
+          <el-option v-for="item in standardOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
         </el-select>
       </template>
     </el-table-column>
@@ -23,10 +22,10 @@
         {{scope.row.emissionMonitoring}}
       </template>
     </el-table-column>
-    <el-table-column label="标准" width="593">
+   <el-table-column label="污染物" width="180">
       <template slot-scope="scope">
-        <el-select v-model="scope.row.standard" placeholder="请选择标准" @change="getStandard(scope.$index,$event)" style="width:550px;">
-          <el-option v-for="item in standardOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
+        <el-select v-model="scope.row.pollutant" placeholder="请选择污染物" @change="getPollutant(scope.row,scope.$index)" v-if="scope.row.standard!=''">
+          <el-option v-for="item in scope.row.pollutantOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
         </el-select>
       </template>
     </el-table-column>

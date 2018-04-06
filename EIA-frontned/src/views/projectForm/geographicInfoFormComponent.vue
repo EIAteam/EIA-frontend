@@ -3,10 +3,10 @@
 
     <el-row>
       <el-col :span="12">
-      <el-form-item label="所在区镇" prop="districtTown">
-        <el-input v-model="geographicInfoForm.districtTown" :disabled="true"
-        style="width:400px;" @change="getSurfacewaterInformation($event), getDomesticSewage($event)">
-        </el-input>
+      <el-form-item label="所在区镇(与基础表单一致)" prop="districtTown">
+        <el-select v-model="geographicInfoForm.districtTown" placeholder="请选择" style="width:400px;">
+          <el-option v-for="item in townshipOptions" :label="item.label" :value="item.value" :key="item.value"></el-option>
+        </el-select>
       </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -143,6 +143,17 @@ export default {
         sensitivePointDistance: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }],
         waterSourceDistance: [{ required: true, whitespace: true, trigger: 'change', type: 'string', message: '请选择' }]
       },
+      townshipOptions: [
+        { label: '勒流', value: '勒流' },
+        { label: '大良', value: '大良' },
+        { label: '容桂', value: '容桂' },
+        { label: '均安', value: '均安' },
+        { label: '杏坛', value: '杏坛' },
+        { label: '伦教', value: '伦教' },
+        { label: '乐从', value: '乐从' },
+        { label: '北滘', value: '北滘' },
+        { label: '龙江', value: '龙江' }
+      ],
       groundwaterAreaOptions: [
         { label: '珠江三角洲佛山南海分散式开发利用区', value: '珠江三角洲佛山南海分散式开发利用区' },
         { label: '珠江三角洲佛山南海大沥至顺德勒流地质灾害易发区', value: '珠江三角洲佛山南海大沥至顺德勒流地质灾害易发区' },
@@ -167,6 +178,15 @@ export default {
         { label: '是', value: '是' },
         { label: '否', value: '否' }
       ]
+    }
+  },
+  watch: {
+    'geographicInfoForm.districtTown': {
+      handler: function(val, oldVal) {
+        this.getSurfacewaterInformation()
+        this.getDomesticSewage()
+      },
+      deep: true
     }
   },
   methods: {
@@ -213,9 +233,9 @@ export default {
           this.geographicInfoForm.surfaceWaterFunction = val.surfacewaterInformation[2]
           break
         } else {
-          this.geographicInfoForm.pollutantHoldingWaterBody = ''
-          this.geographicInfoForm.surfaceWaterQualityStandard = ''
-          this.geographicInfoForm.surfaceWaterFunction = ''
+          this.geographicInfoForm.pollutantHoldingWaterBody = '内河涌'
+          this.geographicInfoForm.surfaceWaterQualityStandard = 'IV类'
+          this.geographicInfoForm.surfaceWaterFunction = '景观、农用功能'
         }
       }
     },
