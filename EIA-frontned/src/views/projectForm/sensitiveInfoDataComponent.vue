@@ -1,7 +1,7 @@
 <template>
 <div>
   <el-table :data="sensitiveInfoData.sensitiveInfoWaterData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoWaterData" :rules="sensitiveInfoWaterDataRules">
-    <el-table-column label="环境要素" width="180">
+    <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
       </template>
@@ -36,7 +36,7 @@
 
     <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
   <el-table :data="sensitiveInfoData.sensitiveInfoAtmosphereData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoAtmosphereData">
-    <el-table-column label="环境要素" width="180">
+    <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
       </template>
@@ -60,7 +60,7 @@
 
     <div class="divider">———————————————————————————————————————————————————————————————————————————————</div>
   <el-table :data="sensitiveInfoData.sensitiveInfoVoiceData" style="width: 100%"  fit highlight-current-row border ref="sensitiveInfoData.sensitiveInfoVoiceData">
-    <el-table-column label="环境要素" width="180">
+    <el-table-column label="环境要素" width="380">
       <template slot-scope="scope">
         {{scope.row.environmentalElements}}
       </template>
