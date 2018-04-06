@@ -3,9 +3,9 @@
     <el-table-column type="index" width="50">
     </el-table-column>
 
-    <el-table-column label="废气名称" width="300" >
+    <el-table-column label="废气名称" width="300">
       <template slot-scope="scope">
-        <el-input v-model="scope.row.gasName" size="small" v-bind:readonly="true"></el-input>
+        <el-input v-model="scope.row.gasName" size="small" :disabled="true"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="废气标注" width="180">
@@ -17,17 +17,17 @@
     </el-table-column>
     <el-table-column label="材料" width="200" >
       <template slot-scope="scope">
-        <el-input v-model="scope.row.material" size="small" v-bind:readonly="true"></el-input>
+        <el-input v-model="scope.row.material" size="small"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="用量" width="150" >
       <template slot-scope="scope">
-        <el-input v-model="scope.row.usage" size="small" v-bind:readonly="true"></el-input>
+        <el-input v-model="scope.row.usage" size="small"></el-input>
       </template>
     </el-table-column>
     <el-table-column label="系数" width="150" >
       <template slot-scope="scope">
-        <el-input v-model="scope.row.ratio" size="small" v-bind:readonly="true"></el-input>
+        <el-input v-model="scope.row.ratio" size="small"></el-input>
       </template>
     </el-table-column>
   </el-table>

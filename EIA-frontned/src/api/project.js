@@ -217,6 +217,17 @@ export function putVBA(id, projectName) {
   })
 }
 
+export function putVBA2(id, projectName) {
+  return request({
+    url: '/api/VBA2/create/' + projectName + '/',
+    method: 'post',
+    data: {
+      id,
+      projectName
+    }
+  })
+}
+
 export function createWord(id, projectName) {
   return request({
     url: '/api/Word/create/' + projectName + '/',

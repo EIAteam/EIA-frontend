@@ -37,21 +37,23 @@
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
         <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
-  <el-tab-pane label="二级信息（需要完成一级信息）">
-  <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
-        <button @click="putSecondLevelData">保存二级信息</button>
-  </el-tab-pane>
   </el-tabs>
     </el-tab-pane>
-
-    <el-tab-pane label="智能分析器" name="second"></el-tab-pane>
+    <el-tab-pane label="智能分析器" name="second">
+      <el-tabs type="border-card">
+      <el-tab-pane label="污染物分析">
+        <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
+        <button @click="testVBA">污染物分析</button>
+        <button @click="testVBA2">三级信息结果</button>
+        <button @click="createProjectWord">一键生成</button>
+        </el-tab-pane>
+      </el-tabs>
+    </el-tab-pane>
     <el-tab-pane label="报告下载" name="third">
       <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
     </el-tab-pane>
   </el-tabs>
 <button @click="getInfo">获取信息</button>
-<button @click="testVBA">VBA模块测试</button>
-<button @click="createProjectWord">生成word初稿</button>
  </div>
 </template>
 
@@ -68,7 +70,7 @@ import secondLevelDataComponent from '@/views/projectForm/secondLevelDataCompone
 import uploadDownloadComponent from '@/views/projectForm/uploadDownloadComponent'
 import { getProjectInfo, putProjectBasicInfo, putProjectProductInfo,
   putProjectEquipmentInfo, putProjectMaterialInfo, putProjectGeographicInfo,
-  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putProjectSecongLevelData, createWord } from '@/api/project'
+  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putVBA2, putProjectSecongLevelData, createWord } from '@/api/project'
 export default {
   components: {
     basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
@@ -436,6 +438,13 @@ export default {
     },
     testVBA() {
       putVBA(this.projectId, this.projectName)
+      getProjectInfo(this.projectId).then(Response => {
+        this.secondLevelData = JSON.parse(Response.exhaustGas)
+      })
+    },
+    testVBA2() {
+      putProjectSecongLevelData(this.projectId, JSON.stringify(this.secondLevelData))
+      putVBA2(this.projectId, this.projectName)
     },
     createProjectWord() {
       createWord(this.projectId, this.projectName)
