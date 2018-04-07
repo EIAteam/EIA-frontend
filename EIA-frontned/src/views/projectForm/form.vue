@@ -37,6 +37,9 @@
   <emissionStandardFormDataComponent :emissionStandardFormData.sync='emissionStandardFormData' ref='emissionStandardFormData'></emissionStandardFormDataComponent>
         <el-button @click="putEmissionStandardInfo" type="primary" style="margin-top:10px">保存信息</el-button>
   </el-tab-pane>
+  <el-tab-pane label="报告上传/下载">
+       <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
+  </el-tab-pane>
   </el-tabs>
     </el-tab-pane>
     <el-tab-pane label="智能分析器" name="second">
@@ -50,7 +53,7 @@
       </el-tabs>
     </el-tab-pane>
     <el-tab-pane label="报告下载" name="third">
-      <uploadDownloadComponent :projectId=projectId ref='uploadDownloadComponent' ></uploadDownloadComponent>
+
     </el-tab-pane>
   </el-tabs>
 <button @click="getInfo">获取信息</button>
