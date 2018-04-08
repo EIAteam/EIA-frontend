@@ -6,7 +6,9 @@ const user = {
     token: getToken(),
     name: null,
     avatar: './src/assets/avatar.jpg',
-    userId: 0
+    userId: 0,
+    email: null,
+    telephone: null
   },
 
   mutations: {
@@ -21,6 +23,12 @@ const user = {
     },
     SET_ID: (state, userId) => {
       state.userId = userId
+    },
+    SET_EMAIL: (state, email) => {
+      state.email = email
+    },
+    SET_TELEPHONE: (state, telephone) => {
+      state.telephone = telephone
     }
   },
 
@@ -42,7 +50,7 @@ const user = {
     Register({ commit }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        register(username, userInfo.password).then(response => {
+        register(username, username, userInfo.password, userInfo.name, userInfo.telephone).then(response => {
           resolve()
         }).catch(error => {
           reject(error)
@@ -54,6 +62,9 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
           commit('SET_ID', response.id)
+          commit('SET_NAME', response.name)
+          commit('SET_TELEPHONE', response.telephone)
+          commit('SET_EMAIL', response.email)
           resolve(response)
         }).catch(error => {
           reject(error)

@@ -8,7 +8,7 @@
           <svg-icon icon-class="peoples" class-name="card-panel-icon"/>
         </div>
         <div class="card-panel-description">
-          <div class="card-panel-text">公司名称：{{company.companyName}}</div>
+          <div class="card-panel-text">分组名称：{{company.companyName}}</div>
            <div class="card-panel-text">职位：{{company.position | positionFilter}}</div>
         </div>
       </div>

@@ -3,8 +3,9 @@
     <!--登陆表单-->
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
-      <h3 class="title">EIA</h3>
-      <h3 class="title">智能环评系统</h3>
+      <h3 class="title" style="margin-bottom:0px;font-size:40px">SMART-EIA</h3>
+      <h3 class="title" style="margin-bottom:30px;font-size:20px">思逸智能环评加速器</h3>
+      <h3 class="title">用 户 注 册</h3>
     <!--用户名-->
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">

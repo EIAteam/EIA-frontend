@@ -23,7 +23,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -50,7 +50,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -77,7 +77,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -106,7 +106,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -133,7 +133,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -160,7 +160,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -193,7 +193,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -221,7 +221,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -248,7 +248,7 @@
   action="http://127.0.0.1:8000/api/projectFile/"
   multiple>
    <i class="el-icon-upload"></i>
-  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff word excel</em>文件、限制每个5.0MB以内。</div>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
 </el-upload>
 </el-card>
 </el-col>
@@ -256,6 +256,94 @@
 
  </el-row>
 
+<div class="divider">——————————————————————————————————————————————————————————————————————————————————————————————————————————</div>
+
+
+  <el-row class="panel-group" :gutter="80" >
+  <el-col :xs="24" :sm="12" :lg="6" class="card-panel-col">
+  <el-card class="box-card">
+  <div slot="header" class="clearfix">
+    <span>工艺流程图</span>
+  </div>
+  <el-upload
+  class="upload-demo"
+  drag
+  :on-preview="handlePreview"
+  :on-remove="handleRemove"
+  :headers="header"
+  :file-list="processFlowChart"
+  :on-success="handleSuccess"
+  :on-progress="handleProgress"
+  :on-exceed="handleExceed"
+  :before-upload="handleBeforeUpload"
+  :data="processFlowChartUploadInfo"
+  :limit="5"
+  v-loading.fullscreen.lock="fullscreenLoading"
+  action="http://127.0.0.1:8000/api/projectFile/"
+  multiple>
+   <i class="el-icon-upload"></i>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
+</el-upload>
+</el-card>
+</el-col>
+
+
+  <el-col :xs="24" :sm="12" :lg="6" class="card-panel-col">
+  <el-card class="box-card">
+  <div slot="header" class="clearfix">
+    <span>平面布置图</span>
+  </div>
+  <el-upload
+  class="upload-demo"
+  drag
+  :on-preview="handlePreview"
+  :on-remove="handleRemove"
+  :headers="header"
+  :file-list="planeLayoutChart"
+  :on-success="handleSuccess"
+  :on-progress="handleProgress"
+  :on-exceed="handleExceed"
+  :before-upload="handleBeforeUpload"
+  :data="planeLayoutChartUploadInfo"
+  :limit="5"
+  v-loading.fullscreen.lock="fullscreenLoading"
+  action="http://127.0.0.1:8000/api/projectFile/"
+  multiple>
+   <i class="el-icon-upload"></i>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
+</el-upload>
+</el-card>
+</el-col>
+
+  <el-col :xs="24" :sm="12" :lg="6" class="card-panel-col">
+  <el-card class="box-card">
+  <div slot="header" class="clearfix">
+    <span>卫星信息图</span>
+  </div>
+  <el-upload
+  class="upload-demo"
+  drag
+  :on-preview="handlePreview"
+  :on-remove="handleRemove"
+  :headers="header"
+  :file-list="satelliteInformationChart"
+  :on-success="handleSuccess"
+  :on-progress="handleProgress"
+  :on-exceed="handleExceed"
+  :before-upload="handleBeforeUpload"
+  :data="satelliteInformationChartUploadInfo"
+  :limit="5"
+  v-loading.fullscreen.lock="fullscreenLoading"
+  action="http://127.0.0.1:8000/api/projectFile/"
+  multiple>
+   <i class="el-icon-upload"></i>
+  <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
+</el-upload>
+</el-card>
+</el-col>
+
+
+ </el-row>
 </div>
 </template>
 
@@ -303,6 +391,18 @@ export default {
         fileType: 'workshopEastImg',
         projectId: this.projectId
       },
+      processFlowChartUploadInfo: {
+        fileType: 'processFlowChart',
+        projectId: this.projectId
+      },
+      planeLayoutChartUploadInfo: {
+        fileType: 'planeLayoutChart',
+        projectId: this.projectId
+      },
+      satelliteInformationChartUploadInfo: {
+        fileType: 'satelliteInformationChart',
+        projectId: this.projectId
+      },
       header: {
         Authorization: null
       },
@@ -315,7 +415,10 @@ export default {
       workshopWestImg: [],
       workshopSouthImg: [],
       workshopNorthImg: [],
-      workshopEastImg: []
+      workshopEastImg: [],
+      processFlowChart: [],
+      planeLayoutChart: [],
+      satelliteInformationChart: []
     }
   },
   created() {
@@ -327,12 +430,13 @@ export default {
       this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     handleBeforeUpload(file) {
+      console.log(file.type)
       const isValidType = (file.type === 'image/jpeg' || file.type === 'image/tiff' || file.type === 'image/png' ||
-                           file.type === 'application/pdf' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-                           file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                           file.type === 'application/pdf' || file.type === 'application/vnd.ms-powerpoint' ||
+                           file.type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation')
       const isLt5M = file.size / 1024 / 1024 < 5
       if (!isValidType) {
-        this.$message.error(`上传文件只能是 JPEG/PNG/TIFF PDF/WORD/EXCEL 格式！！！`)
+        this.$message.error(`上传文件只能是 JPEG/PNG/TIFF PDF/PPT/PPTX 格式！！！`)
       }
       if (!isLt5M) {
         this.$message.error('上传文件大小不能超过 5MB!')
@@ -369,6 +473,9 @@ export default {
         this.workshopNorthImg = []
         this.workshopEastImg = []
         this.environmentalProtectionCertificate = []
+        this.processFlowChart = []
+        this.planeLayoutChart = []
+        this.satelliteInformationChart = []
         for (var file of Response) {
           switch (file.fileType) {
             case 'businessLicenseFile':
@@ -397,6 +504,15 @@ export default {
               break
             case 'environmentalProtectionCertificate':
               this.environmentalProtectionCertificate.push({ id: file.id, name: file.name, url: file.filePath })
+              break
+            case 'processFlowChart':
+              this.processFlowChart.push({ id: file.id, name: file.name, url: file.filePath })
+              break
+            case 'planeLayoutChart':
+              this.planeLayoutChart.push({ id: file.id, name: file.name, url: file.filePath })
+              break
+            case 'satelliteInformationChart':
+              this.satelliteInformationChart.push({ id: file.id, name: file.name, url: file.filePath })
               break
             default:
               break

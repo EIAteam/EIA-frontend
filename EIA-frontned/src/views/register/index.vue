@@ -3,8 +3,9 @@
     <!--注册表单-->
     <el-form autoComplete="on" :model="registerForm" :rules="registerRules" ref="registerForm" label-position="left" label-width="0px"
       class="card-box register-form">
-      <h3 class="title">EIA</h3>
-      <h3 class="title">用户注册</h3>
+      <h3 class="title" style="margin-bottom:0px;font-size:40px">SMART-EIA</h3>
+      <h3 class="title" style="margin-bottom:30px;font-size:20px">思逸智能环评加速器</h3>
+      <h3 class="title">用 户 注 册</h3>
     <!--用户名-->
       <el-form-item prop="username">
         <span class="svg-container svg-container_register">
@@ -13,7 +14,22 @@
         <el-input name="username" type="text" v-model="registerForm.username" autoComplete="on" placeholder="邮箱注册" />
       </el-form-item>
     <!--./用户名-->
-
+    <!--姓名-->
+      <el-form-item prop="name">
+        <span class="svg-container svg-container_register">
+          <svg-icon icon-class="user" />
+        </span>
+        <el-input name="name" type="text" v-model="registerForm.name" autoComplete="on" placeholder="姓名" />
+      </el-form-item>
+    <!--./姓名-->
+    <!--姓名-->
+      <el-form-item prop="telephone">
+        <span class="svg-container svg-container_register">
+          <svg-icon icon-class="telephone" />
+        </span>
+        <el-input name="telephone" type="text" v-model="registerForm.telephone" autoComplete="on" placeholder="手机号" />
+      </el-form-item>
+    <!--./姓名-->
     <!--密码-->
       <el-form-item prop="password">
         <span class="svg-container">
@@ -38,7 +54,7 @@
     <!--按钮-->
       <el-form-item>
         <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleRegister">
-          Sign up
+          注册
         </el-button>
       </el-form-item>
        <el-form-item>
@@ -60,11 +76,15 @@ export default {
     return {
       registerForm: {
         username: '',
+        name: '',
+        telephone: '',
         password: '',
         rePassword: ''
       },
       registerRules: {
         username: [{ required: true, trigger: 'blur', message: '请输入正确的邮箱格式', type: 'email' }],
+        name: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入姓名', pattern: /^[a-zA-Z\u4e00-\u9fa5]{2,15}$/ }],
+        telephone: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入正确手机号码', pattern: /^[1][3,4,5,7,8][0-9]{9}$/ }],
         password: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入6-18位密码', pattern: /^[a-z0-9_-]{6,18}$/ }],
         repassword: [{ required: true, whitespace: true, trigger: 'blur', message: '请输入6-18位密码', pattern: /^[a-z0-9_-]{6,18}$/ }]
       },

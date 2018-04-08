@@ -18,25 +18,28 @@ export function getInfo() {
   })
 }
 
-export function register(username, password) {
+export function register(username, email, password, name, telephone) {
   return request({
     url: '/api/user/',
     method: 'post',
     data: {
       username,
-      password
+      email,
+      password,
+      name,
+      telephone
     }
   })
 }
 
-export function putUserInfo(userName, userEmail, userPhone) {
+export function putUserInfo(name, email, telephone) {
   return request({
-    url: '/api/user/',
-    method: 'put',
+    url: '/api/user/0/',
+    method: 'patch',
     data: {
-      userName,
-      userEmail,
-      userPhone
+      name,
+      email,
+      telephone
     }
   })
 }

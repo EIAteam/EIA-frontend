@@ -5,6 +5,7 @@
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+        {{name}}
         <i class="el-icon-caret-bottom"></i>
       </div>
 
@@ -14,7 +15,7 @@
         </router-link>
 
         <el-dropdown-item>
-          <span @click="dialogVisible = true">个人信息</span>
+          <span @click="togglePutInfo">个人信息修改</span>
         </el-dropdown-item>
 
         <el-dropdown-item divided>
@@ -26,16 +27,16 @@
         <el-dialog :visible.sync="dialogVisible" :before-close="handleClose">
           <el-form ref="userInfoForm" :model="userInfoForm" label-width="100px" :rules="userInfoFormRules">
 
-            <el-form-item label="姓名" prop="userName">
-              <el-input v-model="userInfoForm.userName" type="text" name="userName"></el-input>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="userInfoForm.name" type="text" name="name"></el-input>
             </el-form-item>
 
-            <el-form-item label="邮箱" prop="userEmail">
-              <el-input v-model="userInfoForm.userEmail" type="text" name="userEmail"></el-input>
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="userInfoForm.email" type="text" name="email"></el-input>
             </el-form-item>
 
-            <el-form-item label="手机号" prop="userPhone">
-              <el-input v-model="userInfoForm.userPhone" type="text" name="userPhone"></el-input>
+            <el-form-item label="手机号" prop="telephone">
+              <el-input v-model="userInfoForm.telephone" type="text" name="telephone"></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -53,6 +54,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import { isvalidUserName, isvalidUserEmail, isvalidUserPhone } from '@/utils/validate'
 import { putUserInfo } from '@/api/user'
+import store from '@/store'
 
 export default {
   components: {
@@ -63,9 +65,11 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'])
+      'avatar',
+      'name',
+      'telephone',
+      'email'])
   },
-
   data() {
     const validateUserName = (rule, value, callback) => {
       if (!isvalidUserName(value)) {
@@ -93,20 +97,26 @@ export default {
 
     return {
       userInfoForm: {
-        userName: '',
-        userEmail: '',
-        userPhone: ''
+        name: '',
+        email: '',
+        telephone: ''
       },
       dialogVisible: false,
       userInfoFormRules: {
-        userName: [{ required: true, trigger: 'blur', validator: validateUserName }],
-        userEmail: [{ required: true, trigger: 'blur', validator: validateUserEmail }],
-        userPhone: [{ required: true, trigger: 'blur', validator: validateUserPhone }]
+        name: [{ required: true, trigger: 'blur', validator: validateUserName }],
+        email: [{ required: true, trigger: 'blur', validator: validateUserEmail }],
+        telephone: [{ required: true, trigger: 'blur', validator: validateUserPhone }]
       }
     }
   },
-
   methods: {
+    togglePutInfo() {
+      store.dispatch('GetInfo')
+      this.userInfoForm.name = this.name
+      this.userInfoForm.email = this.email
+      this.userInfoForm.telephone = this.telephone
+      this.dialogVisible = true
+    },
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
     },
@@ -131,8 +141,8 @@ export default {
       this.$refs.userInfoForm.validate(valid => {
         if (valid) {
           this.loading = true
-          putUserInfo(this.userInfoForm.userName,
-            this.userInfoForm.userEmail, this.userInfoForm.userPhone).then(response => {})
+          putUserInfo(this.userInfoForm.name,
+            this.userInfoForm.email, this.userInfoForm.telephone).then(response => {})
           this.loading = false
           this.dialogVisible = false
           this.$router.push({ path: '/dashboard' })
@@ -141,6 +151,7 @@ export default {
           return false
         }
       })
+      store.dispatch('GetInfo')
     }
 
   }

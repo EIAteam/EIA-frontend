@@ -1,48 +1,44 @@
 <template>
 <div>
   <circle-menu type='top' :number='2' circle btn style="right:30px;bottom:30px;position:fixed">
-    <el-tooltip slot="item_1" content="增加项目" placement="left">
+    <el-tooltip slot="item_1" content="新增项目" placement="left">
       <a type="text" @click="handleOpenProjectForm"><svg-icon  icon-class="addFile"/></a>
     </el-tooltip>
-    <el-tooltip slot="item_2" content="公司" placement="left" >
+    <el-tooltip slot="item_2" content="新增分组" placement="left" >
       <a type="text" @click="handleOpenCompanyForm"><svg-icon  icon-class="people"/></a>
     </el-tooltip>
   </circle-menu>
   <el-dialog   :visible.sync="dialogVisible1"  :before-close="handleClose">
   <el-tabs v-model="activeName" type="card">
 
-    <el-tab-pane label="创建公司" name="first">
+    <el-tab-pane label="创建分组" name="first">
       <el-form   :model="createCompanyForm" ref="createCompanyForm" :rules="companyNameRules" label-width="100px">
-      <el-form-item label="公司名称" prop="companyName">
-        <el-input name="companyName" type="text" v-model="createCompanyForm.companyName" placeholder="请输入正确的公司名称"></el-input>
+      <el-form-item label="分组名称" prop="companyName">
+        <el-input name="companyName" type="text" v-model="createCompanyForm.companyName" placeholder="请输入正确的分组名称"></el-input>
       </el-form-item>
        <el-form-item>
-        <el-button type="primary" style="width:100%;"  :loading="loading" @click.native.prevent="handleCreateCompany">
+        <el-button type="primary" style="width:150px;"  :loading="loading" @click.native.prevent="handleCreateCompany">
           创建
         </el-button>
+            <el-button @click="dialogVisible1 = false">取 消</el-button>
       </el-form-item>
       </el-form>
     </el-tab-pane>
 
-    <el-tab-pane label="加入公司" name="second">
+    <el-tab-pane label="加入分组" name="second">
       <el-form   :model="joinCompanyForm" ref="joinCompanyForm" :rules="companyNameRules" label-width="100px">
-      <el-form-item label="公司名称"  prop="companyName">
-        <el-input name="companyName" type="text" v-model="joinCompanyForm.companyName" placeholder="请输入正确的公司名称"></el-input>
+      <el-form-item label="分组名称"  prop="companyName">
+        <el-input name="companyName" type="text" v-model="joinCompanyForm.companyName" placeholder="请输入正确的分组名称"></el-input>
       </el-form-item>
        <el-form-item>
-        <el-button type="primary" style="width:100%;"  @click.native.prevent="handleJoinCompany">
+        <el-button type="primary" style="width:150px;"  @click.native.prevent="handleJoinCompany">
           加入
         </el-button>
+            <el-button @click="dialogVisible1 = false">取 消</el-button>
       </el-form-item>
       </el-form>
     </el-tab-pane>
   </el-tabs>
-
-  <span slot="footer" class="dialog-footer">
-
-    <el-button @click="dialogVisible1 = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
-  </span>
 
 </el-dialog>
 
@@ -55,8 +51,8 @@
         <el-input v-model="createProjectForm.projectName" type="text" name="projectName"></el-input>
       </el-form-item>
 
-      <el-form-item label="所属公司" prop="projectKind">
-        <el-select v-model="createProjectForm.company" placeholder="请选择所属公司" size="35px" name="projectKind">
+      <el-form-item label="所属分组" prop="projectKind">
+        <el-select v-model="createProjectForm.company" placeholder="请选择所属分组" size="35px" name="projectKind">
           <el-option v-for="companyName in companyList"
           :value="companyName.companyId"
           :key="companyName.companyId"
