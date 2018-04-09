@@ -20,7 +20,7 @@
   :data="businessLicenseFileUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -47,7 +47,7 @@
   :data="siteUseFileUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -74,7 +74,7 @@
   :data="idCardFileUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -103,7 +103,7 @@
   :data="workshopLeaseContractFileUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -130,7 +130,7 @@
   :data="environmentalProtectionCertificateUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -157,7 +157,7 @@
   :data="workshopEastImgUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -190,7 +190,7 @@
   :data="workshopSouthImgUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -218,7 +218,7 @@
   :data="workshopWestImgUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -245,7 +245,7 @@
   :data="workshopNorthImgUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -279,7 +279,7 @@
   :data="processFlowChartUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -307,7 +307,7 @@
   :data="planeLayoutChartUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -334,7 +334,7 @@
   :data="satelliteInformationChartUploadInfo"
   :limit="5"
   v-loading.fullscreen.lock="fullscreenLoading"
-  action="http://127.0.0.1:8000/api/projectFile/"
+  :action="url"
   multiple>
    <i class="el-icon-upload"></i>
   <div class="el-upload__text">[+]请<em>点击选择</em>或拖拽上传<em>jpg png tiff ppt pptx pdf</em>文件、限制每个5.0MB以内。</div>
@@ -354,7 +354,9 @@ export default {
   props: ['projectId'],
   name: 'uploadDownloadComponent',
   data() {
+    const base_url = process.env.BASE_API
     return {
+      url: base_url + 'api/projectFile/',
       businessLicenseFileUploadInfo: {
         fileType: 'businessLicenseFile',
         projectId: this.projectId
@@ -449,6 +451,7 @@ export default {
     },
     handleSuccess(file) { // 文件上传成功时的钩子
       this.fullscreenLoading = false
+
       this.getProjectFileInfo()
     },
     handlePreview(file) { // 获取已经上传的文件
