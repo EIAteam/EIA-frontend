@@ -209,7 +209,7 @@ export function putProjectSecongLevelData(id, exhaustGas) {
 
 export function putVBA(id, projectName) {
   return request({
-    url: '/api/VBA/create/' + projectName + '/',
+    url: '/api/VBA/create/',
     method: 'post',
     data: {
       id,
@@ -220,7 +220,7 @@ export function putVBA(id, projectName) {
 
 export function putVBA2(id, projectName) {
   return request({
-    url: '/api/VBA2/create/' + projectName + '/',
+    url: '/api/VBA2/create/',
     method: 'post',
     data: {
       id,
@@ -229,9 +229,33 @@ export function putVBA2(id, projectName) {
   })
 }
 
+export function callRecompute(id, projectName, exhaustGasMaterials, exhaustGas) {
+  return request({
+    url: '/api/recompute/' + projectName + '/',
+    method: 'post',
+    data: {
+      id,
+      projectName,
+      exhaustGasMaterials,
+      exhaustGas
+    }
+  })
+}
+
+export function putExhaustGasMaterials(id, exhaustGasMaterials) {
+  return request({
+    url: '/api/project/' + id + '/',
+    method: 'patch',
+    data: {
+      id,
+      exhaustGasMaterials
+    }
+  })
+}
+
 export function createWord(id, projectName) {
   return request({
-    url: '/api/Word/create/' + projectName + '/',
+    url: '/api/Wordcreate/',
     method: 'post',
     data: {
       id,

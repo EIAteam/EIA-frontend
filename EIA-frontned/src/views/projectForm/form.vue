@@ -46,14 +46,15 @@
       <el-tabs type="border-card">
       <el-tab-pane label="污染物分析">
         <secondLevelDataComponent :secondLevelData.sync='secondLevelData' ref='secondLevelData'></secondLevelDataComponent>
-        <button @click="testVBA">污染物分析</button>
-        <button @click="testVBA2">三级信息结果</button>
-        <button @click="createProjectWord">一键生成</button>
+        <exhaustGasMaterialsComponent :exhaustGasMaterials.sync='exhaustGasMaterials' ref='exhaustGasMaterials'></exhaustGasMaterialsComponent>
+        <el-button @click="testVBA">启动污染源分析</el-button>
+        <el-button @click="recompute">标准拟合</el-button>
+        <el-button @click="createProjectWord">生成环评表单</el-button>   
         </el-tab-pane>
       </el-tabs>
     </el-tab-pane>
     <el-tab-pane label="报告下载" name="third">
-
+       <fileUpdateComponent :projectId=projectId ref='fileUpdateComponent' ></fileUpdateComponent>
     </el-tab-pane>
   </el-tabs>
 <button @click="getInfo">获取信息</button>
@@ -70,14 +71,16 @@ import materialDataComponent from '@/views/projectForm/materialDataComponent'
 import engineeringCompositionDataComponent from '@/views/projectForm/engineeringCompositionDataComponent'
 import sensitiveInfoDataComponent from '@/views/projectForm/sensitiveInfoDataComponent'
 import secondLevelDataComponent from '@/views/projectForm/secondLevelDataComponent'
+import exhaustGasMaterialsComponent from '@/views/projectForm/exhaustGasMaterialsComponent'
 import uploadDownloadComponent from '@/views/projectForm/uploadDownloadComponent'
+import fileUpdateComponent from '@/views/projectForm/fileUpdateComponent'
 import { getProjectInfo, putProjectBasicInfo, putProjectProductInfo,
   putProjectEquipmentInfo, putProjectMaterialInfo, putProjectGeographicInfo,
-  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putVBA2, putProjectSecongLevelData, createWord } from '@/api/project'
+  putProjectEngineeringCompositionInfo, putProjectSensitiveInfo, putProjectEmissionStandardInfo, putVBA, putVBA2, callRecompute, putProjectSecongLevelData, createWord } from '@/api/project'
 export default {
   components: {
     basicInfoFormComponent, geographicInfoFormComponent, emissionStandardFormDataComponent, productsDataComponent,
-    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent, secondLevelDataComponent, uploadDownloadComponent
+    equipmentDataComponent, materialDataComponent, engineeringCompositionDataComponent, sensitiveInfoDataComponent, secondLevelDataComponent, exhaustGasMaterialsComponent, uploadDownloadComponent, fileUpdateComponent
   },
   data() {
     return {
@@ -188,6 +191,15 @@ export default {
         {
           gasName: '',
           remark: ''
+        }
+      ],
+      exhaustGasMaterials: [
+        {
+          gasName: '',
+          materialName: '',
+          unit: '',
+          usage: '',
+          ratio: ''
         }
       ],
       engineeringCompositionData: {
@@ -383,6 +395,7 @@ export default {
         this.materialData = JSON.parse(Response.material)
         this.equipmentData = JSON.parse(Response.equipment)
         this.secondLevelData = JSON.parse(Response.exhaustGas)
+        this.exhaustGasMaterials = JSON.parse(Response.exhaustGasMaterials)
         this.emissionStandardFormData = JSON.parse(Response.emissionStandard)
 
         this.engineeringCompositionData.otherEngineeringData = JSON.parse(Response.otherEngineering)
@@ -446,14 +459,18 @@ export default {
       })
     },
     testVBA() {
-      putVBA(this.projectId, this.projectName)
-      getProjectInfo(this.projectId).then(Response => {
-        this.secondLevelData = JSON.parse(Response.exhaustGas)
+      putVBA(this.projectId, this.projectName).then(Response => {
+        this.getInfo()
       })
     },
     testVBA2() {
       putProjectSecongLevelData(this.projectId, JSON.stringify(this.secondLevelData))
       putVBA2(this.projectId, this.projectName)
+    },
+    recompute() {
+      callRecompute(this.projectId, this.projectName, JSON.stringify(this.exhaustGasMaterials), JSON.stringify(this.secondLevelData)).then(Response => {
+        this.getInfo()
+      })
     },
     createProjectWord() {
       createWord(this.projectId, this.projectName)
