@@ -213,8 +213,8 @@
 
     <el-row>
       <el-col :span="12">
-      <el-form-item label="经度" prop="longtitude">
-        <el-input v-model.number="basicInfoForm.longtitude" type="text" placeholder="小数点后6位" style="width:350px;"></el-input>
+      <el-form-item label="经度" prop="longitude">
+        <el-input v-model.number="basicInfoForm.longitude" type="text" placeholder="小数点后6位" style="width:350px;"></el-input>
       </el-form-item>
       </el-col>
       <el-col :span="12">
@@ -326,7 +326,7 @@ export default {
         south: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         west: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
         north: [{ required: true, whitespace: true, trigger: 'blur', type: 'string', message: '请输入正确的格式' }],
-        longtitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
+        longitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         latitude: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         noiseMonitoringPoints: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],
         gasCylinderHeight: [{ required: true, whitespace: true, trigger: 'blur', type: 'number', message: '请输入正确的格式' }],

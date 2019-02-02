@@ -116,7 +116,7 @@ export default {
         south: '',
         west: '',
         north: '',
-        longtitude: '',
+        longitude: '',
         latitude: '',
         constructionScale: '',
         societyCreditcode: '',
@@ -360,7 +360,7 @@ export default {
         this.basicInfoForm.south = Response.south
         this.basicInfoForm.west = Response.west
         this.basicInfoForm.north = Response.north
-        this.basicInfoForm.longtitude = Response.longtitude
+        this.basicInfoForm.longitude = Response.longitude
         this.basicInfoForm.latitude = Response.latitude
         this.basicInfoForm.constructionScale = Response.constructionScale
         this.basicInfoForm.societyCreditcode = Response.societyCreditcode
@@ -440,7 +440,7 @@ export default {
           this.basicInfoForm.south,
           this.basicInfoForm.west,
           this.basicInfoForm.north,
-          this.basicInfoForm.longtitude,
+          this.basicInfoForm.longitude,
           this.basicInfoForm.latitude,
           this.basicInfoForm.constructionScale,
           this.basicInfoForm.societyCreditcode,
